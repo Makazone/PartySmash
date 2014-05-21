@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CAACD3F0192D422E006F05E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3EF192D422E006F05E6 /* Foundation.framework */; };
+		CAACD3F2192D422E006F05E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */; };
+		CAACD3F4192D422E006F05E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F3192D422E006F05E6 /* UIKit.framework */; };
+		CAACD3FA192D422E006F05E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAACD3F8192D422E006F05E6 /* InfoPlist.strings */; };
+		CAACD3FC192D422E006F05E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACD3FB192D422E006F05E6 /* main.m */; };
+		CAACD400192D422E006F05E6 /* PSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACD3FF192D422E006F05E6 /* PSAppDelegate.m */; };
+		CAACD403192D422E006F05E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAACD401192D422E006F05E6 /* Main.storyboard */; };
+		CAACD406192D422E006F05E6 /* PSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACD405192D422E006F05E6 /* PSViewController.m */; };
+		CAACD408192D422E006F05E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAACD407192D422E006F05E6 /* Images.xcassets */; };
+		CAACD40F192D422E006F05E6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD40E192D422E006F05E6 /* XCTest.framework */; };
+		CAACD410192D422E006F05E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3EF192D422E006F05E6 /* Foundation.framework */; };
+		CAACD411192D422E006F05E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F3192D422E006F05E6 /* UIKit.framework */; };
+		CAACD419192D422F006F05E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAACD417192D422F006F05E6 /* InfoPlist.strings */; };
+		CAACD41B192D422F006F05E6 /* PartySmashTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CAACD41A192D422F006F05E6 /* PartySmashTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CAACD412192D422F006F05E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAACD3E4192D422E006F05E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAACD3EB192D422E006F05E6;
+			remoteInfo = PartySmash;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CAACD3EC192D422E006F05E6 /* PartySmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartySmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAACD3EF192D422E006F05E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CAACD3F3192D422E006F05E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CAACD3F7192D422E006F05E6 /* PartySmash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PartySmash-Info.plist"; sourceTree = "<group>"; };
+		CAACD3F9192D422E006F05E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CAACD3FB192D422E006F05E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CAACD3FD192D422E006F05E6 /* PartySmash-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PartySmash-Prefix.pch"; sourceTree = "<group>"; };
+		CAACD3FE192D422E006F05E6 /* PSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSAppDelegate.h; sourceTree = "<group>"; };
+		CAACD3FF192D422E006F05E6 /* PSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSAppDelegate.m; sourceTree = "<group>"; };
+		CAACD402192D422E006F05E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CAACD404192D422E006F05E6 /* PSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PSViewController.h; sourceTree = "<group>"; };
+		CAACD405192D422E006F05E6 /* PSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PSViewController.m; sourceTree = "<group>"; };
+		CAACD407192D422E006F05E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartySmashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAACD40E192D422E006F05E6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CAACD416192D422F006F05E6 /* PartySmashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PartySmashTests-Info.plist"; sourceTree = "<group>"; };
+		CAACD418192D422F006F05E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CAACD41A192D422F006F05E6 /* PartySmashTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PartySmashTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CAACD3E9192D422E006F05E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD3F2192D422E006F05E6 /* CoreGraphics.framework in Frameworks */,
+				CAACD3F4192D422E006F05E6 /* UIKit.framework in Frameworks */,
+				CAACD3F0192D422E006F05E6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAACD40A192D422E006F05E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD40F192D422E006F05E6 /* XCTest.framework in Frameworks */,
+				CAACD411192D422E006F05E6 /* UIKit.framework in Frameworks */,
+				CAACD410192D422E006F05E6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CAACD3E3192D422E006F05E6 = {
+			isa = PBXGroup;
+			children = (
+				CAACD3F5192D422E006F05E6 /* PartySmash */,
+				CAACD414192D422F006F05E6 /* PartySmashTests */,
+				CAACD3EE192D422E006F05E6 /* Frameworks */,
+				CAACD3ED192D422E006F05E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CAACD3ED192D422E006F05E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD3EC192D422E006F05E6 /* PartySmash.app */,
+				CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAACD3EE192D422E006F05E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD3EF192D422E006F05E6 /* Foundation.framework */,
+				CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */,
+				CAACD3F3192D422E006F05E6 /* UIKit.framework */,
+				CAACD40E192D422E006F05E6 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CAACD3F5192D422E006F05E6 /* PartySmash */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD3FE192D422E006F05E6 /* PSAppDelegate.h */,
+				CAACD3FF192D422E006F05E6 /* PSAppDelegate.m */,
+				CAACD401192D422E006F05E6 /* Main.storyboard */,
+				CAACD404192D422E006F05E6 /* PSViewController.h */,
+				CAACD405192D422E006F05E6 /* PSViewController.m */,
+				CAACD407192D422E006F05E6 /* Images.xcassets */,
+				CAACD3F6192D422E006F05E6 /* Supporting Files */,
+			);
+			path = PartySmash;
+			sourceTree = "<group>";
+		};
+		CAACD3F6192D422E006F05E6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD3F7192D422E006F05E6 /* PartySmash-Info.plist */,
+				CAACD3F8192D422E006F05E6 /* InfoPlist.strings */,
+				CAACD3FB192D422E006F05E6 /* main.m */,
+				CAACD3FD192D422E006F05E6 /* PartySmash-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CAACD414192D422F006F05E6 /* PartySmashTests */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD41A192D422F006F05E6 /* PartySmashTests.m */,
+				CAACD415192D422F006F05E6 /* Supporting Files */,
+			);
+			path = PartySmashTests;
+			sourceTree = "<group>";
+		};
+		CAACD415192D422F006F05E6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CAACD416192D422F006F05E6 /* PartySmashTests-Info.plist */,
+				CAACD417192D422F006F05E6 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAACD3EB192D422E006F05E6 /* PartySmash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAACD41E192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmash" */;
+			buildPhases = (
+				CAACD3E8192D422E006F05E6 /* Sources */,
+				CAACD3E9192D422E006F05E6 /* Frameworks */,
+				CAACD3EA192D422E006F05E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PartySmash;
+			productName = PartySmash;
+			productReference = CAACD3EC192D422E006F05E6 /* PartySmash.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CAACD40C192D422E006F05E6 /* PartySmashTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAACD421192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmashTests" */;
+			buildPhases = (
+				CAACD409192D422E006F05E6 /* Sources */,
+				CAACD40A192D422E006F05E6 /* Frameworks */,
+				CAACD40B192D422E006F05E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAACD413192D422F006F05E6 /* PBXTargetDependency */,
+			);
+			name = PartySmashTests;
+			productName = PartySmashTests;
+			productReference = CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAACD3E4192D422E006F05E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = PartySmash;
+				TargetAttributes = {
+					CAACD40C192D422E006F05E6 = {
+						TestTargetID = CAACD3EB192D422E006F05E6;
+					};
+				};
+			};
+			buildConfigurationList = CAACD3E7192D422E006F05E6 /* Build configuration list for PBXProject "PartySmash" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CAACD3E3192D422E006F05E6;
+			productRefGroup = CAACD3ED192D422E006F05E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAACD3EB192D422E006F05E6 /* PartySmash */,
+				CAACD40C192D422E006F05E6 /* PartySmashTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CAACD3EA192D422E006F05E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD408192D422E006F05E6 /* Images.xcassets in Resources */,
+				CAACD3FA192D422E006F05E6 /* InfoPlist.strings in Resources */,
+				CAACD403192D422E006F05E6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAACD40B192D422E006F05E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD419192D422F006F05E6 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CAACD3E8192D422E006F05E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD3FC192D422E006F05E6 /* main.m in Sources */,
+				CAACD406192D422E006F05E6 /* PSViewController.m in Sources */,
+				CAACD400192D422E006F05E6 /* PSAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAACD409192D422E006F05E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAACD41B192D422F006F05E6 /* PartySmashTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CAACD413192D422F006F05E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAACD3EB192D422E006F05E6 /* PartySmash */;
+			targetProxy = CAACD412192D422F006F05E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CAACD3F8192D422E006F05E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAACD3F9192D422E006F05E6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CAACD401192D422E006F05E6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAACD402192D422E006F05E6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CAACD417192D422F006F05E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAACD418192D422F006F05E6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CAACD41C192D422F006F05E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CAACD41D192D422F006F05E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CAACD41F192D422F006F05E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
+				INFOPLIST_FILE = "PartySmash/PartySmash-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CAACD420192D422F006F05E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
+				INFOPLIST_FILE = "PartySmash/PartySmash-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CAACD422192D422F006F05E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PartySmash.app/PartySmash";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PartySmashTests/PartySmashTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CAACD423192D422F006F05E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PartySmash.app/PartySmash";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
+				INFOPLIST_FILE = "PartySmashTests/PartySmashTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CAACD3E7192D422E006F05E6 /* Build configuration list for PBXProject "PartySmash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAACD41C192D422F006F05E6 /* Debug */,
+				CAACD41D192D422F006F05E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAACD41E192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAACD41F192D422F006F05E6 /* Debug */,
+				CAACD420192D422F006F05E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CAACD421192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmashTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAACD422192D422F006F05E6 /* Debug */,
+				CAACD423192D422F006F05E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAACD3E4192D422E006F05E6 /* Project object */;
+}
