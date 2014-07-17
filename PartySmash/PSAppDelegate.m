@@ -7,12 +7,20 @@
 //
 
 #import "PSAppDelegate.h"
+#import "VKSdk.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation PSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
+    
+    [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
+    
     return YES;
 }
 							
@@ -41,6 +49,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    [VKSdk processOpenURL:url fromApplication:sourceApplication];
+    return YES;
 }
 
 @end
