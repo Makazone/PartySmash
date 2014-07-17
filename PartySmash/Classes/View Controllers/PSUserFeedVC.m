@@ -8,6 +8,7 @@
 
 #import "PSUserFeedVC.h"
 #import "PSLoginViewController.h"
+#import "PSUser.h"
 
 @interface PSUserFeedVC () {
     
@@ -20,12 +21,18 @@
 }
 
 - (IBAction)logOut:(id)sender {
-    [PFUser logOut];
+    [PSUser logOut];
 
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PSLoginViewController *loginViewController = [(UINavigationController *) [sb instantiateInitialViewController] topViewController];
     [self.navigationController pushViewController:loginViewController animated:YES];
 }
 
+- (IBAction)deleteUser:(id)sender {
+    [[PFUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"User has been deleted");
+    }];
+    [self logOut:sender];
+}
 
 @end

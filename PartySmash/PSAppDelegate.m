@@ -8,6 +8,7 @@
 
 #import "PSAppDelegate.h"
 #import "VKSdk.h"
+#import "PSUser.h"
 #import <Crashlytics/Crashlytics.h>
 
 @implementation PSAppDelegate
@@ -15,6 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
+
+    [PSUser registerSubclass];
     
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];

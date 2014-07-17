@@ -28,6 +28,8 @@
 
 @end
 
+static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
+
 @implementation PSCreateNewUserController {
     NSData *_photo100, *_photo200;
     UIView *_firstResponder;
@@ -85,6 +87,12 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.nicknameField.text = @"makazone";
+    [self finishSignUp:self];
+}
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -126,6 +134,7 @@
                                       otherButtonTitles:nil] show];
                 } else {
                     NSLog(@"Success!");
+                    [self performSegueWithIdentifier:FOLLOW_FRIENDS_SEGUE sender:self];
                 }
 
             }];

@@ -5,6 +5,7 @@
 
 #import <Parse/Parse.h>
 #import "PSAuthService.h"
+#import "PSUser.h"
 
 static NSString *const PS_VK_TOKEN_KEY = @"4444128";
 static NSString *const VK_PASS   = @"password";
@@ -73,7 +74,7 @@ static NSString *const VK_PASS   = @"password";
 
     // create new parse user
 
-    PFUser *newUser = [PFUser user];
+    PSUser *newUser = [PSUser user];
     newUser.username = nickname;
     newUser.password = VK_PASS;
 
@@ -90,7 +91,7 @@ static NSString *const VK_PASS   = @"password";
 
 + (BOOL)checkIfUserExists:(NSNumber *)vkId
 {
-    PFQuery *query = [PFUser query];
+    PFQuery *query = [PSUser query];
     [query whereKey:@"vkId" equalTo:vkId];
     NSArray *users = [query findObjects];
 
@@ -103,7 +104,7 @@ static NSString *const VK_PASS   = @"password";
 
 + (void)loginVK:(id <VKSdkDelegate>)delegate block:(void (^)(PFUser *user, NSError *error))completionBlock
 {
-    if ([PFUser currentUser]) { completionBlock([PFUser currentUser], nil); return; }
+    if ([PSUser currentUser]) { completionBlock([PSUser currentUser], nil); return; }
 
     [VKSdk initializeWithDelegate:delegate andAppId:PS_VK_TOKEN_KEY];
     if (![VKSdk wakeUpSession]) {
@@ -113,7 +114,7 @@ static NSString *const VK_PASS   = @"password";
         }
     }
 
-    PFQuery *query = [PFUser query];
+    PFQuery *query = [PSUser query];
     NSNumber *vkId = [NSNumber numberWithInteger:[[[VKSdk getAccessToken] userId] integerValue]];
 
     NSLog(@"vkId = %@", vkId);
@@ -121,7 +122,7 @@ static NSString *const VK_PASS   = @"password";
     [query whereKey:@"vkId" equalTo:vkId];
     NSArray *users = [query findObjects];
 
-    NSString *username = [(PFUser *) users.firstObject username];
+    NSString *username = [(PSUser *) users.firstObject username];
 
     if (!username) {
 //        NSDictionary *userInfo = @{
@@ -137,12 +138,12 @@ static NSString *const VK_PASS   = @"password";
         return;
     }
 
-    [PFUser logInWithUsernameInBackground:username password:VK_PASS block:completionBlock];
+    [PSUser logInWithUsernameInBackground:username password:VK_PASS block:completionBlock];
 }
 
 + (BOOL)checkNicknameAvailability:(NSString *)nickname
 {
-    PFQuery *query = [PFUser query];
+    PFQuery *query = [PSUser query];
     [query whereKey:@"username" equalTo:nickname];
     NSArray *users = [query findObjects];
 

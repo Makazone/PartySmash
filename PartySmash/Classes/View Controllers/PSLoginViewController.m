@@ -32,6 +32,7 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
     _logInQueue = [NSOperationQueue new];
     _logInQueue.name = @"LogIn queue";
 
+
 //    self.navigationController.navigationBar.hidden = YES;
 //    [self setNeedsStatusBarAppearanceUpdate];
 }
@@ -39,6 +40,11 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self logInAction:self.VKLoginButton];
 }
 
 
