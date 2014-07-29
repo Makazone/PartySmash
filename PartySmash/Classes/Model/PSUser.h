@@ -13,7 +13,7 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 // Method required by Parse
 + (NSString *)parseClassName;
 
-- (void)getFriendsToFollowWithBlock:(void (^)(NSArray *result))completion;
+- (void)getFriendsToFollowWithBlock:(void (^)(NSError *, NSArray *))completion;
 
 - (void)followUser:(PFUser *)user;
 - (void)followUsers:(NSArray *)users;

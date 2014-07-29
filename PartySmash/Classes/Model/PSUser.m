@@ -16,7 +16,7 @@
 
 }
 
-- (void)getFriendsToFollowWithBlock:(void (^)(NSArray *result))completion {
+- (void)getFriendsToFollowWithBlock:(void (^)(NSError *, NSArray *))completion {
     VKRequest *r = [[VKApi friends] get:@{VK_API_USER_ID : self[VKID_FIELD], VK_API_FIELDS : @"id"}];
     [r executeWithResultBlock:^(VKResponse *response) {
         NSMutableArray *vkIDs = [NSMutableArray new];
@@ -31,10 +31,16 @@
         [q whereKey:VKID_FIELD containedIn:vkIDs];
         NSArray *result = [q findObjects:nil];
 
+        for (PSUser *user in result) {
+            PFFile *photo = user[@"photo100"];
+            if (!photo.isDataAvailable) [photo getData];
+        }
+
         NSLog(@"result = %@", result);
 
-        completion(result);
+        completion(nil, result);
     } errorBlock:^(NSError *error){
+        completion(error, nil);
         NSLog(@"error = %@", error);
     }];
 }

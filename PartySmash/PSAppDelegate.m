@@ -23,7 +23,13 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
-    
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:97/255.0 green:36/255.0 blue:99/255.0 alpha:1.0]];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:97/255.0 green:36/255.0 blue:99/255.0 alpha:1.0]];
+
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
     return YES;
 }
 							

@@ -29,6 +29,8 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
     [super viewDidLoad];
     NSLog(@"%s", sel_getName(_cmd));
 
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];
+
     _logInQueue = [NSOperationQueue new];
     _logInQueue.name = @"LogIn queue";
 
@@ -44,9 +46,12 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self logInAction:self.VKLoginButton];
+//    [self logInAction:self.VKLoginButton];
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleBlackTranslucent;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -70,7 +75,8 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
                                       cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
                                       otherButtonTitles:nil] show];
                 } else{
-                    [self performSegueWithIdentifier:GO_TO_FEED_SEGUE sender:self];
+                    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+//                    [self performSegueWithIdentifier:GO_TO_FEED_SEGUE sender:self];
                     NSLog(@"Logged in!");
                 }
             }];

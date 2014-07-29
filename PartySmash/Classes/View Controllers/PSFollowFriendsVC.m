@@ -16,6 +16,7 @@
 
 //@property NSMutableSet *friendsToFollow;
 @property NSMutableArray *friendsToFollow;
+@property (nonatomic) UILabel *tableHeader;
 
 - (IBAction)donePressed:(id)sender;
 
@@ -30,7 +31,21 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[PSUser currentUser] getFriendsToFollowWithBlock:^(NSArray *result) {
+    [self.navigationItem setHidesBackButton:YES];
+
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] init];
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [activityIndicator startAnimating];
+
+    self.tableView.backgroundView = activityIndicator;
+
+    [[PSUser currentUser] getFriendsToFollowWithBlock:^(NSError *error, NSArray *result) {
+        if (error || [result count] == 0) {
+            // TODO procceed to next screen
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+        [activityIndicator removeFromSuperview];
+        [self.tableView.tableHeaderView setHidden:NO];
         _friendList = result;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tableView reloadData];
@@ -63,11 +78,22 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
     cell.name.text = friend.username;
     [cell.follow addTarget:self action:@selector(followPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    cell.friendPic.layer.cornerRadius = 100.0f;
-//    PFFile *file = friend[@"photo_100"];
-//    cell.friendPic.image = [UIImage imageWithData:file.getData];
+    PFFile *file = friend[@"photo100"];
 
-//    NSLog(@"file.isDataAvailable = %d", file.isDataAvailable);
+    NSLog(@"cell.friendPic.frame.size.height = %f", cell.friendPic.frame.size.height);
+    NSLog(@"cell.friendPic.frame.size.height = %f", cell.friendPic.frame.size.width);
+
+    cell.friendPic.layer.cornerRadius = 30.0f;
+    cell.friendPic.layer.borderWidth = 1.0f;
+    cell.friendPic.layer.borderColor = [UIColor grayColor].CGColor;
+    cell.friendPic.clipsToBounds = YES;
+
+    cell.friendPic.image = [UIImage imageWithData:file.getData];
+
+//    cell.friendPic.layer.cornerRadius = 100.0f;
+//    cell.friendPic.clipsToBounds = YES;
+
+    NSLog(@"file.isDataAvailable = %d", file.isDataAvailable);
 
     return cell;
 }
@@ -100,7 +126,9 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
 
 - (IBAction)donePressed:(id)sender {
     [[PSUser currentUser] followUsers:self.friendsToFollow];
-    [self performSegueWithIdentifier:TO_FEED_SCREEN_SEGUE sender:self];
+//    [self performSegueWithIdentifier:TO_FEED_SCREEN_SEGUE sender:self];
+//    NSLog(@"self.presentingViewController = %@", self.presentingViewController);
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Other

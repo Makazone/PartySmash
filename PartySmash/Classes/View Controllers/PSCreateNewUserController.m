@@ -44,6 +44,8 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     self.userImage.layer.cornerRadius = 100.0f;
     self.userImage.layer.borderWidth = 1.0f;
     self.userImage.layer.borderColor = [UIColor grayColor].CGColor;
@@ -90,7 +92,7 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.nicknameField.text = @"makazone";
-    [self finishSignUp:self];
+//    [self finishSignUp:self];
 }
 
 
