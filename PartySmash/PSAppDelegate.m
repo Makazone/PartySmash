@@ -9,7 +9,10 @@
 #import "PSAppDelegate.h"
 #import "VKSdk.h"
 #import "PSUser.h"
+#import "PSParty.h"
 #import <Crashlytics/Crashlytics.h>
+#import <Parse/Parse.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation PSAppDelegate
 
@@ -17,7 +20,10 @@
 {
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
 
+    [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
+
     [PSUser registerSubclass];
+    [PSParty registerSubclass];
     
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -27,6 +33,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 //    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:97/255.0 green:36/255.0 blue:99/255.0 alpha:1.0]];
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:97/255.0 green:36/255.0 blue:99/255.0 alpha:1.0]];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 

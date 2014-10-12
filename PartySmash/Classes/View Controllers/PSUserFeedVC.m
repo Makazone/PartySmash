@@ -53,12 +53,11 @@
     NSLog(@"%s", sel_getName(_cmd));
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    if (![PSAuthService isUserLoggedIn]) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
-        [self presentViewController:loginViewController animated:YES completion:nil];
-        // TODO present login view controller
-    }
+//    if (![PSAuthService isUserLoggedIn]) {
+//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
+//        [self presentViewController:loginViewController animated:YES completion:nil];
+//    }
 }
 
 

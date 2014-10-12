@@ -35,41 +35,26 @@
 }
 
 - (void)testIsUserLoggedIn {
-//    [Parse setApplicationId:@"j7Diayt7cMfsYNx2woz0KEHfUokWmFVTbqDKSJvV" clientKey:@"B2oauCoxucOBBTr597VwIXWtxXG9kv0scigBHfOc"];
-//
-//    PFUser *user = [PFUser user];
-//    user.username = @"TestUserIOS";
-//    user.password = @"123";
-//
-//    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//        if (!error) {
-//            NSLog(@"yes");
-//            // Hooray! Let them use the app now.
-//        } else {
-//            NSString *errorString = [error userInfo][@"error"];
-//            NSLog(@"errorString = %@", errorString);
-//            // Show the errorString somewhere and let the user try again.
-//        }
-//    }];
-//
-//    PSAuthService *authService = [PSAuthService new];
-//    XCTAssertTrue([authService isUserLoggedIn], "Should be able to check if current user is logged in");
+    PFUser *user = [PFUser user];
+    user.username = @"TestUserIOS";
+    user.password = @"123";
+
+    NSError *error;
+    [user signUp:&error];
+
+    XCTAssertTrue([PSAuthService isUserLoggedIn], "Should be able to check if current user is logged in");
+
+    [user delete];
 }
 
 
 - (void)testCanLogInUser {
-//    PSAuthService *authService = [PSAuthService new];
-//    [authService loginVK:<#(id <VKSdkDelegate> *)delegate#>];
-//
-//    XCTAssertTrue([VKSdk isLoggedIn], "Authentication service should be able to log in user");
 }
 
 - (void)testCanCreateNewUser {
-    NSError *error;
-    //BOOL result = [PSAuthService signUpVKUser:@"1" withNickname:@"makazone" avatar100:nil avatar200:nil error:&error];
-
-    //XCTAssertTrue(result, @"Should be able to create new user");
-
+    [PSAuthService signUpVKUser:@1 withNickname:@"TestUser_iOS" avatar100:nil avatar200:nil completionHandler:^(BOOL succeeded, NSError *error) {
+        XCTAssertTrue(succeeded && error == nil, @"Should be able to create new user");
+    }];
 }
 
 
