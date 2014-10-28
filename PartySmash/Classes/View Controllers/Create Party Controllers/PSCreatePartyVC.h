@@ -7,17 +7,7 @@
 
 @class MKMapView;
 
-@protocol PartyPlaceChooserDelegate
-
-- (void)updatePartyAddressWith:(NSString *)cityStreet
-                         house:(NSString *)houseNumber
-                          flat:(NSString *)flatNumber
-                     longitude:(NSNumber *)longitude
-                      latitude:(NSNumber *)latitude;
-
-@end
-
-@interface PSCreatePartyVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, PartyPlaceChooserDelegate>
+@interface PSCreatePartyVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GMSMapViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 @property (readonly) MKMapView *map;
 @property (nonatomic) MKPlacemark *partyLocation;

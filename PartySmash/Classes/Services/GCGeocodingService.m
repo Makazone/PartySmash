@@ -33,41 +33,48 @@
     url = [url stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
     
     NSURL *queryUrl = [NSURL URLWithString:url];
-    [_geocodeQueue addOperationWithBlock:^{
+//    [_geocodeQueue addOperationWithBlock:^{
         NSData *data = [NSData dataWithContentsOfURL:queryUrl];
         [self fetchedData:data withCompletion:handler];
-    }];
+//    }];
 }
 
 - (void)fetchedData:(NSData *)data withCompletion:(void (^)(NSError *error))handler {
     NSError *error;
-    NSDictionary *json = [NSJSONSerialization
-             JSONObjectWithData:data
-             options:kNilOptions
-             error:&error];
-
-    if (![(NSString *)[json objectForKey:@"status"] isEqualToString:@"OK"]) {
-        error = [[NSError alloc] initWithDomain:@"Geocoding" code:1 userInfo:nil];
-        // TODO properly handle error
+    if (!data) {
+        error = [NSError errorWithDomain:@"datanil" code:1 userInfo:nil];
+        handler(error);
     } else {
-        NSArray *results = [json objectForKey:@"results"];
-        NSDictionary *result = [results objectAtIndex:0];
+        NSDictionary *json = [NSJSONSerialization
+                JSONObjectWithData:data
+                           options:kNilOptions
+                             error:&error];
 
-        _addressComponents = [result objectForKey:@"address_components"];
+        if (![(NSString *)[json objectForKey:@"status"] isEqualToString:@"OK"]) {
+            error = [[NSError alloc] initWithDomain:@"Geocoding" code:1 userInfo:nil];
+            // TODO properly handle error
+        } else {
+            NSArray *results = [json objectForKey:@"results"];
+            NSDictionary *result = [results objectAtIndex:0];
 
-        self.city = [[_addressComponents objectAtIndex:3] objectForKey:@"long_name"];
-        self.street = [[_addressComponents objectAtIndex:1] objectForKey:@"short_name"];
-        self.house = [[_addressComponents objectAtIndex:0] objectForKey:@"short_name"];
+            self.formatted_address = [result objectForKey:@"formatted_address"];
 
-        NSDictionary *geometry = [result objectForKey:@"geometry"];
-        _locationComponents = [geometry objectForKey:@"location"];
+            _addressComponents = [result objectForKey:@"address_components"];
 
-        self.longitude = [_locationComponents objectForKey:@"lng"];
-        self.latitude = [_locationComponents objectForKey:@"lat"];
+            self.city = [[_addressComponents objectAtIndex:3] objectForKey:@"long_name"];
+            self.street = [[_addressComponents objectAtIndex:1] objectForKey:@"short_name"];
+            self.house = [[_addressComponents objectAtIndex:0] objectForKey:@"short_name"];
 
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            handler(error);
-        }];
+            NSDictionary *geometry = [result objectForKey:@"geometry"];
+            _locationComponents = [geometry objectForKey:@"location"];
+
+            self.longitude = [_locationComponents objectForKey:@"lng"];
+            self.latitude = [_locationComponents objectForKey:@"lat"];
+
+//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                handler(error);
+//            }];
+        }
     }
 }
 
@@ -76,6 +83,13 @@
         GMSAddress *address = response.firstResult;
         if (address) {
             NSLog(@"Geocoder result: %@", address);
+
+            NSMutableString *addressLine = [NSMutableString new];
+            for (int i = 0; i < address.lines.count; i++){
+                [addressLine appendString:address.lines[i]];
+                [addressLine appendString:@" "];
+            }
+            self.formatted_address = addressLine;
 
             self.street = address.thoroughfare;
 
@@ -111,6 +125,8 @@
 //            mapView.selectedMarker = marker;
 //            marker.map = _mapView;
         } else {
+            NSError *e = [NSError errorWithDomain:@"geocode" code:1 userInfo:nil];
+            handler(e);
             NSLog(@"Could not reverse geocode point (%f,%f): %@",
                     coordinate2D.latitude, coordinate2D.longitude, error);
         }

@@ -11,6 +11,8 @@
 @property (nonatomic) NSString *street;
 @property (nonatomic) NSString *house;
 
+@property (nonatomic) NSString *formatted_address;
+
 @property (nonatomic) NSNumber *longitude;
 @property (nonatomic) NSNumber *latitude;
 

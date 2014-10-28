@@ -5,28 +5,40 @@
 
 #import <Parse/Parse.h>
 #import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
+#import <CoreLocation/CoreLocation.h>
 #import "PSCreatePartyVC.h"
 #import "PSParty.h"
+#import "PSUser.h"
 #import "MapKit/MKMapView.h"
 #import "PSSelectPlaceVC.h"
+#import "PSGeneralDescriptionVC.h"
+#import "PSMapInfoView.h"
 
 static NSDateFormatter *dateFormatter;
 
 @interface PSCreatePartyVC () {
-    
 }
 
 @property (nonatomic) PSParty *newParty;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (weak, nonatomic) IBOutlet UITextField *partyNameField;
 @property (weak, nonatomic) IBOutlet UITextView *partyDescriptionField;
 @property (weak, nonatomic) IBOutlet UILabel *partyDateLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *partyTypeControl;
 @property (weak, nonatomic) IBOutlet UIPickerView *partySizePicker;
-@property (weak, nonatomic) IBOutlet MKMapView *partyLocationMap;
+
+@property (weak, nonatomic) IBOutlet GMSMapView *partyLocationMap;
 
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property UIDatePicker *datePicker;
+
+@property (weak, nonatomic) IBOutlet UILabel *partyStatusLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *partyCapacityLabel;
+
+@property (weak, nonatomic) IBOutlet UISlider *partyCapacitySlider;
 
 @end
 
@@ -46,29 +58,47 @@ static NSDateFormatter *dateFormatter;
     NSLocale *locale = [NSLocale currentLocale];
     dateFormatter = [NSDateFormatter new];
     dateFormatter.locale = locale;
-    dateFormatter.dateFormat = @"dd.MM.yy HH:mm";
+    dateFormatter.dateFormat = @"d MMMM HH:mm";
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.newParty = [PSParty object];
-
-    _descriptionFirstEdit = YES;
+    self.partyLocationMap.delegate = self;
 
     [self subscribeToNotifications];
+
+    [self updateNextButton];
 
     self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
 
     _locationManager = [[CLLocationManager alloc] init];
 
-//    self.partyCoordinate
+    [self.partyTypeControl addTarget:self action:@selector(changePartyType:) forControlEvents:UIControlEventValueChanged];
+    [self.partyCapacitySlider addTarget:self action:@selector(partySizeChanged:) forControlEvents:UIControlEventValueChanged];
 
-//    CGRect pickerFrame = self.partySizePicker.frame;
-//    pickerFrame.size.height = 162.0;
-//
-//    [self.partySizePicker setFrame:pickerFrame];
+    UITapGestureRecognizer *tapOnFreeSpace = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardTap:)];
+    [tapOnFreeSpace setCancelsTouchesInView:NO];
+    [self.tableView addGestureRecognizer:tapOnFreeSpace];
+
+    self.partyLocationMap.myLocationEnabled = YES;
+    [self.partyLocationMap setDelegate:self];
+
+    self.partyLocationMap.settings.rotateGestures = NO;
+    self.partyLocationMap.settings.scrollGestures = NO;
+    self.partyLocationMap.settings.zoomGestures = NO;
+    self.partyLocationMap.settings.tiltGestures = NO;
+
+//    NSLog(@"self.partyLocationMap.projection.visibleRegion = ", self.partyLocationMap.projection.visibleRegion);self.partyLocationMap.projection.visibleRegion.nearLeft.;
+//    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.farLeft];
+//    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.farRight];
+//    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.nearRight];
+//    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.nearLeft];
+}
+
+- (void)printVisibleRegion:(CLLocationCoordinate2D) a {
+    NSLog(@"[latitude = %f, longitude = %f]", a.latitude, a.longitude);
 }
 
 - (void)dealloc {
@@ -100,79 +130,83 @@ static NSDateFormatter *dateFormatter;
 }
 
 - (void)viewWillLayoutSubviews {
+    NSLog(@"%s", sel_getName(_cmd));
+
+
+
     [super viewWillLayoutSubviews];
-
-    CGRect pickerFrame = self.partySizePicker.frame;
-    pickerFrame.size.height = 162.0;
-
-    [self.partySizePicker setFrame:pickerFrame];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (!self.partyLocation) {
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_locationManager startUpdatingLocation];
-    } else {
-        [self updatePartyLocationPin:self.partyLocation.location];
-    }
+    NSLog(@"%s", sel_getName(_cmd));
+
+    [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
+
+    [self updatePartyLocation];
 }
 
 
 #pragma mark - Map delegate methods
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"String"];
-    if(!annotationView) {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"String"];
-        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+- (UIView *)mapView:(GMSMapView *)mapView markerInfoWindow:(GMSMarker *)marker {
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"selectPlaceInfoWindow" owner:nil options:nil];
+
+    PSMapInfoView *plainView = [nibContents lastObject];
+
+    if (self.newParty.address) {
+        plainView.subtitle.text  = @"Tap to change";
+        plainView.title.text = self.newParty.address;
+        plainView.title.font = [UIFont systemFontOfSize:16];
+    } else {
+        plainView.title.text = @"Tap to select a place";
+        plainView.subtitle.text = @"";
     }
 
-    annotationView.enabled = YES;
-    annotationView.canShowCallout = YES;
+//    _infoWindow = plainView;
 
-    return annotationView;
+    return plainView;
 }
 
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-//    // Go to edit view
-//    ViewController *detailViewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-//    [self.navigationController pushViewController:detailViewController animated:YES];
-    NSLog(@"clicked!");
+- (void)mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker *)marker {
+    [self expandMapViewButton:mapView];
 }
 
-- (void)updatePartyLocationPin:(CLLocation *)newLocation {
-    self.partyLocation = [[MKPlacemark alloc] initWithCoordinate:newLocation.coordinate addressDictionary:nil];
+- (void)updatePartyLocation {
+    [self.partyLocationMap clear];
 
-    [self.map removeAnnotations:self.map.annotations];
+    CLLocationCoordinate2D loc;
+    if (self.newParty.address) {
+        loc = CLLocationCoordinate2DMake(self.newParty.geoPosition.latitude, self.newParty.geoPosition.longitude);
+    } else loc = CLLocationCoordinate2DMake(55.751186, 37.615432);
 
-    MKPointAnnotation *ann = [MKPointAnnotation new];
-    ann.coordinate = self.partyLocation.coordinate;
-    ann.title = @"My party will be here!";
+    self.newParty.geoPosition.latitude = loc.latitude;
+    self.newParty.geoPosition.longitude = loc.longitude;
 
-    [self.map addAnnotation:ann];
+    GMSMarker *marker = [GMSMarker markerWithPosition:loc];
+    marker.map = self.partyLocationMap;
 
-    [self.map setRegion:MKCoordinateRegionMakeWithDistance(self.partyLocation.coordinate, 1000, 1000) animated:YES];
-    [self.map selectAnnotation:ann animated:YES];
+//    CGPoint p = [self.partyLocationMap.projection pointForCoordinate:loc];
+//    p.y -= 70;
+//    CLLocationCoordinate2D l = [self.partyLocationMap.projection coordinateForPoint:p];
+
+    self.partyLocationMap.padding = UIEdgeInsetsMake(150, 0, 0, 0);
+
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:loc.latitude
+                                                            longitude:loc.longitude
+                                                                 zoom:16];
+    [self.partyLocationMap setCamera:camera];
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:loc.latitude
+//                                                            longitude:loc.longitude
+//                                                                 zoom:16];
+//    [self.partyLocationMap setCamera:camera];
+    [self.partyLocationMap setSelectedMarker:marker];
+
+    [self updateNextButton];
 }
 
 #pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"didFailWithError: %@", error);
-//    UIAlertView *errorAlert = [[UIAlertView alloc]
-//            initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [errorAlert show];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-    [self updatePartyLocationPin:newLocation];
-    [_locationManager stopUpdatingLocation];
-}
 
 #pragma mark - Table view delegate
 
@@ -180,15 +214,6 @@ static NSDateFormatter *dateFormatter;
     if (indexPath.section == 1) { return YES; }
     return NO;
 }
-
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    if (section == 1) {
-//        return @"When should we come?";
-//    } else if (section == 2) {
-//        return @"Are you open minded?";
-//    }
-//    return @"";
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return [super tableView:tableView heightForFooterInSection:section];
@@ -289,7 +314,13 @@ static NSDateFormatter *dateFormatter;
 #pragma mark - Text field, input text delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSLog(@"%s", sel_getName(_cmd));
+    NSMutableString *name = [textField.text mutableCopy];
+    [name replaceCharactersInRange:range withString:string];
+    NSString *trimmedName = [name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    [self.newParty setName:trimmedName];
+    [self updateNextButton];
+
     return YES;
 }
 
@@ -300,100 +331,7 @@ static NSDateFormatter *dateFormatter;
     }
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    NSLog(@"%s", sel_getName(_cmd));
-    NSString *trimmedPartyName = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (trimmedPartyName.length != 0) {
-        [_newParty setName:trimmedPartyName];
-    } else { [_newParty setName:nil]; textField.text = nil; }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSLog(@"textField = %@", textField);
-    if (_keyboardResponder) {
-        [_partyDescriptionField becomeFirstResponder];
-        _keyboardResponder = _partyDescriptionField;
-    }
-    return NO;
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    _keyboardResponder = textView;
-    if (_descriptionFirstEdit) {
-        _descriptionPlaceholder = textView.text;
-        _descriptionPlaceholderColor = textView.textColor;
-        textView.text = @"";
-        textView.textColor = [UIColor blackColor];
-    }
-    return YES;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    NSLog(@"textView.text = '%@'", textView.text);
-    NSString *trimmedPartyDescription = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (trimmedPartyDescription.length == 0) {
-        textView.text = _descriptionPlaceholder;
-        textView.textColor = _descriptionPlaceholderColor;
-        _descriptionFirstEdit = YES;
-    } else {
-        _descriptionFirstEdit = NO;
-        [_newParty setDescription:trimmedPartyDescription];
-    }
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    NSLog(@"%s", sel_getName(_cmd));
-    return YES;
-}
-
-# pragma mark - UIPickerView methods
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return 4;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSArray *titles = @[@"Small (3-5)", @"Medium (6-15)", @"Large (16-30)", @"World wide (30+)"];
-    return titles[row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    [_newParty setCapacity:[self getSizeBasedOnPickerRow:row]];
-}
-
-- (int)getSizeBasedOnPickerRow:(NSInteger)row
-{
-    int size = -1;
-    switch (row) {
-        case 0:
-            size = 5;
-            break;
-        case 1:
-            size = 15;
-            break;
-        case 2:
-            size = 30;
-            break;
-        case 3:
-            size = -1;
-            break;
-    }
-    return size;
-}
-
-
 #pragma mark - Action methods
-
-- (IBAction)saveParty:(id)sender {
-    [_newParty setCapacity:[self getSizeBasedOnPickerRow:[self.partySizePicker selectedRowInComponent:0]]];
-    [_newParty setCreator:[PFUser currentUser]];
-    [_newParty saveInBackground];
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (IBAction)cancelButton:(id)sender {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -401,19 +339,19 @@ static NSDateFormatter *dateFormatter;
 
 - (IBAction)expandMapViewButton:(id)sender {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
     PSSelectPlaceVC *selectPlaceVC = [sb instantiateViewControllerWithIdentifier:@"selectPlaceVC"];
     selectPlaceVC.transitioningDelegate = selectPlaceVC;
-
-//    [selectPlaceVC setCurrentLocation:self.partyLocation];
-//    [selectPlaceVC setCurrentLocation:self.partyLocation];
-//    [selectPlaceVC setPartyCreateVC:self];
+    [selectPlaceVC setParty:self.newParty];
 
     [self presentViewController:selectPlaceVC animated:YES completion:nil];
 }
 
 - (void)datePickerChanged:(id)sender {
-    [_newParty setDate:self.datePicker.date];
+    [self.newParty setDate:self.datePicker.date];
     self.partyDateLabel.text = [dateFormatter stringFromDate:self.datePicker.date];
+    self.partyDateLabel.textColor = [UIColor blackColor];
+    [self updateNextButton];
 }
 
 - (MKMapView *)map {
@@ -424,20 +362,67 @@ static NSDateFormatter *dateFormatter;
     _partyAddressString = partyAddressString;
 }
 
-- (void)updatePartyAddressWith:(NSString *)cityStreet
-                         house:(NSString *)houseNumber
-                          flat:(NSString *)flatNumber
-                     longitude:(NSNumber *)longitude
-                      latitude:(NSNumber *)latitude {
-    NSLog(@"Party place updated!");
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    static NSString *descrSegue = @"enterDescriptionSegue";
+    if ([segue.identifier isEqualToString:descrSegue]) {
+        PSGeneralDescriptionVC *vc = segue.destinationViewController;
+        [vc setParty:self.newParty];
+    }
 }
+
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//
+//    return YES;
+//}
+
+- (void)dismissKeyboardTap:(UIView *)sender {
+    NSLog(@"%s", sel_getName(_cmd));
+    if (_keyboardResponder) {
+        [_keyboardResponder resignFirstResponder];
+        _keyboardResponder = nil;
+    }
+}
+
+- (IBAction)changePartyType:(id)sender {
+    if (self.partyTypeControl.selectedSegmentIndex == 0) {
+        self.partyStatusLabel.text = @"YES! Anyone is welcomed!";
+        [self.newParty setIsPrivate:NO];
+    } else {
+        self.partyStatusLabel.text = @"Invitations are required.";
+        [self.newParty setIsPrivate:YES];
+    }
+}
+
+- (void)partySizeChanged:(id)sender {
+    int descreteValue = self.partyCapacitySlider.value;
+
+    [self.newParty setCapacity:descreteValue];
+
+    NSString *capLabel = [NSString stringWithFormat:@"%d people max.", descreteValue];
+    if (descreteValue == 101) {
+        capLabel = @"NO Limits!";
+        [self.newParty setCapacity:0];
+    }
+
+    [self.partyCapacitySlider setValue:descreteValue animated:YES];
+    [self.partyCapacityLabel setText:capLabel];
+}
+
+- (void)updateNextButton {
+    self.nextButton.enabled = self.newParty.name.length != 0 && self.newParty.date != nil && self.newParty.address;
+}
+
 
 #pragma mark - Getters
 
 - (PSParty *)newParty {
-    if (_newParty) {
+    if (!_newParty) {
         _newParty = [PSParty object];
+        [_newParty setCapacity:self.partyCapacitySlider.value];
+        [_newParty setIsPrivate:NO];
+        [_newParty setGeoPosition:[PFGeoPoint new]];
+        [_newParty setCreator:[PSUser currentUser]];
     }
     return _newParty;
 }

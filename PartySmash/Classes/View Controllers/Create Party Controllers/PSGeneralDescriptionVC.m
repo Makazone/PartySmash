@@ -6,19 +6,18 @@
 #import "PSGeneralDescriptionVC.h"
 #import "PSParty.h"
 #import "SZTextView.h"
+#import "PSPriceDescriptionVC.h"
 
 @interface PSGeneralDescriptionVC () {
 
 }
 
 @property (weak, nonatomic) IBOutlet SZTextView *textField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 
 @end
 
 @implementation PSGeneralDescriptionVC {
-
-    NSString *_placeholderText;
-
 }
 
 - (void)viewDidLoad {
@@ -27,7 +26,7 @@
     self.textField.placeholderTextColor = [UIColor lightGrayColor];
 //    self.textField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
 
-    [self.textField setPlaceholder:@"Теперь расскажите нам о своей вечеринке и ее  особенностях! Знаменитые гости? Незабываемые конкурсы? Взрывная атмосфера и лучшие миксы? Дресс-код? Напишите все, что делает Вашу вечеринку уникальной!\n"
+    [self.textField setPlaceholder:@"Теперь расскажите нам о своей вечеринке и ее особенностях! Знаменитые гости? Незабываемые конкурсы? Взрывная атмосфера и лучшие миксы? Дресс-код? Напишите все, что делает Вашу вечеринку уникальной!\n"
             "\n"
             "О чем не стоит говорить:\n"
             "\t- Цена\n"
@@ -38,14 +37,43 @@
             " "];
 
     [self.textField becomeFirstResponder];
+
+    self.nextButton.enabled = [self.party.generalDescription length] > 0;
+
+//    NSLog(@"[self.party.description length] = %u", [self.party.description length]);
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self.textField becomeFirstResponder];
+
+    NSLog(@"%s", sel_getName(_cmd));
+
+    if (self.party.generalDescription) {
+        [self.textField setText:self.party.generalDescription];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    self.party.generalDescription = self.textField.text;
+
+    PSPriceDescriptionVC *vc = segue.destinationViewController;
+    [vc setParty:self.party];
 }
 
 
 #pragma mark - UI Text View Delegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSMutableString *descr = [textView.text mutableCopy];
+    [descr replaceCharactersInRange:range withString:text];
+    NSString *trimmedDescr = [descr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    self.nextButton.enabled = trimmedDescr.length != 0;
+
+    [self.party setGeneralDescription:trimmedDescr];
+
+    return YES;
+}
+
 
 @end

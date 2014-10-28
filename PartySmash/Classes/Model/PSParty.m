@@ -3,6 +3,7 @@
 // Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "PSParty.h"
 #import "Parse/PFObject+Subclass.h";
 #import "PSUser.h"
@@ -19,13 +20,20 @@
 }
 
 @dynamic address;
-@dynamic description;
+
+@dynamic generalDescription;
+@dynamic price;
+@dynamic contactDescription;
+
 @dynamic name;
 @dynamic creator;
 @dynamic capacity;
-@dynamic price;
 @dynamic isPrivate;
 @dynamic date;
+
+@dynamic geoPosition;
+
+@synthesize isFree;
 
 + (NSString *)parseClassName {
     return @"Party";

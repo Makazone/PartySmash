@@ -4,20 +4,30 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class PSUser;
+@class PFGeoPoint;
 
 @interface PSParty : PFObject<PFSubclassing>
 
 + (NSString *)parseClassName;
 
-@property (retain) NSString *address;
-@property (retain) NSString *description;
-@property (retain) NSString *name;
 @property (retain) PSUser *creator;
+
+@property (retain) NSString *address;
+
+@property (retain) NSString *generalDescription;
+@property (retain) NSString *price;
+@property (retain) NSString *contactDescription;
+
+@property (retain) NSString *name;
 @property (retain) NSDate *date;
 @property int capacity;
-@property int price;
+
 @property BOOL isPrivate;
+@property BOOL isFree;
+
+@property PFGeoPoint *geoPosition;
 
 @end

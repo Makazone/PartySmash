@@ -8,10 +8,11 @@
 #import "PSCreatePartyVC.h"
 
 @class PSCreatePartyVC;
+@class PSParty;
 
 @interface PSSelectPlaceVC : UIViewController <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UITextFieldDelegate, GMSMapViewDelegate>
 
-@property id<PartyPlaceChooserDelegate> delegate;
+@property (nonatomic) PSParty *party;
 
 //@property MKPlacemark *currentLocation;
 //@property PSCreatePartyVC *partyCreateVC;
