@@ -9,9 +9,15 @@
 @class PSUser;
 @class PFGeoPoint;
 
+static NSString *PLACES_LEFT_INDX = @"places_left";
+static NSString *FRIENDS_WHO_GO_INDX = @"friends";
+static NSString *PEOPLE_WHO_ALSO_GO_INDX = @"also_go";
+
 @interface PSParty : PFObject<PFSubclassing>
 
 + (NSString *)parseClassName;
+
+- (void)getInfoAboutPeopleWhoGoWithCallback:(void (^)(NSDictionary *result, NSError *error))callback;
 
 @property (retain) PSUser *creator;
 

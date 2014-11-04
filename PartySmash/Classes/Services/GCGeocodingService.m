@@ -61,9 +61,9 @@
 
             _addressComponents = [result objectForKey:@"address_components"];
 
-            self.city = [[_addressComponents objectAtIndex:3] objectForKey:@"long_name"];
-            self.street = [[_addressComponents objectAtIndex:1] objectForKey:@"short_name"];
-            self.house = [[_addressComponents objectAtIndex:0] objectForKey:@"short_name"];
+            if (_addressComponents.count > 3) self.city = [[_addressComponents objectAtIndex:3] objectForKey:@"long_name"];
+            if (_addressComponents.count > 1) self.street = [[_addressComponents objectAtIndex:1] objectForKey:@"short_name"];
+            if (_addressComponents.count > 0) self.house = [[_addressComponents objectAtIndex:0] objectForKey:@"short_name"];
 
             NSDictionary *geometry = [result objectForKey:@"geometry"];
             _locationComponents = [geometry objectForKey:@"location"];

@@ -10,6 +10,8 @@
 #import "VKSdk.h"
 #import "PSUser.h"
 #import "PSParty.h"
+#import "PSEvent.h"
+#import "PSAuthService.h"
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
 #import <GoogleMaps/GoogleMaps.h>
@@ -24,6 +26,7 @@
 
     [PSUser registerSubclass];
     [PSParty registerSubclass];
+    [PSEvent registerSubclass];
     
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -37,6 +40,7 @@
 
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+
 
     return YES;
 }

@@ -4,6 +4,7 @@
 //
 
 #import "PSFindPartyVC.h"
+#import "PSAuthService.h"
 
 
 @implementation PSFindPartyVC {
@@ -17,5 +18,17 @@
     }
 
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if (![PSAuthService isUserLoggedIn]) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
+        [self presentViewController:loginViewController animated:YES completion:nil];
+    }
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 @end

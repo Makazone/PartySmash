@@ -16,7 +16,6 @@
 
 
 @implementation PSParty {
-
 }
 
 @dynamic address;
@@ -37,6 +36,18 @@
 
 + (NSString *)parseClassName {
     return @"Party";
+}
+
+
+- (void)getInfoAboutPeopleWhoGoWithCallback:(void (^)(NSDictionary *result, NSError *error))callback {
+    [PFCloud callFunctionInBackground:@"getInvitedInfoForParty"
+                       withParameters:@{@"partyId": self.objectId}
+                                block:^(id result, NSError *error) {
+                                    if (!error) {
+                                        callback(result, nil);
+                                    } else callback(nil, error);
+                                }];
+
 }
 
 @end

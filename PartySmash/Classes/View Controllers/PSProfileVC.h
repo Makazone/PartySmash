@@ -5,6 +5,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class PSUser;
+
 
 @interface PSProfileVC : UIViewController
+
+@property (nonatomic) PSUser *user;
+
 @end

@@ -8,6 +8,9 @@
 
 
 
-@interface PSUserFeedVC : UIViewController
+#import <Parse/Parse.h>
+
+//@interface PSUserFeedVC : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PSUserFeedVC : PFQueryTableViewController
 
 @end
