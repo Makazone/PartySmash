@@ -154,6 +154,10 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%s", sel_getName(_cmd));
 
+    if (self.objects.count - 1 < indexPath.row) {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+
 //    if (![self.atribitedStrings objectAtIndex:indexPath.row]) {
         PSEvent *event = [self objectAtIndexPath:indexPath];
         [self.atribitedStrings addObject:[event getEventTextBody]];
@@ -161,7 +165,7 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     CGRect r = [self.atribitedStrings[indexPath.row] boundingRectWithSize:CGSizeMake(250, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
 
-    return MAX(ceil(r.size.height) + 45, 85);
+    return MAX(ceil(r.size.height) + 45, 95);
 //    if (r.size.height <= 75) {
 //        return 85;
 //    } else return r.size.height + 30;
@@ -169,6 +173,11 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (self.objects.count - 1 < indexPath.row) {
+        return [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+
     _selectedRow = indexPath.row;
     [self performSegueWithIdentifier:@"partyScreenSegueId" sender:self];
 }

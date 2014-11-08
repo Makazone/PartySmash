@@ -252,7 +252,11 @@ static NSDateFormatter *dateFormatter;
         UITableViewCell *cellPicker = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellPicker"];
         self.datePicker = [[UIDatePicker alloc] init];
         NSDate *dateMin = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
-        NSDate *dateProposed = [NSDate dateWithTimeIntervalSinceNow:60 * 60];
+
+        if (self.newParty.date) {
+            [self.datePicker setDate:self.newParty.date];
+        }
+
         self.datePicker.minimumDate = dateMin;
         self.datePicker.minuteInterval = 15;
         [self.datePicker addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];

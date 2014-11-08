@@ -50,4 +50,42 @@
 
 }
 
+- (void)enrollWithCallback:(void (^)(NSError *))callback {
+    if (self.isPrivate) {
+        [[PSUser currentUser] addPartyToWaitDefaults:self.objectId];
+
+        [PFCloud callFunctionInBackground:@"sendRequest"
+                           withParameters:@{
+                                               @"partyId": self.objectId,
+                                               @"recipientId": self.creator.objectId,
+                                           }
+                                    block:^(id result, NSError *error) {
+                                        if (!error) {
+                                            callback(nil);
+                                        } else callback(error);
+                                    }];
+    } else {
+        [PFCloud callFunctionInBackground:@"helper_AddToInvitedList"
+                           withParameters:@{
+                                               @"userId": [[PSUser currentUser] objectId],
+                                               @"partyId": self.objectId,
+                                           }
+                                    block:^(id result, NSError *error) {
+                                        if (!error) {
+                                            callback(nil);
+                                        } else callback(error);
+                                    }];
+    }
+}
+
+- (void)removeUserFromInvited:(void (^)(NSError *))callback {
+    PFRelation *invited = [self relationForKey:@"invited"];
+    [invited removeObject:[PSUser currentUser]];
+    [self saveInBackgroundWithBlock:^(BOOL s, NSError *error) {
+        callback(error);
+    }];
+}
+
+
+
 @end

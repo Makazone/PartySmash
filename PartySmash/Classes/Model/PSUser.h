@@ -26,6 +26,10 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 
 - (PFRelation *)getFollowingRelation;
 
+- (void)addPartyToWaitDefaults:(NSString *)partyId;
+- (void)removePartyFromWaitDefaults:(NSString *)partyId;
+- (BOOL)checkIfRequestedInviteForParty:(NSString *)partyId;
+
 @property (retain) PFFile *photo100;
 @property (retain) PFFile *photo200;
 

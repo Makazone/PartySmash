@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PSInvitationCell.h"
 
 
-@interface PSMyPartiesVC : UIViewController
+@interface PSMyPartiesVC : UITableViewController <CellDelegate>
 @end

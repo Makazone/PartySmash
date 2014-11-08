@@ -90,5 +90,34 @@
     }];
 }
 
+- (void)addPartyToWaitDefaults:(NSString *)partyId {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *parties = [defaults stringArrayForKey:@"partyRequested"];
+
+    if (!parties) {
+        [defaults setObject:@[partyId] forKey:@"partyRequested"];
+        [defaults synchronize];
+        return;
+    }
+
+    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:parties];
+    [requestedParties addObject:partyId];
+    [defaults setObject:requestedParties forKey:@"partyRequested"];
+
+    [defaults synchronize];
+}
+
+- (void)removePartyFromWaitDefaults:(NSString *)partyId {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:@"partyRequested"]];
+    [requestedParties removeObjectIdenticalTo:partyId];
+    [defaults synchronize];
+}
+
+- (BOOL)checkIfRequestedInviteForParty:(NSString *)partyId {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults stringArrayForKey:@"partyRequested"] containsObject:partyId];
+}
+
 
 @end

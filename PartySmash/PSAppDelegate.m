@@ -12,6 +12,7 @@
 #import "PSParty.h"
 #import "PSEvent.h"
 #import "PSAuthService.h"
+#import "PSInvitation.h"
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
 #import <GoogleMaps/GoogleMaps.h>
@@ -27,7 +28,8 @@
     [PSUser registerSubclass];
     [PSParty registerSubclass];
     [PSEvent registerSubclass];
-    
+    [PSInvitation registerSubclass];
+
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     

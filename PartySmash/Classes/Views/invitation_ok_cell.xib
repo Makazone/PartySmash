@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="112" id="NRm-Xx-TqR" customClass="PSInvitationCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NRm-Xx-TqR" id="XHh-71-ILg">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OiQ-6Z-PgR" customClass="PFImageView">
+                        <rect key="frame" x="8" y="8" width="60" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="bSi-h1-jSR"/>
+                            <constraint firstAttribute="height" constant="60" id="gXz-2Y-MVr"/>
+                        </constraints>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Makazone принял ваше приглашение на вечеринку BattleHack after party!" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puq-td-QQC">
+                        <rect key="frame" x="76" y="0.0" width="236" height="76"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eb6-i8-zGW">
+                        <rect key="frame" x="0.0" y="77" width="320" height="34"/>
+                        <state key="normal" title="OK">
+                            <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="okClicked:" destination="NRm-Xx-TqR" eventType="touchUpInside" id="Npf-3Z-LL0"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OiQ-6Z-PgR" firstAttribute="leading" secondItem="XHh-71-ILg" secondAttribute="leadingMargin" id="0Ci-SJ-I5l"/>
+                    <constraint firstItem="puq-td-QQC" firstAttribute="leading" secondItem="OiQ-6Z-PgR" secondAttribute="trailing" constant="8" id="0ZG-yx-NWE"/>
+                    <constraint firstItem="puq-td-QQC" firstAttribute="trailing" secondItem="XHh-71-ILg" secondAttribute="trailingMargin" id="EaE-5U-br0"/>
+                    <constraint firstItem="OiQ-6Z-PgR" firstAttribute="top" secondItem="XHh-71-ILg" secondAttribute="topMargin" id="IO9-BQ-JbJ"/>
+                    <constraint firstItem="Eb6-i8-zGW" firstAttribute="top" secondItem="puq-td-QQC" secondAttribute="bottom" constant="1" id="Joa-yM-J4L"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Eb6-i8-zGW" secondAttribute="trailing" constant="-8" id="LDq-Ap-is8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Eb6-i8-zGW" secondAttribute="bottom" constant="-8" id="ZIk-ut-9AY"/>
+                    <constraint firstItem="Eb6-i8-zGW" firstAttribute="leading" secondItem="XHh-71-ILg" secondAttribute="leadingMargin" constant="-8" id="fC8-8L-oA3"/>
+                    <constraint firstItem="puq-td-QQC" firstAttribute="top" secondItem="XHh-71-ILg" secondAttribute="topMargin" constant="-8" id="tJC-MX-1lh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="body" destination="puq-td-QQC" id="xbE-VY-Xfp"/>
+                <outlet property="okButton" destination="Eb6-i8-zGW" id="Blb-lp-mxr"/>
+                <outlet property="userPic" destination="OiQ-6Z-PgR" id="84x-No-Vfh"/>
+            </connections>
+            <point key="canvasLocation" x="451" y="518"/>
+        </tableViewCell>
+    </objects>
+</document>

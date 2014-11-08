@@ -12,12 +12,16 @@
 static NSString *PLACES_LEFT_INDX = @"places_left";
 static NSString *FRIENDS_WHO_GO_INDX = @"friends";
 static NSString *PEOPLE_WHO_ALSO_GO_INDX = @"also_go";
+static NSString *IS_USER_GOING = @"is_going";
 
 @interface PSParty : PFObject<PFSubclassing>
 
 + (NSString *)parseClassName;
 
 - (void)getInfoAboutPeopleWhoGoWithCallback:(void (^)(NSDictionary *result, NSError *error))callback;
+
+- (void)enrollWithCallback:(void (^)(NSError *))callback;
+- (void)removeUserFromInvited:(void (^)(NSError *))callback;
 
 @property (retain) PSUser *creator;
 

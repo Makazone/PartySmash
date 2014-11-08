@@ -35,7 +35,7 @@ static NSDateFormatter *dateFormatter;
     NSMutableAttributedString *body;
 
     if (self.type == 0) {
-        pureBody = [NSString stringWithFormat:@"%@ создал(-а) вечеринкку %@", self.owner.username, self.party.name];
+        pureBody = [NSString stringWithFormat:@"%@ создал(-а) вечеринку %@", self.owner.username, self.party.name];
         body = [[NSMutableAttributedString alloc] initWithString:pureBody attributes:@{
             NSFontAttributeName : [UIFont systemFontOfSize:16]
         }];
@@ -45,7 +45,7 @@ static NSDateFormatter *dateFormatter;
                 NSForegroundColorAttributeName : [UIColor colorWithRed:129/255.0 green:28/255.0 blue:64/255.0 alpha:1.0]
         } range:r];
     } else {
-        pureBody = [NSString stringWithFormat:@"%@ идет на вечеринкку %@", self.owner.username, self.party.name];
+        pureBody = [NSString stringWithFormat:@"%@ идет на вечеринку %@", self.owner.username, self.party.name];
         body = [[NSMutableAttributedString alloc] initWithString:pureBody attributes:@{
                 NSFontAttributeName : [UIFont systemFontOfSize:16]
         }];
