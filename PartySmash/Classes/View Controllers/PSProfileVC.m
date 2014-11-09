@@ -6,6 +6,7 @@
 #import "PSProfileVC.h"
 #import "PSUser.h"
 #import "UIView+PSViewInProgress.h"
+#import "PSTableUsersVC.h"
 
 @interface PSProfileVC () {
     
@@ -44,10 +45,13 @@
 
     self.followButton.hidden = YES;
 
-    if (!self.user) {
+    if (!self.user || [self.user.objectId isEqualToString:[PSUser currentUser].objectId]) {
         self.user = [PSUser currentUser];
         _myProfile = YES;
-    } else _myProfile = NO;
+    } else {
+        _myProfile = NO;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 
     for (int i=0; i < 4; i++) {
         UIButton *b = self.statButtons[i];
@@ -67,19 +71,19 @@
             [b removeIndicator];
         }
 
-        [self.followers setTitle:[NSString stringWithFormat:@"Followers\n%d", followers] forState:UIControlStateNormal];
-        [self.following setTitle:[NSString stringWithFormat:@"Following\n%d", following] forState:UIControlStateNormal];
-        [self.visited setTitle:[NSString stringWithFormat:@"Visited\n%d", visited] forState:UIControlStateNormal];
-        [self.created setTitle:[NSString stringWithFormat:@"Created\n%d", created] forState:UIControlStateNormal];
+        [self.followers setTitle:[NSString stringWithFormat:@"Подписчики\n%d", followers] forState:UIControlStateNormal];
+        [self.following setTitle:[NSString stringWithFormat:@"Подписки\n%d", following] forState:UIControlStateNormal];
+        [self.visited setTitle:[NSString stringWithFormat:@"Создал\n%d", visited] forState:UIControlStateNormal];
+        [self.created setTitle:[NSString stringWithFormat:@"Посетил\n%d", created] forState:UIControlStateNormal];
 
         if (_myProfile) return;
 
         _isFollowed = isFollowed;
 
         if (isFollowed) {
-            [self.followButton setTitle:@"unfollow" forState:UIControlStateNormal];
+            [self.followButton setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
         } else {
-            [self.followButton setTitle:@"follow" forState:UIControlStateNormal];
+            [self.followButton setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
         }
 
         self.followButton.hidden = NO;
@@ -97,36 +101,47 @@
     }];
 }
 
-- (IBAction)logOut:(id)sender {
-    [PSUser logOut];
-
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
-    [self presentViewController:loginViewController animated:YES completion:nil];
-}
-
-- (IBAction)deleteUser:(id)sender {
-    [[PSUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"User has been deleted");
-    }];
-}
-
 - (IBAction)followUser:(id)sender {
-    [self.followButton setTitle:@"..." forState:UIControlStateNormal];
+    [self.followButton showIndicatorWithCornerRadius:5];
     self.followButton.enabled = NO;
     if (_isFollowed) {
         [[PSUser currentUser] unfollowUser:self.user withCompletion:^(NSError *e){
-            [self.followButton setTitle:@"follow" forState:UIControlStateNormal];
+            [self.followButton removeIndicator];
+            [self.followButton setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
             self.followButton.enabled = YES;
         }];
     } else {
         [[PSUser currentUser] followUser:self.user withCompletion:^(NSError *e){
-            [self.followButton setTitle:@"unfollow" forState:UIControlStateNormal];
+            [self.followButton removeIndicator];
+            [self.followButton setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
             self.followButton.enabled = YES;
         }];
     }
 
     _isFollowed = !_isFollowed;
+}
+
+- (IBAction)showFollowers:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSTableUsersVC *usersTableVC = [sb instantiateViewControllerWithIdentifier:@"userListVC"];
+
+    PFQuery *query = [PSUser query];
+    [query whereKey:@"following" equalTo:self.user];
+    usersTableVC.userQueryToDisplay = query;
+    usersTableVC.needsFollow = YES;
+    usersTableVC.screenTitle = @"Подписчики";
+
+    [self.navigationController pushViewController:usersTableVC animated:YES];
+}
+
+- (IBAction)showFollowing:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSTableUsersVC *usersTableVC = [sb instantiateViewControllerWithIdentifier:@"userListVC"];
+    usersTableVC.userQueryToDisplay = [self.user getFollowingRelation].query;
+    usersTableVC.needsFollow = YES;
+    usersTableVC.screenTitle = @"Подписки";
+
+    [self.navigationController pushViewController:usersTableVC animated:YES];
 }
 
 @end

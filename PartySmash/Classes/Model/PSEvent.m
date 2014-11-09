@@ -34,8 +34,10 @@ static NSDateFormatter *dateFormatter;
     NSString *pureBody;
     NSMutableAttributedString *body;
 
+    NSString *timePassed = [self getTimePassed];
+
     if (self.type == 0) {
-        pureBody = [NSString stringWithFormat:@"%@ создал(-а) вечеринку %@", self.owner.username, self.party.name];
+        pureBody = [NSString stringWithFormat:@"%@ создал(-а) вечеринку %@\n%@", self.owner.username, self.party.name, timePassed];
         body = [[NSMutableAttributedString alloc] initWithString:pureBody attributes:@{
             NSFontAttributeName : [UIFont systemFontOfSize:16]
         }];
@@ -45,7 +47,7 @@ static NSDateFormatter *dateFormatter;
                 NSForegroundColorAttributeName : [UIColor colorWithRed:129/255.0 green:28/255.0 blue:64/255.0 alpha:1.0]
         } range:r];
     } else {
-        pureBody = [NSString stringWithFormat:@"%@ идет на вечеринку %@", self.owner.username, self.party.name];
+        pureBody = [NSString stringWithFormat:@"%@ идет на вечеринку %@\n%@", self.owner.username, self.party.name, timePassed];
         body = [[NSMutableAttributedString alloc] initWithString:pureBody attributes:@{
                 NSFontAttributeName : [UIFont systemFontOfSize:16]
         }];
@@ -56,6 +58,18 @@ static NSDateFormatter *dateFormatter;
         } range:r];
     }
 
+    NSRange r = [pureBody rangeOfString:timePassed];
+
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setLineHeightMultiple:1.5];
+    [body addAttribute:NSParagraphStyleAttributeName
+                      value:style
+                      range:r];
+
+    [body addAttributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:14],
+            NSForegroundColorAttributeName : [UIColor lightGrayColor]
+    } range:r];
 
     return body;
 }

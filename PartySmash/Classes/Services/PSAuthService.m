@@ -138,7 +138,10 @@ static NSString *const VK_PASS   = @"password";
         return;
     }
 
-    [PSUser logInWithUsernameInBackground:username password:VK_PASS block:completionBlock];
+    [PSUser logInWithUsernameInBackground:username password:VK_PASS block:^(PFUser *user, NSError *error) {
+        if (!error) { [(PSUser *)user checkFollowDefaults]; }
+        completionBlock(user, error);
+    }];
 }
 
 + (BOOL)checkNicknameAvailability:(NSString *)nickname

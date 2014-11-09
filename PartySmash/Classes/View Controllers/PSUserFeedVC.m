@@ -79,6 +79,8 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     [[self tableView] registerNib:[UINib nibWithNibName:@"event_newparty_tablecell" bundle:nil] forCellReuseIdentifier:newparty_cellid];
     [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:friend_goestoparty_cellid];
+
+//    [[PSUser currentUser] clearFollow];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,11 +133,11 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     PSEventFriendGoesCell *cell = [tableView dequeueReusableCellWithIdentifier:friend_goestoparty_cellid forIndexPath:indexPath];
 
-    cell.body.attributedText = [event getEventTextBody];
+    cell.body.attributedText = [self.atribitedStrings objectAtIndex:indexPath.row]; //[event getEventTextBody];
     cell.body.userInteractionEnabled = NO;
 
     // TODO optimize attributed string creation
-    cell.timePassed.text = [event getTimePassed];
+//    cell.timePassed.text = [event getTimePassed];
 
     PFFile *userImg = event.owner.photo100;
     cell.userImg.image = [UIImage imageNamed:@"feed_S"];
@@ -158,14 +160,15 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
 
-//    if (![self.atribitedStrings objectAtIndex:indexPath.row]) {
+//    if (self.atribitedStrings.count <= indexPath.row || ![self.atribitedStrings objectAtIndex:indexPath.row]) {
         PSEvent *event = [self objectAtIndexPath:indexPath];
-        [self.atribitedStrings addObject:[event getEventTextBody]];
+        [self.atribitedStrings insertObject:[event getEventTextBody] atIndex:indexPath.row];
 //    }
 
-    CGRect r = [self.atribitedStrings[indexPath.row] boundingRectWithSize:CGSizeMake(250, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGRect r = [[self.atribitedStrings objectAtIndex:indexPath.row] boundingRectWithSize:CGSizeMake(225, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    NSLog(@"(%d) r.size.height = %f", indexPath.row, r.size.height);
 
-    return MAX(ceil(r.size.height) + 45, 95);
+    return MAX(ceil(r.size.height) + 20, 85);
 //    if (r.size.height <= 75) {
 //        return 85;
 //    } else return r.size.height + 30;

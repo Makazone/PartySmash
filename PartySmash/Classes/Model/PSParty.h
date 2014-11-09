@@ -23,6 +23,9 @@ static NSString *IS_USER_GOING = @"is_going";
 - (void)enrollWithCallback:(void (^)(NSError *))callback;
 - (void)removeUserFromInvited:(void (^)(NSError *))callback;
 
+- (void)inviteFriends:(NSArray *)friends;
+- (void)recommendToFriends:(NSArray *)friends;
+
 @property (retain) PSUser *creator;
 
 @property (retain) NSString *address;

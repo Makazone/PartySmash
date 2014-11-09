@@ -15,8 +15,8 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hZq-UG-cRC" id="hSK-Gp-vql">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="8P1-Xi-ERB" customClass="PFImageView">
-                        <rect key="frame" x="8" y="11" width="60" height="60"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="8P1-Xi-ERB" customClass="PFImageView">
+                        <rect key="frame" x="8" y="12" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="KQW-88-H9v"/>
                             <constraint firstAttribute="width" constant="60" id="Oeo-ox-8vT"/>
@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Stetsenko.Makar идет на вечеринку BattleHack after party!" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJQ-bC-b9P">
-                        <rect key="frame" x="76" y="4" width="236" height="74"/>
+                        <rect key="frame" x="76" y="5" width="244" height="74"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
@@ -51,23 +51,15 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 минуты назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKH-8N-Jki">
-                        <rect key="frame" x="83" y="77" width="106" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="nJQ-bC-b9P" firstAttribute="trailing" secondItem="hSK-Gp-vql" secondAttribute="trailingMargin" id="9Gr-f6-s9Z"/>
+                    <constraint firstItem="nJQ-bC-b9P" firstAttribute="trailing" secondItem="hSK-Gp-vql" secondAttribute="trailingMargin" constant="8" id="9Gr-f6-s9Z"/>
                     <constraint firstItem="8P1-Xi-ERB" firstAttribute="leading" secondItem="hSK-Gp-vql" secondAttribute="leadingMargin" id="9Td-ES-Cui"/>
                     <constraint firstItem="i6X-08-tdC" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" constant="5" id="BkW-tH-g0y"/>
-                    <constraint firstItem="WKH-8N-Jki" firstAttribute="leading" secondItem="hSK-Gp-vql" secondAttribute="leadingMargin" constant="75" id="Hpc-IP-6BJ"/>
                     <constraint firstItem="8P1-Xi-ERB" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" constant="3" id="MBW-ti-ZJN"/>
-                    <constraint firstItem="nJQ-bC-b9P" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" constant="-4" id="WDJ-yh-gqm"/>
+                    <constraint firstItem="nJQ-bC-b9P" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" constant="-3" id="WDJ-yh-gqm"/>
                     <constraint firstItem="nJQ-bC-b9P" firstAttribute="leading" secondItem="8P1-Xi-ERB" secondAttribute="trailing" constant="8" id="b0O-JY-NWS"/>
                     <constraint firstItem="wkM-kj-jJ0" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" constant="5" id="bn4-n1-fc6"/>
-                    <constraint firstItem="WKH-8N-Jki" firstAttribute="top" secondItem="nJQ-bC-b9P" secondAttribute="bottom" constant="-1" id="c7q-6h-wR3"/>
                     <constraint firstItem="wkM-kj-jJ0" firstAttribute="leading" secondItem="8P1-Xi-ERB" secondAttribute="trailing" constant="11" id="gvN-g3-DV4"/>
                     <constraint firstItem="i6X-08-tdC" firstAttribute="top" secondItem="hSK-Gp-vql" secondAttribute="topMargin" id="hwW-9B-wSx"/>
                     <constraint firstItem="i6X-08-tdC" firstAttribute="leading" secondItem="wkM-kj-jJ0" secondAttribute="trailing" constant="5" id="spb-Q7-qxS"/>
@@ -86,10 +78,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="body" destination="nJQ-bC-b9P" id="049-Cs-gqJ"/>
-                <outlet property="timePassed" destination="WKH-8N-Jki" id="Dnk-tR-bJV"/>
                 <outlet property="userImg" destination="8P1-Xi-ERB" id="wc2-FM-pCy"/>
             </connections>
-            <point key="canvasLocation" x="908" y="676"/>
+            <point key="canvasLocation" x="908" y="675"/>
         </tableViewCell>
     </objects>
     <resources>

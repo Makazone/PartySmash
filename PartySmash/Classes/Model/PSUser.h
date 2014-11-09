@@ -23,12 +23,17 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 
 - (void)unfollowUser:(PSUser *)user withCompletion:(void (^)(NSError *))completion;
 - (void)followUser:(PSUser *)user withCompletion:(void (^)(NSError *))completion;
+- (void)clearFollow;
 
 - (PFRelation *)getFollowingRelation;
 
 - (void)addPartyToWaitDefaults:(NSString *)partyId;
 - (void)removePartyFromWaitDefaults:(NSString *)partyId;
 - (BOOL)checkIfRequestedInviteForParty:(NSString *)partyId;
+
+- (BOOL)isFollowingUser:(NSString *)userId;
+- (void)checkFollowDefaults;
+
 
 @property (retain) PFFile *photo100;
 @property (retain) PFFile *photo200;

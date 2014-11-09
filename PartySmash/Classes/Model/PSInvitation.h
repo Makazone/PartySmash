@@ -41,4 +41,7 @@ static int SEND_RECOMMENDATION_TYPE = 6;
 
 + (void)loadInvitationsInBackgroundWithCompletion:(void (^)(NSArray *, NSError *))completion;
 
++ (void)sendRecommendationTo:(PSUser *)recipient forParty:(PSParty *)party;
++ (void)sendInviteTo:(PSUser *)recipient forParty:(PSParty *)party;
+
 @end

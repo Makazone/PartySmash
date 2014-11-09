@@ -8,12 +8,14 @@
 #import <Parse/Parse.h>
 #import "PSUser.h"
 
+static NSString *FOLLOW_DEFAULTS_KEY = @"followingUsers";
+static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
+
 @interface PSUser ()
 
 @end
 
 @implementation PSUser {
-
 }
 
 @dynamic photo100;
@@ -50,9 +52,17 @@
 
 - (void)followUsers:(NSArray *)users {
     PFRelation *followRelation = [self relationforKey:FOLLOW_RELATION_KEY];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    NSMutableArray *newUsersToFollow = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY]];
     for (PFUser *user in users) {
+        [newUsersToFollow addObject:user.objectId];
         [followRelation addObject:user];
     }
+
+    [defaults setObject:newUsersToFollow forKey:FOLLOW_DEFAULTS_KEY];
+    [defaults synchronize];
+
     [self saveInBackground];
 }
 
@@ -61,7 +71,7 @@
 }
 
 - (PFRelation *)getFollowingRelation {
-    return [[PSUser currentUser] relationForKey:FOLLOW_RELATION_KEY];
+    return [self relationForKey:FOLLOW_RELATION_KEY];
 }
 
 - (void)getProfileInformation:(void (^)(NSError *, int numberOfFollowers, int numberOfFollowing, int numberOfVisisted, int numberOfCreated, BOOL isFollowed))completion {
@@ -78,6 +88,17 @@
     PFRelation *followRelation = [self relationforKey:FOLLOW_RELATION_KEY];
     [followRelation removeObject:user];
     [self saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        if (!error) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSMutableArray *newUsersToFollow = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY]];
+            for (int i = 0; i < newUsersToFollow.count; i++) {
+                if ([(NSString *)newUsersToFollow[i] isEqualToString:user.objectId]) {
+                    [newUsersToFollow removeObjectAtIndex:i];
+                }
+            }
+            [defaults setObject:newUsersToFollow forKey:FOLLOW_DEFAULTS_KEY];
+            [defaults synchronize];
+        }
         completion(error);
     }];
 }
@@ -86,37 +107,77 @@
     PFRelation *followRelation = [self relationforKey:FOLLOW_RELATION_KEY];
     [followRelation addObject:user];
     [self saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        if (!error) {
+            [self addFollowedUserToDefaults:user];
+        }
+        NSLog(@"error");
         completion(error);
     }];
 }
 
 - (void)addPartyToWaitDefaults:(NSString *)partyId {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *parties = [defaults stringArrayForKey:@"partyRequested"];
-
-    if (!parties) {
-        [defaults setObject:@[partyId] forKey:@"partyRequested"];
-        [defaults synchronize];
-        return;
-    }
-
-    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:parties];
+    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:WAITS_PARY_DEFAULTS_KEY]];
     [requestedParties addObject:partyId];
-    [defaults setObject:requestedParties forKey:@"partyRequested"];
-
+    [defaults setObject:requestedParties forKey:WAITS_PARY_DEFAULTS_KEY];
     [defaults synchronize];
 }
 
 - (void)removePartyFromWaitDefaults:(NSString *)partyId {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:@"partyRequested"]];
-    [requestedParties removeObjectIdenticalTo:partyId];
+    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:WAITS_PARY_DEFAULTS_KEY]];
+    for (int i = 0; i < requestedParties.count; i++) {
+        if ([(NSString *)requestedParties[i] isEqualToString:partyId]) {
+            [requestedParties removeObjectAtIndex:i];
+        }
+    }
+    [defaults setObject:requestedParties forKey:WAITS_PARY_DEFAULTS_KEY];
     [defaults synchronize];
 }
 
 - (BOOL)checkIfRequestedInviteForParty:(NSString *)partyId {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [[defaults stringArrayForKey:@"partyRequested"] containsObject:partyId];
+    NSArray *arr = [defaults stringArrayForKey:WAITS_PARY_DEFAULTS_KEY];
+    NSLog(@"arr.count = %u", arr.count);
+    for (int i = 0; i < arr.count; i++) {
+        NSLog(@"arr[i] = %@", arr[i]);
+    }
+    return [[defaults stringArrayForKey:WAITS_PARY_DEFAULTS_KEY] containsObject:partyId];
+}
+
+- (BOOL)isFollowingUser:(NSString *)userId {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [[defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY] containsObject:userId];
+}
+
+- (void)addFollowedUserToDefaults:(PSUser *)user {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *requestedParties = [[NSMutableArray alloc] initWithArray:[defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY]];
+    [requestedParties addObject:user.objectId];
+    [defaults setObject:requestedParties forKey:FOLLOW_DEFAULTS_KEY];
+    [defaults synchronize];
+}
+
+- (void)checkFollowDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *following = [defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY];
+
+    if (!following) {
+        [[self getFollowingRelation].query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *err){
+            NSMutableArray *followingIds = [NSMutableArray new];
+            for (int i = 0; i < result.count; i++) {
+                [followingIds addObject:((PFObject *)result[i]).objectId];
+            }
+            [defaults setObject:followingIds forKey:FOLLOW_DEFAULTS_KEY];
+            [defaults synchronize];
+        }];
+    }
+}
+
+- (void)clearFollow {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@[] forKey:FOLLOW_DEFAULTS_KEY];
+    [defaults synchronize];
 }
 
 

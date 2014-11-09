@@ -79,13 +79,13 @@
 }
 
 - (void)declineWithCompletion:(void (^)(NSError *))completion {
-    if (self.type == DECLINE_INVITATION_TYPE) {
+    if (self.type == SEND_INVITATION_TYPE) {
         [self declineInvitationWithCompletion:completion];
     } else [self declineRequestWithCompletion:completion];
 }
 
 - (void)acceptWithCompletion:(void (^)(NSError *))completion {
-    if (self.type == ACCEPT_INVITATION_TYPE) {
+    if (self.type == SEND_INVITATION_TYPE) {
         [self acceptInvitationWithCompletion:completion];
     } else [self acceptRequestWithCompletion:completion];
 }
@@ -115,6 +115,37 @@
         }
     }];
 }
+
++ (void)sendInviteTo:(PSUser *)recipient forParty:(PSParty *)party {
+    [PFCloud callFunctionInBackground:@"helper_SendInvite"
+                       withParameters:@{
+                               @"senderId": [[PSUser currentUser] objectId],
+                               @"recipientId": recipient.objectId,
+                               @"partyId": party.objectId,
+                               @"type": [NSNumber numberWithInt:SEND_INVITATION_TYPE],
+                       }
+                                block:^(id result, NSError *error) {
+//                                        if (!error) {
+//                                            callback(nil);
+//                                        } else callback(error);
+
+                                }];
+}
+
++ (void)sendRecommendationTo:(PSUser *)recipient forParty:(PSParty *)party {
+    [PFCloud callFunctionInBackground:@"sendRecommendation"
+                       withParameters:@{
+                               @"recipientId": recipient.objectId,
+                               @"partyId": party.objectId,
+                       }
+                                block:^(id result, NSError *error) {
+//                                        if (!error) {
+//                                            callback(nil);
+//                                        } else callback(error);
+
+                                }];
+}
+
 
 - (NSAttributedString *)getBody {
     NSString *pure;

@@ -7,5 +7,5 @@
 #import "PSInvitationCell.h"
 
 
-@interface PSMyPartiesVC : UITableViewController <CellDelegate>
+@interface PSMyPartiesVC : UITableViewController <PSCellDelegate>
 @end

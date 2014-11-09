@@ -12,6 +12,7 @@
 #import "FBDialog.h"
 #import "PSPartyCell.h"
 #import "UIView+PSViewInProgress.h"
+#import "PSTableUsersVC.h"
 
 static NSDateFormatter *_dateFormatter;
 
@@ -33,6 +34,8 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
     UIButton *_actionButton1;
     UIButton *_actionButton2;
+
+    int _placesLeft;
 }
 
 + (void)initialize {
@@ -63,6 +66,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
     if (!_partyExpired) {
         [self.party getInfoAboutPeopleWhoGoWithCallback:^(NSDictionary *result, NSError *error) {
             int placesLeft = [result[PLACES_LEFT_INDX] intValue];
+            _placesLeft = placesLeft;
             int alsoGo = [result[PEOPLE_WHO_ALSO_GO_INDX] intValue];
 
             NSArray *friendsWhoGo = result[FRIENDS_WHO_GO_INDX];
@@ -322,6 +326,14 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         userProfileVS.user = self.party.creator;
 
         [self.navigationController pushViewController:userProfileVS animated:YES];
+    } else if (indexPath.section == 3) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PSTableUsersVC *usersTableVC = [sb instantiateViewControllerWithIdentifier:@"userListVC"];
+        usersTableVC.userQueryToDisplay = [self.party relationForKey:@"invited"].query;
+        usersTableVC.needsFollow = YES;
+        usersTableVC.screenTitle = @"Идут";
+
+        [self.navigationController pushViewController:usersTableVC animated:YES];
     } else {
         PSPartyCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell.actionButton.enabled) {
@@ -359,6 +371,15 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
 // Creator can send invites
 - (void)actionSendInvited:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"userListVCNav"];
+    PSTableUsersVC *usersTableVC = [nav topViewController];
+    usersTableVC.sendsInvites = YES;
+    usersTableVC.placesLeft = _placesLeft;
+    usersTableVC.party = self.party;
+    usersTableVC.screenTitle = @"Пригласить";
+
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 // Creator can dismiss the party
@@ -369,8 +390,15 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
 // Invited user can send recommendations
 - (void)actionSendRecommendation:(id)sender {
-    NSLog(@"%s", sel_getName(_cmd));
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *nav = [sb instantiateViewControllerWithIdentifier:@"userListVCNav"];
+    PSTableUsersVC *usersTableVC = [nav topViewController];
+    usersTableVC.sendsInvites = NO;
+    usersTableVC.placesLeft = 5000000;
+    usersTableVC.party = self.party;
+    usersTableVC.screenTitle = @"Предложить";
 
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 // Already invited user can quit

@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import "PSInvitationCell.h"
+#import "PSCellDelegate.h"
 
 @interface PSInvitationCell () {
     

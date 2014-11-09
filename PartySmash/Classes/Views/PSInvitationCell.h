@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol CellDelegate <NSObject>
-
-- (void)didClickOnCellAtIndexPath:(NSIndexPath *)cellIndex withData:(id)data;
-
-@end
+@protocol PSCellDelegate;
 
 @interface PSInvitationCell : UITableViewCell
 
@@ -23,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
 
-@property (weak, nonatomic) id<CellDelegate> delegate;
+@property (weak, nonatomic) id<PSCellDelegate> delegate;
 @property (nonatomic) NSIndexPath *cellIndexPath;
 
 @end

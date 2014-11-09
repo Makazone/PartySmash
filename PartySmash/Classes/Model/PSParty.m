@@ -7,6 +7,7 @@
 #import "PSParty.h"
 #import "Parse/PFObject+Subclass.h";
 #import "PSUser.h"
+#import "PSInvitation.h"
 
 @interface PSParty () {
 
@@ -86,6 +87,16 @@
     }];
 }
 
+- (void)recommendToFriends:(NSArray *)friends {
+    for (int i = 0; i < friends.count; i++) {
+        [PSInvitation sendRecommendationTo:friends[i] forParty:self];
+    }
+}
 
+- (void)inviteFriends:(NSArray *)friends {
+    for (int i = 0; i < friends.count; i++) {
+        [PSInvitation sendInviteTo:friends[i] forParty:self];
+    }
+}
 
 @end
