@@ -30,6 +30,10 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
 @implementation PSUserFeedVC {
     int _selectedRow;
+    BOOL _redirected;
+
+    NSMutableArray *_cellHeights;
+    BOOL _recompute;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -80,6 +84,9 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
     [[self tableView] registerNib:[UINib nibWithNibName:@"event_newparty_tablecell" bundle:nil] forCellReuseIdentifier:newparty_cellid];
     [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:friend_goestoparty_cellid];
 
+    _cellHeights = [NSMutableArray new];
+    _recompute = YES;
+
 //    [[PSUser currentUser] clearFollow];
 }
 
@@ -89,7 +96,15 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
     if (![PSAuthService isUserLoggedIn]) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
-        [self presentViewController:loginViewController animated:YES completion:nil];
+        [self presentViewController:loginViewController animated:YES completion:^{
+            _redirected = YES;
+//            [self loadObjects];
+        }];
+    }
+
+    if (_redirected) {
+        [self loadObjects];
+        _redirected = NO;
     }
 
     NSLog(@"%s", sel_getName(_cmd));
@@ -101,6 +116,8 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
     if (![PSAuthService isUserLoggedIn]) {
         return nil;
     }
+
+    _recompute = YES;
 
     NSLog(@"%s", sel_getName(_cmd));
     PFRelation *relation = [[PSUser currentUser] getFollowingRelation];
@@ -127,13 +144,11 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
 {
-    NSLog(@"%s", sel_getName(_cmd));
-
     PSEvent *event = object;
 
     PSEventFriendGoesCell *cell = [tableView dequeueReusableCellWithIdentifier:friend_goestoparty_cellid forIndexPath:indexPath];
 
-    cell.body.attributedText = [self.atribitedStrings objectAtIndex:indexPath.row]; //[event getEventTextBody];
+    cell.body.attributedText = [event getEventTextBody];
     cell.body.userInteractionEnabled = NO;
 
     // TODO optimize attributed string creation
@@ -154,21 +169,30 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%s", sel_getName(_cmd));
 
     if (self.objects.count - 1 < indexPath.row) {
+        _recompute = NO;
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
 
+    if (!_recompute) {
+        return [_cellHeights[indexPath.row] floatValue];
+    }
+
+    NSLog(@"%s", sel_getName(_cmd));
 //    if (self.atribitedStrings.count <= indexPath.row || ![self.atribitedStrings objectAtIndex:indexPath.row]) {
         PSEvent *event = [self objectAtIndexPath:indexPath];
         [self.atribitedStrings insertObject:[event getEventTextBody] atIndex:indexPath.row];
 //    }
 
     CGRect r = [[self.atribitedStrings objectAtIndex:indexPath.row] boundingRectWithSize:CGSizeMake(225, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    NSLog(@"(%d) r.size.height = %f", indexPath.row, r.size.height);
+//    NSLog(@"(%d) r.size.height = %f", indexPath.row, r.size.height);
 
-    return MAX(ceil(r.size.height) + 20, 85);
+    NSLog(@"_cellHeights.count = %u", _cellHeights.count);
+
+    float result = MAX(ceil(r.size.height) + 20, 85);
+    [_cellHeights insertObject:@(result) atIndex:indexPath.row];
+    return result;
 //    if (r.size.height <= 75) {
 //        return 85;
 //    } else return r.size.height + 30;
@@ -193,7 +217,6 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         destVC.party = event.party;
     }
 }
-
 
 #pragma mark - Getters & Setters
 

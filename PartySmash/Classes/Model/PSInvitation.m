@@ -10,6 +10,7 @@
 
 @implementation PSInvitation {
 
+    NSAttributedString *_body;
 }
 
 @dynamic type;
@@ -103,6 +104,7 @@
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[generalQuery, userRequestedQuery]];
     [query includeKey:@"sender"];
     [query includeKey:@"party"];
+    [query includeKey:@"party.creator"];
     [query includeKey:@"recipient"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -148,6 +150,8 @@
 
 
 - (NSAttributedString *)getBody {
+    if (_body) { return _body; }
+
     NSString *pure;
     NSMutableAttributedString *body;
 
@@ -163,11 +167,11 @@
         } else {
             pure = [NSString stringWithFormat:@"%@\n\nприглашение запрошено", self.party.name];
 
-            body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:16] }];
+            body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
             [body addAttributes:@{
                     NSForegroundColorAttributeName : [UIColor orangeColor],
                     NSFontAttributeName : [UIFont systemFontOfSize:14]
-            } range:[pure rangeOfString:@"приглашение запрошено"]];
+            }             range:[pure rangeOfString:@"приглашение запрошено"]];
 
             return body;
         }
@@ -179,14 +183,14 @@
         pure = [NSString stringWithFormat:@"%@ предлагает сходить на вечеринку %@", self.sender.username, self.party.name];
     }
 
-    body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:16] }];
+    body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
     if (self.type != ACCEPT_REQUEST_TYPE) {
         [body addAttributes:@{
-                NSForegroundColorAttributeName : [UIColor colorWithRed:129/255.0 green:28/255.0 blue:64/255.0 alpha:1.0]
-        } range:[pure rangeOfString:self.sender.username]];
+                NSForegroundColorAttributeName : [UIColor colorWithRed:129 / 255.0 green:28 / 255.0 blue:64 / 255.0 alpha:1.0]
+        }             range:[pure rangeOfString:self.sender.username]];
     }
 
-    return body;
+    return _body = body;
 }
 
 - (void)removePartyFromDefaults {

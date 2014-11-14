@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 
-@interface PSFindPartyVC : UIViewController
+@interface PSFindPartyVC : PFQueryTableViewController
 @end

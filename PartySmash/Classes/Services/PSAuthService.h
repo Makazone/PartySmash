@@ -12,7 +12,7 @@
 + (void)signUpVKUser:(NSNumber *)vkId withNickname:(NSString *)nickname avatar100:(NSData *)avatar100 avatar200:(NSData *)avatar200
    completionHandler:(void  (^)(BOOL succeeded, NSError *error))completionBlock;
 
-+ (void)loginVK:(id <VKSdkDelegate>)delegate block:(void (^)(PFUser *user, NSError *error))completionBlock;
++ (void)loginVK:(id <VKSdkDelegate>)delegate;
 
 + (BOOL)checkIfUserExists:(NSNumber *)vkId;
 

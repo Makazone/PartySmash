@@ -11,7 +11,7 @@ static NSString *const PS_VK_TOKEN_KEY = @"4444128";
 static NSString *const VK_PASS   = @"password";
 
 @implementation PSAuthService {
-
+    UIViewController *_presentingVC;
 }
 
 + (BOOL)isUserLoggedIn {
@@ -102,46 +102,12 @@ static NSString *const VK_PASS   = @"password";
     }
 }
 
-+ (void)loginVK:(id <VKSdkDelegate>)delegate block:(void (^)(PFUser *user, NSError *error))completionBlock
++ (void)loginVK:(id <VKSdkDelegate>)delegate
 {
-    if ([PSUser currentUser]) { completionBlock([PSUser currentUser], nil); return; }
-
     [VKSdk initializeWithDelegate:delegate andAppId:PS_VK_TOKEN_KEY];
     if (![VKSdk wakeUpSession]) {
-        [VKSdk authorize:@[] revokeAccess:YES];
-        if (![VKSdk isLoggedIn]) {
-            return;
-        }
-    }
-
-    PFQuery *query = [PSUser query];
-    NSNumber *vkId = [NSNumber numberWithInteger:[[[VKSdk getAccessToken] userId] integerValue]];
-
-    NSLog(@"vkId = %@", vkId);
-
-    [query whereKey:@"vkId" equalTo:vkId];
-    NSArray *users = [query findObjects];
-
-    NSString *username = [(PSUser *) users.firstObject username];
-
-    if (!username) {
-//        NSDictionary *userInfo = @{
-//                NSLocalizedDescriptionKey : NSLocalizedString(@"No such user", nil),
-//                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No such user exists", nil),
-//                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Please sign up", nil),
-//                @"error" : @"Needs sign up"
-//        };
-//        NSError *error = [NSError errorWithDomain:@"Parse"
-//                                             code:kPFErrorUserPasswordMissing
-//                                         userInfo:userInfo];
-        completionBlock(nil, nil);
-        return;
-    }
-
-    [PSUser logInWithUsernameInBackground:username password:VK_PASS block:^(PFUser *user, NSError *error) {
-        if (!error) { [(PSUser *)user checkFollowDefaults]; }
-        completionBlock(user, error);
-    }];
+        [VKSdk authorize:nil revokeAccess:YES];
+    } else [delegate vkSdkReceivedNewToken:[VKSdk getAccessToken]];
 }
 
 + (BOOL)checkNicknameAvailability:(NSString *)nickname

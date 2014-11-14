@@ -32,7 +32,9 @@
 
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
+
+    [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
+
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

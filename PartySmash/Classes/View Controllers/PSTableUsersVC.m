@@ -82,10 +82,8 @@
         [query whereKey:@"following" equalTo:[PSUser currentUser]];
     } else query = self.userQueryToDisplay;
 
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
     if (self.objects.count == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+        query.cachePolicy = kPFCachePolicyNetworkOnly;
     }
 
     [query orderByDescending:@"username"];
@@ -100,6 +98,7 @@
     NSLog(@"%s", sel_getName(_cmd));
 
     PSUser *user = object;
+    NSLog(@"user.username = %@", user.username);
 
     PSUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"user_cell" forIndexPath:indexPath];
 
@@ -115,9 +114,14 @@
         cell.accessoryType = ([self.usersToInvite containsObject:user]) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     }
 
-    if ([user.username isEqualToString:[PSUser currentUser].username]) {
-        cell.itsYouLabel.hidden = NO;
-        cell.userActionButton.hidden = YES;
+    if (self.needsFollow) {
+        if ([user.username isEqualToString:[PSUser currentUser].username]) {
+            cell.itsYouLabel.hidden = NO;
+            cell.userActionButton.hidden = YES;
+        } else {
+            cell.itsYouLabel.hidden = YES;
+            cell.userActionButton.hidden = NO;
+        }
     }
 
     [self setUpFollowButton:cell.userActionButton forUser:user];
@@ -172,6 +176,7 @@
         [[PSUser currentUser] unfollowUser:user withCompletion:^(NSError *error) {
             [cell.userActionButton removeIndicator];
             if (!error) {
+                [user setIsFollowing:NO];
                 [cell.userActionButton setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
             }
         }];
@@ -180,6 +185,7 @@
         [[PSUser currentUser] followUser:user withCompletion:^(NSError *error) {
             [cell.userActionButton removeIndicator];
             if (!error) {
+                [user setIsFollowing:YES];
                 [cell.userActionButton setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
             }
         }];
@@ -194,11 +200,12 @@
 }
 
 - (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *arr = [defaults stringArrayForKey:@"followingUsers"];
-    NSLog(@"TOTALFOLLOWING = %u", arr.count);
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSArray *arr = [defaults stringArrayForKey:@"followingUsers"];
+//    NSLog(@"TOTALFOLLOWING = %u", arr.count);
 
-    if ([[PSUser currentUser] isFollowingUser:user.objectId]) {
+//    if ([[PSUser currentUser] isFollowingUser:user.objectId]) {
+    if ([user isFollowing]) {
         [button setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
     } else [button setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
 }

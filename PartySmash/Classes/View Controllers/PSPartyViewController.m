@@ -52,7 +52,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
     _status = NONE;
 
-    NSTimeInterval sinceCreation = [self.party.date timeIntervalSinceNow];
+    NSTimeInterval sinceCreation = [[self.party.date dateByAddingTimeInterval:86400] timeIntervalSinceNow];
     _partyExpired = sinceCreation <= 0;
 
     if (_partyExpired) {

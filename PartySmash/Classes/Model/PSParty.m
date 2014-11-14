@@ -9,9 +9,13 @@
 #import "PSUser.h"
 #import "PSInvitation.h"
 
+static NSDateFormatter *_dateFormatter;
+
 @interface PSParty () {
 
 }
+
+@property (nonatomic) NSAttributedString *body;
 
 @end
 
@@ -34,6 +38,14 @@
 @dynamic geoPosition;
 
 @synthesize isFree;
+@synthesize body;
+
++ (void)initialize {
+    NSLocale *locale = [NSLocale currentLocale];
+    _dateFormatter = [NSDateFormatter new];
+    _dateFormatter.locale = locale;
+    _dateFormatter.dateFormat = @"d MMMM";
+}
 
 + (NSString *)parseClassName {
     return @"Party";
@@ -98,5 +110,55 @@
         [PSInvitation sendInviteTo:friends[i] forParty:self];
     }
 }
+
+- (NSString *)getDateStr {
+    NSDate *today = [NSDate new];
+    NSString *str;
+    if ([self.date timeIntervalSinceDate:today] < 24 * 60 * 60) {
+        [_dateFormatter setDateFormat:@"HH:mm"];
+        str = [NSString stringWithFormat:@"Сегодня в %@", [_dateFormatter stringFromDate:self.date]];
+        [_dateFormatter setDateFormat:@"d MMMM"];
+    } else str = [_dateFormatter stringFromDate:self.date];
+    return str;
+}
+
+- (NSAttributedString *)getBodyWithKilo:(double)kilo {
+    if (self.body) { return self.body; }
+
+    NSString *pure, *dateStr = [self getDateStr];
+    if (kilo < 1) {
+        int meters = kilo * 1000;
+        pure = [NSString stringWithFormat:@"%@\n%@ в %dм", self.name, dateStr, meters];
+    } else {
+        int kilometers = kilo;
+        pure = [NSString stringWithFormat:@"%@\n%@ в %dкм", self.name, dateStr, kilometers];
+        NSLog(@"pure = %@", pure);
+    }
+
+    NSMutableAttributedString *body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:16]
+    }];
+
+    NSRange r = [pure rangeOfString:self.name];
+    NSLog(@"r = %d,%d", r.location, r.length);
+    NSLog(@"self.name.length = %u", self.name.length);
+    NSLog(@"pure.length = %u", pure.length);
+    NSRange r2 = NSMakeRange(self.name.length, pure.length-self.name.length);
+    NSLog(@"r2 = %d,%d", r2.location, r2.length);
+
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setLineHeightMultiple:1.5];
+    [body addAttribute:NSParagraphStyleAttributeName
+                 value:style
+                 range:r2];
+
+    [body addAttributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:14],
+            NSForegroundColorAttributeName : [UIColor lightGrayColor],
+    } range:r2];
+
+    return self.body = body;
+}
+
 
 @end

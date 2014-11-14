@@ -10,6 +10,7 @@
 #import "PSUser.h"
 #import "PSInvitationCell.h"
 #import "PSParty.h"
+#import "PSPartyViewController.h"
 
 static NSString *invitaion_ok_cellid = @"invitationokcellid";
 static NSString *invitaion_requires_answer_cellid = @"invitation_requires_answer_cellid";
@@ -125,12 +126,11 @@ static NSString *party_cellid = @"party_cellid";
     if (indexPath.section == 0) {
         PSInvitation *invitation = [_invitations objectAtIndex:indexPath.row];
 
-        CGRect r = [[invitation getBody] boundingRectWithSize:CGSizeMake(250, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-        if (invitation.type != SEND_REQUEST_TYPE || [invitation.recipient.objectId isEqualToString:[[PSUser currentUser] objectId]]) {
-            return MAX(ceil(r.size.height) + 45, 65 + 40);
+        CGRect r = [[invitation getBody] boundingRectWithSize:CGSizeMake(236, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+        if (invitation.type == SEND_REQUEST_TYPE && [invitation.sender.objectId isEqualToString:[PSUser currentUser].objectId]) {
+            return MAX(ceil(r.size.height) + 10, 75);
         }
-
-        return MAX(ceil(r.size.height), 80);
+        return MAX(ceil(r.size.height) + 40, 113);
     } else return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
@@ -139,6 +139,21 @@ static NSString *party_cellid = @"party_cellid";
     int row = [self.tableView indexPathForCell:cell].row;
 
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (indexPath.section == 0) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
+        partyVC.party = [(PSInvitation *) [_invitations objectAtIndex:indexPath.row] party];
+
+        [self.navigationController pushViewController:partyVC animated:YES];
+    } else {
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+}
+
 
 // Actually did click on button in cell at indexpath
 - (void)didClickOnCellAtIndexPath:(NSIndexPath *)cellIndex withData:(id)data {

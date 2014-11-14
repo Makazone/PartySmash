@@ -3,6 +3,7 @@
 // Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <VK-ios-sdk/VKSdk.h>
 #import "PSSettingsVC.h"
 #import "PSUser.h"
 
@@ -18,11 +19,15 @@
 
 
 - (IBAction)logOut:(id)sender {
+    [VKSdk forceLogout];
     [PSUser logOut];
 
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
     [self presentViewController:loginViewController animated:YES completion:nil];
+
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.tabBarController setSelectedIndex:0];
 }
 
 - (IBAction)deleteUser:(id)sender {

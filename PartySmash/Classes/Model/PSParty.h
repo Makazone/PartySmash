@@ -26,6 +26,8 @@ static NSString *IS_USER_GOING = @"is_going";
 - (void)inviteFriends:(NSArray *)friends;
 - (void)recommendToFriends:(NSArray *)friends;
 
+- (NSAttributedString *)getBodyWithKilo:(double)kilo;
+
 @property (retain) PSUser *creator;
 
 @property (retain) NSString *address;

@@ -9,6 +9,7 @@
 #import "PSLoginViewController.h"
 #import "PSAuthService.h"
 #import "UIView+PSViewInProgress.h"
+#import "PSUser.h"
 
 @interface PSLoginViewController ()
 
@@ -22,6 +23,7 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 
 @implementation PSLoginViewController {
     NSOperationQueue *_logInQueue;
+    UIButton *_loginButton;
 }
 
 - (void)viewDidLoad
@@ -60,27 +62,9 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 }
 
 - (IBAction)logInAction:(id)sender {
-    [(UIView *)sender showIndicatorWithCornerRadius:5];
-
+    _loginButton = sender;
     [_logInQueue addOperationWithBlock:^{
-        [PSAuthService loginVK:self block:^(PFUser *user, NSError *error){
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-                [(UIView *)sender removeIndicator];
-                if (!user && !error) {
-                    [self performSegueWithIdentifier:CREATE_NEW_USER_SEGUE sender:self];
-                } else if (error) {
-                    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LoginVC.error.title", @"Alert view's title when log in error occuried")
-                                                message:NSLocalizedString(@"LoginVC.error.message check your internet connection", @"Alert view's message when login error occuried")
-                                               delegate:nil
-                                      cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
-                                      otherButtonTitles:nil] show];
-                } else{
-                    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-//                    [self performSegueWithIdentifier:GO_TO_FEED_SEGUE sender:self];
-                    NSLog(@"Logged in!");
-                }
-            }];
-        }];
+        [PSAuthService loginVK:self];
     }];
 }
 
@@ -96,6 +80,7 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 }
 
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError {
+    [_loginButton removeIndicator];
     [[[UIAlertView alloc] initWithTitle:nil
                                 message:NSLocalizedString(@"LoginVC.error.message you should grant vk access to log in", @"User has denied VK access permition")
                                delegate:nil
@@ -109,8 +94,50 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 }
 
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
-    NSLog(@"accessToken = %@ duration = %@ userID = %@", [newToken accessToken], [newToken expiresIn], [newToken userId]);
-    NSLog(@"[newToken isExpired] = %d", [newToken isExpired]);
+    NSLog(@"%s", sel_getName(_cmd));
+    [_loginButton showIndicatorWithCornerRadius:5];
+    PFQuery *query = [PSUser query];
+    NSNumber *vkId = [NSNumber numberWithInteger:[[newToken userId] integerValue]];
+
+    NSLog(@"vkId = %@", vkId);
+
+    [query whereKey:@"vkId" equalTo:vkId];
+    NSArray *users = [query findObjects];
+
+    NSString *username = [(PSUser *) users.firstObject username];
+
+    if (!username) {
+//        NSDictionary *userInfo = @{
+//                NSLocalizedDescriptionKey : NSLocalizedString(@"No such user", nil),
+//                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No such user exists", nil),
+//                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Please sign up", nil),
+//                @"error" : @"Needs sign up"
+//        };
+//        NSError *error = [NSError errorWithDomain:@"Parse"
+//                                             code:kPFErrorUserPasswordMissing
+//                                         userInfo:userInfo];
+//        completionBlock(nil, nil);
+        return;
+    }
+
+    [PSUser logInWithUsernameInBackground:username password:@"password" block:^(PFUser *user, NSError *error) {
+        if (!error) { [(PSUser *)user checkFollowDefaults]; }
+
+        [_loginButton removeIndicator];
+        if (!user && !error) {
+            [self performSegueWithIdentifier:CREATE_NEW_USER_SEGUE sender:self];
+        } else if (error) {
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LoginVC.error.title", @"Alert view's title when log in error occuried")
+                                        message:NSLocalizedString(@"LoginVC.error.message check your internet connection", @"Alert view's message when login error occuried")
+                                       delegate:nil
+                              cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
+                              otherButtonTitles:nil] show];
+        } else{
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+//                    [self performSegueWithIdentifier:GO_TO_FEED_SEGUE sender:self];
+            NSLog(@"Logged in!");
+        }
+    }];
 }
 
 #pragma mark - Other

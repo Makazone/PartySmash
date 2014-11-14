@@ -54,6 +54,9 @@
 
 - (IBAction)doneButtonPressed:(id)sender {
     NSLog(@"Finished creating party");
+    if (self.party.isFree) {
+        [self.party setPrice:@"0"];
+    }
     [self.party saveInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

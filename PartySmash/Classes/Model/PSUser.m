@@ -16,10 +16,12 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
 @end
 
 @implementation PSUser {
+    BOOL _isFollowLoaded;
 }
 
 @dynamic photo100;
 @dynamic photo200;
+@synthesize isFollowing;
 
 - (void)getFriendsToFollowWithBlock:(void (^)(NSError *, NSArray *))completion {
     VKRequest *r = [[VKApi friends] get:@{VK_API_USER_ID : self[VKID_FIELD], VK_API_FIELDS : @"id"}];
@@ -180,5 +182,12 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
     [defaults synchronize];
 }
 
+- (BOOL)isFollowing {
+    if (!_isFollowLoaded) {
+        _isFollowLoaded = YES;
+        self.isFollowing = [self isFollowingUser:self.objectId];
+    }
+    return isFollowing;
+}
 
 @end

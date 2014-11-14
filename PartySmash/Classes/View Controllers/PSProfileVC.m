@@ -73,8 +73,8 @@
 
         [self.followers setTitle:[NSString stringWithFormat:@"Подписчики\n%d", followers] forState:UIControlStateNormal];
         [self.following setTitle:[NSString stringWithFormat:@"Подписки\n%d", following] forState:UIControlStateNormal];
-        [self.visited setTitle:[NSString stringWithFormat:@"Создал\n%d", visited] forState:UIControlStateNormal];
-        [self.created setTitle:[NSString stringWithFormat:@"Посетил\n%d", created] forState:UIControlStateNormal];
+        [self.visited setTitle:[NSString stringWithFormat:@"Создал\n%d", created] forState:UIControlStateNormal];
+        [self.created setTitle:[NSString stringWithFormat:@"Посетил\n%d", visited] forState:UIControlStateNormal];
 
         if (_myProfile) return;
 

@@ -38,4 +38,7 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 @property (retain) PFFile *photo100;
 @property (retain) PFFile *photo200;
 
+// Does current user follows this user
+@property BOOL isFollowing;
+
 @end
