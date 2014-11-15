@@ -10,7 +10,7 @@
 @class PSUser;
 @class PSParty;
 
-@interface PSTableUsersVC : PFQueryTableViewController <PSCellDelegate>
+@interface PSTableUsersVC : PFQueryTableViewController <PSCellDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) PFQuery *userQueryToDisplay;
 @property (nonatomic) BOOL needsFollow;

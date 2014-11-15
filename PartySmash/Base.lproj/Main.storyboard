@@ -744,6 +744,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Njh-gY-EGn" userLabel="Footer">
+                            <rect key="frame" x="0.0" y="130" width="320" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="N0D-W2-XAN">
+                                    <rect key="frame" x="150" y="7" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="TFw-lG-VUU">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -759,6 +769,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Feed" id="ckf-BC-lgz"/>
                     <connections>
+                        <outlet property="loadMoreControl" destination="N0D-W2-XAN" id="Unq-xY-9zH"/>
+                        <outlet property="loadMoreView" destination="Njh-gY-EGn" id="v4O-gs-wxz"/>
                         <segue destination="LKw-xb-hGc" kind="push" identifier="partyScreenSegueId" id="nTx-JO-nzU"/>
                     </connections>
                 </tableViewController>

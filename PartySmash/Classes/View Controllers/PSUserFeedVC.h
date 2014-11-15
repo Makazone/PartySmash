@@ -11,6 +11,6 @@
 #import <Parse/Parse.h>
 
 //@interface PSUserFeedVC : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-@interface PSUserFeedVC : PFQueryTableViewController
+@interface PSUserFeedVC : PFQueryTableViewController <UIScrollViewDelegate>
 
 @end

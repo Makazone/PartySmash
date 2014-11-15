@@ -22,6 +22,8 @@
 }
 
 @property (nonatomic) NSMutableArray *atribitedStrings;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadMoreControl;
+@property (weak, nonatomic) IBOutlet UIView *loadMoreView;
 
 @end
 
@@ -34,6 +36,8 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     NSMutableArray *_cellHeights;
     BOOL _recompute;
+
+    BOOL _loadMoreStatus;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -43,7 +47,7 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
         self.parseClassName = @"Event";
         self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = YES;
+        self.paginationEnabled = NO;
         self.objectsPerPage = 25;
     }
     return self;
@@ -86,6 +90,10 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     _cellHeights = [NSMutableArray new];
     _recompute = YES;
+
+    _loadMoreStatus = NO;
+//    [self.tableView addSubview:_loadMoreControl];
+    self.loadMoreView.hidden = YES;
 
 //    [[PSUser currentUser] clearFollow];
 }
@@ -217,6 +225,41 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         destVC.party = event.party;
     }
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    float currentOffset = scrollView.contentOffset.y;
+
+    if (currentOffset <= 0) { return; }
+
+    NSLog(@"currentOffset = %f", currentOffset);
+
+    float maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    float deltaOffset   = maximumOffset - currentOffset;
+
+    if (deltaOffset <= 0) {
+        [self loadMoreItems:self];
+    }
+}
+
+- (void)loadMoreItems:(id)sender {
+    if (!self.loadMoreControl.isAnimating) {
+//        _loadMoreStatus = YES;
+        [self.loadMoreControl startAnimating];
+        [self.loadMoreView setHidden:NO];
+        NSLog(@"Loading next page");
+        [self loadNextPage];
+    }
+}
+
+
+- (void)objectsDidLoad:(NSError *)error {
+    [super objectsDidLoad:error];
+    [self.loadMoreControl stopAnimating];
+//    _loadMoreStatus = NO;
+//    [_loadMoreControl endRefreshing];
+    [self.loadMoreView setHidden:YES];
+}
+
 
 #pragma mark - Getters & Setters
 

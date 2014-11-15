@@ -19,12 +19,13 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UILabel *placesLeftLabel;
+@property (nonatomic) UIActivityIndicatorView *loadMoreControl;
 
 @end
 
 @implementation PSTableUsersVC {
-
     BOOL _unlimitedNumberOfPlaces;
+    BOOL _hasMoreItemsToShow;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -72,6 +73,15 @@
             self.placesLeft = 50000000;
         } else self.placesLeftLabel.text = [NSString stringWithFormat:@"Осталось приглашений: %d", self.placesLeft];
     }
+
+//    self.loadMoreView.hidden = YES;
+    _hasMoreItemsToShow = NO;
+
+    NSLog(@"self.tableView.tableFooterView = %@", self.tableView.tableFooterView);
+
+    self.tableView.tableFooterView.hidden = YES;
+//    [_loadMoreView removeFromSuperview];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(38, 0, -38, 0)];
 }
 
 - (PFQuery *)queryForTable {
@@ -95,10 +105,10 @@
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
 {
-    NSLog(@"%s", sel_getName(_cmd));
+//    NSLog(@"%s", sel_getName(_cmd));
 
     PSUser *user = object;
-    NSLog(@"user.username = %@", user.username);
+//    NSLog(@"user.username = %@", user.username);
 
     PSUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"user_cell" forIndexPath:indexPath];
 
@@ -131,6 +141,17 @@
 
     return cell;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"%s", sel_getName(_cmd));
+    if (self.objects.count - 1 < indexPath.row) {
+        _hasMoreItemsToShow = YES;
+//        [tableView addSubview:self.loadMoreView];
+        return 0;
+    }
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -165,6 +186,25 @@
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    NSLog(@"%s", sel_getName(_cmd));
+
+    if (_hasMoreItemsToShow) {
+        self.loadMoreControl = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.loadMoreControl.frame = CGRectMake(0, 0, 320, 50);
+        return self.loadMoreControl;
+    }
+
+    return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    NSLog(@"%s", sel_getName(_cmd));
+    if (_hasMoreItemsToShow) {
+        return 48;
+    } else return 0;
+}
+
 
 - (void)didClickOnCellAtIndexPath:(NSIndexPath *)cellIndex withData:(id)data {
     PSUser *user = [self objectAtIndexPath:cellIndex];
@@ -172,7 +212,7 @@
 
     [cell.userActionButton showIndicatorWithCornerRadius:5];
     if ([[PSUser currentUser] isFollowingUser:user.objectId]) {
-        NSLog(@"Unfollow user");
+//        NSLog(@"Unfollow user");
         [[PSUser currentUser] unfollowUser:user withCompletion:^(NSError *error) {
             [cell.userActionButton removeIndicator];
             if (!error) {
@@ -181,7 +221,7 @@
             }
         }];
     } else {
-        NSLog(@"Follow user");
+//        NSLog(@"Follow user");
         [[PSUser currentUser] followUser:user withCompletion:^(NSError *error) {
             [cell.userActionButton removeIndicator];
             if (!error) {
@@ -193,7 +233,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *arr = [defaults stringArrayForKey:@"followingUsers"];
-    NSLog(@"TOTALFOLLOWING = %u", arr.count);
+//    NSLog(@"TOTALFOLLOWING = %u", arr.count);
     for (int i = 0; i < arr.count; i++) {
         NSLog(@"arr[i] = %@", arr[i]);
     }
@@ -238,6 +278,41 @@
 - (void)updateInvitesLeftLabel {
     if (_unlimitedNumberOfPlaces) { return; }
     self.placesLeftLabel.text = [NSString stringWithFormat:@"Осталось приглашений: %d", self.placesLeft];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    float currentOffset = scrollView.contentOffset.y;
+
+    if (currentOffset <= 0 || !_hasMoreItemsToShow) { return; }
+
+    NSLog(@"currentOffset = %f", currentOffset);
+
+    float maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    float deltaOffset   = maximumOffset - currentOffset;
+
+    if (deltaOffset <= 0) {
+        [self loadMoreItems:self];
+    }
+}
+
+- (void)loadMoreItems:(id)sender {
+    if (!self.isLoading) {
+        _hasMoreItemsToShow = NO;
+//        _loadMoreStatus = YES;
+//        [self.tableView.tableFooterView setHidden:NO];
+        [self.loadMoreControl startAnimating];
+//        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 38, 0)];
+        NSLog(@"Loading next page");
+        [self loadNextPage];
+    }
+}
+
+
+- (void)objectsDidLoad:(NSError *)error {
+    [super objectsDidLoad:error];
+    [self.loadMoreControl stopAnimating];
+//    [self.tableView.tableFooterView setHidden:YES];
+//    [self.tableView setContentInset:UIEdgeInsetsMake(38, 0, -38, 0)];
 }
 
 @end
