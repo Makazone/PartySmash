@@ -9,6 +9,8 @@
 #import <Parse/Parse.h>
 #import <UIKit/UIKit.h>
 
+@class PFImageView;
+
 @interface PSPartyCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *headerText;

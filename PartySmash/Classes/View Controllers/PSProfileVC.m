@@ -3,6 +3,7 @@
 // Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <ParseUI/ParseUI.h>
 #import "PSProfileVC.h"
 #import "PSUser.h"
 #import "UIView+PSViewInProgress.h"

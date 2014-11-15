@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol PSCellDelegate;
+@class PFImageView;
 
 @interface PSInvitationCell : UITableViewCell
 

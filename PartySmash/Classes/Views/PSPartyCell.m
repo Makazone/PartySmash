@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <ParseUI/ParseUI.h>
 #import "PSPartyCell.h"
 
 @implementation PSPartyCell

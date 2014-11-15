@@ -5,4 +5,3 @@ pod 'Facebook-iOS-SDK'
 
 pod 'MBProgressHUD', '~> 0.8'
 
-pod 'ParseUI'

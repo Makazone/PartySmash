@@ -4,6 +4,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "PSMyPartiesVC.h"
 #import "PSAuthService.h"
 #import "PSInvitation.h"

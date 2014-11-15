@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "PSInvitationCell.h"
 #import "PSCellDelegate.h"
 

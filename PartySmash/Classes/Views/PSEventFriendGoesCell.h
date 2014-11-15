@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseUI/PFTableViewCell.h>
 
 //@interface PSEventFriendGoesCell : UITableViewCell
 @interface PSEventFriendGoesCell : PFTableViewCell
