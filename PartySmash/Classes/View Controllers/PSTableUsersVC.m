@@ -230,13 +230,6 @@
             }
         }];
     }
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *arr = [defaults stringArrayForKey:@"followingUsers"];
-//    NSLog(@"TOTALFOLLOWING = %u", arr.count);
-    for (int i = 0; i < arr.count; i++) {
-        NSLog(@"arr[i] = %@", arr[i]);
-    }
 }
 
 - (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {

@@ -11,6 +11,7 @@
 #import "PSFollowFriendsVC.h"
 #import "PSFriendCell.h"
 #import "PSUser.h"
+#import "PSAppDelegate.h"
 
 @interface PSFollowFriendsVC ()
 
@@ -30,6 +31,8 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [(PSAppDelegate *)[[UIApplication sharedApplication] delegate] registerForNotifications];
 
     [self.navigationItem setHidesBackButton:YES];
 
@@ -76,7 +79,9 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
     PSFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:friendCell forIndexPath:indexPath];
 
     cell.name.text = friend.username;
+
     [cell.follow addTarget:self action:@selector(followPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self setUpFollowButton:cell.follow forUser:friend];
 
     PFFile *file = friend[@"photo100"];
 
@@ -84,8 +89,6 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
     NSLog(@"cell.friendPic.frame.size.height = %f", cell.friendPic.frame.size.width);
 
     cell.friendPic.layer.cornerRadius = 30.0f;
-    cell.friendPic.layer.borderWidth = 1.0f;
-    cell.friendPic.layer.borderColor = [UIColor grayColor].CGColor;
     cell.friendPic.clipsToBounds = YES;
 
     cell.friendPic.image = [UIImage imageWithData:file.getData];
@@ -98,6 +101,7 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
     return cell;
 }
 
+
 - (void)followPressed:(id)sender
 {
     NSLog(@"sender = %@", sender);
@@ -108,18 +112,25 @@ static NSString *const TO_FEED_SCREEN_SEGUE = @"newUserToFeed";
     PFUser *friendToFollow = [_friendList objectAtIndex:indexPath.row];
 
     UIButton *button = sender;
-    if ([button.titleLabel.text isEqualToString:@"follow"]) {
+    if (![self.friendsToFollow containsObject:friendToFollow]) {
         [self.friendsToFollow addObject:[_friendList objectAtIndex:indexPath.row]];
-//        [self.friendsToFollow addObject:friendToFollow.username];
-        NSLog(@"Follow user %@", friendToFollow.username);
-        [button setTitle:@"unfollow" forState:UIControlStateNormal];
-        NSLog(@"self.friendsToFollow = %@", self.friendsToFollow);
+        [button setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
     } else {
         [self.friendsToFollow removeObject:[_friendList objectAtIndex:indexPath.row]];
-//        [self.friendsToFollow removeObject:friendToFollow.username];
-        NSLog(@"Unfollow user %@", friendToFollow.username);
-        [button setTitle:@"follow" forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
    }
+}
+
+- (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {
+    if (![self.friendsToFollow containsObject:user]) {
+        [button setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
+    } else [button setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PSFriendCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell.follow sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - IBAction methods

@@ -106,15 +106,17 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
 }
 
 - (void)followUser:(PSUser *)user withCompletion:(void (^)(NSError *))completion {
-    PFRelation *followRelation = [self relationforKey:FOLLOW_RELATION_KEY];
-    [followRelation addObject:user];
-    [self saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
-        if (!error) {
-            [self addFollowedUserToDefaults:user];
-        }
-        NSLog(@"error");
-        completion(error);
-    }];
+    [PFCloud callFunctionInBackground:@"followUser"
+                       withParameters:@{
+                                           @"userId": user.objectId,
+                                           @"pushText": [NSString stringWithFormat:@"%@ подписался на тебя", [[PSUser currentUser] username]]
+                                       }
+                                block:^(id result, NSError *error) {
+                                    if (!error) {
+                                        [self addFollowedUserToDefaults:user];
+                                    }
+                                    completion(error);
+                                }];
 }
 
 - (void)addPartyToWaitDefaults:(NSString *)partyId {
@@ -162,18 +164,15 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
 
 - (void)checkFollowDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *following = [defaults stringArrayForKey:FOLLOW_DEFAULTS_KEY];
 
-    if (!following) {
-        [[self getFollowingRelation].query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *err){
-            NSMutableArray *followingIds = [NSMutableArray new];
-            for (int i = 0; i < result.count; i++) {
-                [followingIds addObject:((PFObject *)result[i]).objectId];
-            }
-            [defaults setObject:followingIds forKey:FOLLOW_DEFAULTS_KEY];
-            [defaults synchronize];
-        }];
-    }
+    [[self getFollowingRelation].query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *err){
+        NSMutableArray *followingIds = [NSMutableArray new];
+        for (int i = 0; i < result.count; i++) {
+            [followingIds addObject:((PFObject *)result[i]).objectId];
+        }
+        [defaults setObject:followingIds forKey:FOLLOW_DEFAULTS_KEY];
+        [defaults synchronize];
+    }];
 }
 
 - (void)clearFollow {

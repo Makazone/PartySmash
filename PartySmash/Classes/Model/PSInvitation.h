@@ -15,6 +15,7 @@ static int SEND_REQUEST_TYPE = 3;
 static int ACCEPT_REQUEST_TYPE = 4;
 static int DECLINE_REQUEST_TYPE = 5;
 static int SEND_RECOMMENDATION_TYPE = 6;
+static int STARTED_FOLLOWING = 7;
 
 @interface PSInvitation : PFObject <PFSubclassing>
 

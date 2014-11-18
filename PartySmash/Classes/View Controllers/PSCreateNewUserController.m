@@ -91,7 +91,6 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.nicknameField.text = @"makazone";
 //    [self finishSignUp:self];
 }
 

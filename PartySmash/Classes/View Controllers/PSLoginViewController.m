@@ -10,6 +10,7 @@
 #import "PSAuthService.h"
 #import "UIView+PSViewInProgress.h"
 #import "PSUser.h"
+#import "PSAppDelegate.h"
 
 @interface PSLoginViewController ()
 
@@ -96,48 +97,45 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 - (void)vkSdkReceivedNewToken:(VKAccessToken *)newToken {
     NSLog(@"%s", sel_getName(_cmd));
     [_loginButton showIndicatorWithCornerRadius:5];
-    PFQuery *query = [PSUser query];
+
     NSNumber *vkId = [NSNumber numberWithInteger:[[newToken userId] integerValue]];
 
     NSLog(@"vkId = %@", vkId);
 
+    PFQuery *query = [PSUser query];
     [query whereKey:@"vkId" equalTo:vkId];
-    NSArray *users = [query findObjects];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *error) {
+        if (!error) {
+            NSString *username = [(PSUser *) result.firstObject username];
+            NSLog(@"username = %@", username);
 
-    NSString *username = [(PSUser *) users.firstObject username];
+            if (!username) {
+                [_loginButton removeIndicator];
+                [self performSegueWithIdentifier:CREATE_NEW_USER_SEGUE sender:self];
+                return;
+            }
 
-    if (!username) {
-//        NSDictionary *userInfo = @{
-//                NSLocalizedDescriptionKey : NSLocalizedString(@"No such user", nil),
-//                NSLocalizedFailureReasonErrorKey : NSLocalizedString(@"No such user exists", nil),
-//                NSLocalizedRecoverySuggestionErrorKey : NSLocalizedString(@"Please sign up", nil),
-//                @"error" : @"Needs sign up"
-//        };
-//        NSError *error = [NSError errorWithDomain:@"Parse"
-//                                             code:kPFErrorUserPasswordMissing
-//                                         userInfo:userInfo];
-//        completionBlock(nil, nil);
-        return;
-    }
+            [PSUser logInWithUsernameInBackground:username password:@"password" block:^(PFUser *user, NSError *error) {
+                [_loginButton removeIndicator];
+                if (error) {
+                    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LoginVC.error.title", @"Alert view's title when log in error occuried")
+                                                message:NSLocalizedString(@"LoginVC.error.message check your internet connection", @"Alert view's message when login error occuried")
+                                               delegate:nil
+                                      cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
+                                      otherButtonTitles:nil] show];
+                } else {
+                    [(PSAppDelegate *)[[UIApplication sharedApplication] delegate] registerForNotifications];
+                    [[PSUser currentUser] checkFollowDefaults];
+                    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+                    NSLog(@"Logged in!");
+                }
+            }];
 
-    [PSUser logInWithUsernameInBackground:username password:@"password" block:^(PFUser *user, NSError *error) {
-        if (!error) { [(PSUser *)user checkFollowDefaults]; }
-
-        [_loginButton removeIndicator];
-        if (!user && !error) {
-            [self performSegueWithIdentifier:CREATE_NEW_USER_SEGUE sender:self];
-        } else if (error) {
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LoginVC.error.title", @"Alert view's title when log in error occuried")
-                                        message:NSLocalizedString(@"LoginVC.error.message check your internet connection", @"Alert view's message when login error occuried")
-                                       delegate:nil
-                              cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
-                              otherButtonTitles:nil] show];
-        } else{
-            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-//                    [self performSegueWithIdentifier:GO_TO_FEED_SEGUE sender:self];
-            NSLog(@"Logged in!");
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Упс =(" message:@"Произошло что-то очень плохое. Проверьте ваше соединение и перезапустите приложение." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
     }];
+
 }
 
 #pragma mark - Other

@@ -51,6 +51,13 @@
 
     _cellHeights = [NSMutableArray new];
     _recompute = NO;
+
+    self.searchDisplayController.delegate = self.searchDisplayController;
+    self.searchDisplayController.searchResultsDataSource = self.searchDisplayController;
+    self.searchDisplayController.searchResultsDelegate = self.searchDisplayController;
+    self.searchDisplayController.searchBar.delegate = self.searchDisplayController;
+
+    [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"user_cell" bundle:nil] forCellReuseIdentifier:@"user_cell"];
 }
 
 - (void)loadObjects {

@@ -8,7 +8,48 @@ var DECLINE_REQUEST_TYPE = 5;
 
 var SEND_RECOMMENDATION_TYPE = 6;
 
+var USER_FOLLOWED_TYPE = 7;
+
 /******** HELPER METHODS ********/
+
+/**
+ * Sends push to user
+ * @param recipientId
+ * @param text
+ */
+Parse.Cloud.define("helper_SendPush", function(request, response) {
+    // SEND PUSH
+    var user = new Parse.User();
+    user.id = request.params.recipientId;
+
+    // Find devices associated with these users
+    var pushQuery = new Parse.Query(Parse.Installation);
+    pushQuery.equalTo("user", user);
+
+    var pushString = "Android sucks!, " + request.user.get("username");
+    if (request.params.text) {
+        pushString = request.params.text;
+    }
+
+    // Send push notification to query
+    Parse.Push.send({
+        where: pushQuery,
+        data: {
+            alert: pushString
+        }
+    }, {
+        success: function() {
+            console.log("sent push");
+            response.success("went well");
+        },
+        error: function(error) {
+            console.log(error);
+            response.success("didn't send a push");
+            // Handle error
+        }
+    });
+
+});
 
 /**
  * Helper function to create a new invite
@@ -37,7 +78,12 @@ Parse.Cloud.define("helper_SendInvite", function(request, response) {
     invite.set("type", request.params.type);
     invite.set("sender", sender);
     invite.set("recipient", recipient);
-    invite.set("party", party);
+
+    if (request.params.partyId) {
+        invite.set("party", party);
+    } else {
+        invite.set("party", null);
+    }
 
     invite.save().then(
         function(invite) {
@@ -130,13 +176,21 @@ Parse.Cloud.define("helper_CreateIventFriendGoesToParty", function(request, resp
  * Sends invite to the party
  * @param partyId
  * @param recipientId id of the user whom we send the invite
+ * @param pushText parse push text
  */
 Parse.Cloud.define("sendInvite", function(request, response) {
     console.log(request.params);
 
     Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_INVITATION_TYPE}, {
         success: function(result) {
-            response.success("went well");
+            Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                success: function(result) {
+                    response.success("went well");
+                },
+                error: function(error) {
+                    response.success("went well, but didn't send push");
+                }
+            });
         },
         error: function(error) {
             response.error(error);
@@ -150,6 +204,7 @@ Parse.Cloud.define("sendInvite", function(request, response) {
  * @param partyId
  * @param recipientId ID of the party creator
  * @param invitationId ID of the accepted invitation
+ * @param pushText
  */
 Parse.Cloud.define("acceptInvitation", function(request, response) {
     console.log(request.params);
@@ -170,7 +225,14 @@ Parse.Cloud.define("acceptInvitation", function(request, response) {
                             Parse.Cloud.run("helper_CreateIventFriendGoesToParty", {"userId": request.user.id, "partyId": request.params.partyId}, {
 //                     USED FOR TESTING       Parse.Cloud.run("helper_CreateIventFriendGoesToParty", {"userId": request.params.userId, "partyId": request.params.partyId}, {
                                 success: function (event) {
-                                    response.success("went well");
+                                    Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                                        success: function(result) {
+                                            response.success("went well");
+                                        },
+                                        error: function(error) {
+                                            response.success("went well, but didn't send push");
+                                        }
+                                    });
                                 },
                                 error: function (myObject, error) {
                                     console.log("object " + myObject + " error = " + error);
@@ -204,6 +266,7 @@ Parse.Cloud.define("acceptInvitation", function(request, response) {
  * @param invitationId
  * @param partyId
  * @param recipientId
+ * @param pushText
  */
 Parse.Cloud.define("declineInvitation", function(request, response) {
     console.log(request.params);
@@ -215,7 +278,14 @@ Parse.Cloud.define("declineInvitation", function(request, response) {
             Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": DECLINE_INVITATION_TYPE}, {
 //      FOR TESTING      Parse.Cloud.run("helper_SendInvite", {"senderId": request.params.userId, "recipientId": request.params.recipientId, "party": request.params.partyId, "type": DECLINE_INVITATION_TYPE}, {
                 success: function(myOjb) {
-                    response.success("went well");
+                    Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                        success: function(result) {
+                            response.success("went well");
+                        },
+                        error: function(error) {
+                            response.success("went well, but didn't send push");
+                        }
+                    });
                 },
                 error: function(error) {
                     response.error(error);
@@ -234,6 +304,7 @@ Parse.Cloud.define("declineInvitation", function(request, response) {
  * Sends request to private party
  * @param partyId
  * @param recipientId creator of the party
+ * @param pushText
  */
 Parse.Cloud.define("sendRequest", function(request, response) {
 
@@ -245,7 +316,14 @@ Parse.Cloud.define("sendRequest", function(request, response) {
         if (capacity == 0) {
             Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_REQUEST_TYPE}, {
                 success: function (myObj) {
-                    response.success("went well");
+                    Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                        success: function(result) {
+                            response.success("went well");
+                        },
+                        error: function(error) {
+                            response.success("went well, but didn't send push");
+                        }
+                    });
                 },
                 error: function (error) {
                     response.error(error);
@@ -258,7 +336,14 @@ Parse.Cloud.define("sendRequest", function(request, response) {
 //                Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_REQUEST_TYPE}, {
                     Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_REQUEST_TYPE}, {
                         success: function (myObj) {
-                            response.success("went well");
+                            Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                                success: function(result) {
+                                    response.success("went well");
+                                },
+                                error: function(error) {
+                                    response.success("went well, but didn't send push");
+                                }
+                            });
                         },
                         error: function (error) {
                             response.error(error);
@@ -280,6 +365,7 @@ Parse.Cloud.define("sendRequest", function(request, response) {
  * @param partyId party to which the invite was requested
  * @param invitationId id of the invitaion that requested an invite
  * @param recipientId user who requested an invite
+ * @param pushText
  */
 Parse.Cloud.define("acceptRequest", function(request, response) {
     Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
@@ -297,7 +383,14 @@ Parse.Cloud.define("acceptRequest", function(request, response) {
 
                             Parse.Cloud.run("helper_CreateIventFriendGoesToParty", {"userId": request.params.recipientId, "partyId": request.params.partyId}, {
                                 success: function (event) {
-                                    response.success("went well");
+                                    Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                                        success: function(result) {
+                                            response.success("went well");
+                                        },
+                                        error: function(error) {
+                                            response.success("went well, but didn't send push");
+                                        }
+                                    });
                                 },
                                 error: function (myObject, error) {
                                     console.log("object " + myObject + " error = " + error);
@@ -330,6 +423,7 @@ Parse.Cloud.define("acceptRequest", function(request, response) {
  * @param partyId
  * @param recipientId user who requested the invite
  * @param invitationId previous invitation
+ * @param pushText
  */
 Parse.Cloud.define("declineRequest", function(request, response) {
     Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
@@ -339,7 +433,14 @@ Parse.Cloud.define("declineRequest", function(request, response) {
             Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": DECLINE_REQUEST_TYPE}, {
 //      FORTEST      Parse.Cloud.run("helper_SendInvite", {"senderId": request.params.userId, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": DECLINE_REQUEST_TYPE}, {
                 success: function(myOjb) {
-                    response.success("went well");
+                    Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                        success: function(result) {
+                            response.success("went well");
+                        },
+                        error: function(error) {
+                            response.success("went well, but didn't send push");
+                        }
+                    });
                 },
                 error: function(error) {
                     response.error(error);
@@ -358,12 +459,20 @@ Parse.Cloud.define("declineRequest", function(request, response) {
  * Sends a recommendation to user to visit a party
  * @param recipientId
  * @param partyId
+ * @param pushText
  */
 Parse.Cloud.define("sendRecommendation", function(request, response) {
     Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_RECOMMENDATION_TYPE}, {
 //    TESTONLY Parse.Cloud.run("helper_SendInvite", {"senderId": request.params.userId, "recipientId": request.params.recipientId, "partyId": request.params.partyId, "type": SEND_RECOMMENDATION_TYPE}, {
         success: function (myObj) {
-            response.success("went well");
+            Parse.Cloud.run("helper_SendPush", {"recipientId": request.params.recipientId, "text": request.params.pushText}, {
+                success: function(result) {
+                    response.success("went well");
+                },
+                error: function(error) {
+                    response.success("went well, but didn't send push");
+                }
+            });
         },
         error: function (error) {
             response.error(error);
@@ -371,7 +480,42 @@ Parse.Cloud.define("sendRecommendation", function(request, response) {
     });
 });
 
+/**
+ * Follows user
+ * @param userId ID of a user to follow
+ * @param pushText
+ *
+ */
+Parse.Cloud.define("followUser", function(request, response) {
+    var userToFollow = new Parse.User();
+    userToFollow.id = request.params.userId;
 
+    var followRelation = request.user.relation("following");
+    followRelation.add(userToFollow);
+
+    request.user.save(null, {
+        success: function(user) {
+            Parse.Cloud.run("helper_SendInvite", {"senderId": request.user.id, "recipientId": userToFollow.id, "partyId": null, "type": USER_FOLLOWED_TYPE}, {
+                success: function (myObj) {
+                    Parse.Cloud.run("helper_SendPush", {"recipientId": userToFollow.id, "text": request.params.pushText}, {
+                        success: function(result) {
+                            response.success("went well");
+                        },
+                        error: function(error) {
+                            response.success("went well, but didn't send push");
+                        }
+                    });
+                },
+                error: function (error) {
+                    response.error(error);
+                }
+            });
+        },
+        error: function(gameScore, error) {
+            response.error(error);
+        }
+    });
+});
 
 // AFTER SAVE METHODS
 Parse.Cloud.afterSave("Party", function(request) {
@@ -389,6 +533,17 @@ Parse.Cloud.afterSave("Party", function(request) {
 
         event.save();
     }
+});
+
+Parse.Cloud.beforeSave(Parse.Installation, function(request, response) {
+    // request.user is a Parse.User object. It corresponds to the currently logged in user in iOS or Android.
+    if (request.user) {
+        // Add a pointer to the Parse.User object in a "user" column.
+        request.object.set("user", request.user);
+    }
+
+    // Proceed with saving the installation.
+    response.success();
 });
 
 // Принимает на вход userId и текущую дату
@@ -594,7 +749,7 @@ Parse.Cloud.define("createTestUsers", function(request, response) {
     user.signUp(null, {
         success: function(user) {
             Parse.Cloud.httpRequest({
-                url: "http://introcs.cs.princeton.edu/java/15inout/images/checkerboard8.png"
+                url: request.params.photoUrl
             }).then(function(httpResponse) {
                 var Image = require("parse-image");
                 var image = new Image();
@@ -614,7 +769,7 @@ Parse.Cloud.define("createTestUsers", function(request, response) {
             }).then(function(photo) {
                 user.set("photo100", photo);
                 user.set("photo200", photo);
-                user.save().then(function(user) { response.success("Created user " + user.get("username")); });
+                user.save().then(function(user) { response.success(user.id); });
             });
         },
         error: function(user, error) {
@@ -743,12 +898,12 @@ Parse.Cloud.define("createTestParty", function(request, response) {
     party.set("creator", creator);
     party.set("date", new Date());
 
-    var lat = Math.floor(Math.random() * 80);
-    var lon = Math.floor(Math.random() * 170);
-    var position = new Parse.GeoPoint({latitude: lat, longitude: lon});
+//    var lat = Math.floor(Math.random() * 80);
+//    var lon = Math.floor(Math.random() * 170);
+    var position = new Parse.GeoPoint({latitude: request.params.lat, longitude: request.params.lon});
     party.set("geoPosition", position);
 
-    party.set("isPrivate", true);
+    party.set("isPrivate", false);
     party.set("generalDescription", "This party was created automatically.");
     party.set("price", "100 000 000$");
     party.set("capacity", 13);

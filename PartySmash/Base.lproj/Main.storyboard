@@ -248,7 +248,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ygP-QI-BjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2844" y="577"/>
+            <point key="canvasLocation" x="3254" y="-174"/>
         </scene>
         <!--Description-->
         <scene sceneID="bbU-2f-3dU">
@@ -263,7 +263,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ddv-DZ-Ahq" customClass="SZTextView">
-                                <rect key="frame" x="6" y="64" width="308" height="352"/>
+                                <rect key="frame" x="6" y="64" width="308" height="347"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
@@ -547,7 +547,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHG-si-xdS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902" y="1350"/>
+            <point key="canvasLocation" x="1874" y="1720"/>
         </scene>
         <!--Create New User Controller-->
         <scene sceneID="cNq-wT-xwB">
@@ -619,7 +619,7 @@
         <scene sceneID="3Qc-Ag-qhb">
             <objects>
                 <tableViewController id="8YB-qE-vxP" customClass="PSFollowFriendsVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="76" sectionHeaderHeight="22" sectionFooterHeight="22" id="6JW-Gq-lNb">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="76" sectionHeaderHeight="22" sectionFooterHeight="22" id="6JW-Gq-lNb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -655,9 +655,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" tag="1002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aj2-Ri-uUq">
-                                            <rect key="frame" x="231" y="23" width="69" height="30"/>
-                                            <state key="normal" title="follow">
+                                        <button opaque="NO" tag="1002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aj2-Ri-uUq">
+                                            <rect key="frame" x="271" y="24" width="40" height="27"/>
+                                            <state key="normal" image="ic_follow">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -767,7 +767,13 @@
                             <outlet property="delegate" destination="uW9-Re-dwY" id="pES-qi-His"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feed" id="ckf-BC-lgz"/>
+                    <navigationItem key="navigationItem" title="Feed" id="ckf-BC-lgz">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ptC-Lh-Eyd">
+                            <connections>
+                                <segue destination="tgn-Ti-DI3" kind="modal" id="RIg-BL-isQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="loadMoreControl" destination="N0D-W2-XAN" id="Unq-xY-9zH"/>
                         <outlet property="loadMoreView" destination="Njh-gY-EGn" id="v4O-gs-wxz"/>
@@ -1083,7 +1089,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8M-hH-Y7f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2406" y="1350"/>
+            <point key="canvasLocation" x="2246" y="1950"/>
         </scene>
         <!--Find party-->
         <scene sceneID="ErN-Sh-o4P">
@@ -1134,7 +1140,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Найти вечеринку" id="nCg-Hw-h02">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="Jaf-GL-0nF">
+                        <barButtonItem key="rightBarButtonItem" image="ic_bar_map" id="Jaf-GL-0nF">
                             <connections>
                                 <segue destination="Tsf-hC-GSq" kind="push" id="zvV-6H-hCk"/>
                             </connections>
@@ -1145,7 +1151,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0aA-vA-ljQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="NjR-jI-MDj">
+                <searchDisplayController id="NjR-jI-MDj" customClass="PSSearchUserVC">
                     <connections>
                         <outlet property="delegate" destination="YRy-Un-dWj" id="7cl-Pd-jui"/>
                         <outlet property="searchBar" destination="79L-nx-gS6" id="EVk-0W-MF6"/>
@@ -1197,7 +1203,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="cYg-0L-tLR" kind="relationship" relationship="rootViewController" id="M8W-0B-sdF"/>
+                        <segue destination="pFf-OW-UvW" kind="relationship" relationship="rootViewController" id="QGK-sc-0s1"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6mB-5d-3ND" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1223,14 +1229,14 @@
             </objects>
             <point key="canvasLocation" x="1376" y="1350"/>
         </scene>
-        <!--Мои вечеринки-->
+        <!--NotificationsVC-->
         <scene sceneID="3tF-ZJ-5Sf">
             <objects>
-                <tableViewController id="cYg-0L-tLR" customClass="PSMyPartiesVC" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="cYg-0L-tLR" customClass="PSNotificationsVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7PY-rw-YJL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BK3-Yv-Nuz">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1245,17 +1251,97 @@
                             <outlet property="delegate" destination="cYg-0L-tLR" id="E3Y-26-Phs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Мои вечеринки" id="zGf-Fe-FgW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="JdK-Qt-has">
-                            <connections>
-                                <segue destination="tgn-Ti-DI3" kind="modal" id="5s5-oX-avz"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" id="zGf-Fe-FgW">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ES5-v0-l4p">
+                            <rect key="frame" x="27" y="7" width="266" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Новости"/>
+                                <segment title="Вечеринки"/>
+                            </segments>
+                        </segmentedControl>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6p-ca-V9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902" y="586"/>
+            <point key="canvasLocation" x="2246" y="456"/>
+        </scene>
+        <!--Future PartiesVC-->
+        <scene sceneID="5On-A8-8wR">
+            <objects>
+                <tableViewController storyboardIdentifier="FuturePartiesVC" automaticallyAdjustsScrollViewInsets="NO" id="s2Y-Li-dQD" customClass="PSFuturePartiesVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ggp-SN-CMJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OXE-Yq-5hT">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OXE-Yq-5hT" id="Xd7-dn-1sF">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="s2Y-Li-dQD" id="ybS-1W-0iT"/>
+                            <outlet property="delegate" destination="s2Y-Li-dQD" id="n3F-sR-Cyg"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="455"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C0w-SN-vrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2246" y="988.5"/>
+        </scene>
+        <!--My PartiesVC-->
+        <scene sceneID="Y2P-kc-Qdj">
+            <objects>
+                <viewController id="pFf-OW-UvW" customClass="PSMyPartiesVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q7c-c2-jlZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Nhl-5b-WJm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QIs-kM-Lax">
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWQ-X3-ccl">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <connections>
+                                    <segue destination="cYg-0L-tLR" kind="embed" id="SR1-SZ-UZr"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VWQ-X3-ccl" firstAttribute="top" secondItem="Q7c-c2-jlZ" secondAttribute="bottom" id="Hsd-DG-veK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VWQ-X3-ccl" secondAttribute="trailing" constant="-16" id="YCf-za-uio"/>
+                            <constraint firstItem="Nhl-5b-WJm" firstAttribute="top" secondItem="VWQ-X3-ccl" secondAttribute="bottom" id="h9l-oj-Um8"/>
+                            <constraint firstItem="VWQ-X3-ccl" firstAttribute="leading" secondItem="QIs-kM-Lax" secondAttribute="leadingMargin" constant="-16" id="x7t-Ej-2zQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pKg-Qo-1eg">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="F3X-YB-X8m">
+                            <rect key="frame" x="48" y="6" width="224" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Новости"/>
+                                <segment title="Вечеринки"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="VWQ-X3-ccl" id="As7-e9-h3h"/>
+                        <outlet property="segmentControl" destination="F3X-YB-X8m" id="zdn-6q-vt2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q73-qt-0W5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1804" y="454.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uV3-GJ-drv">
@@ -1273,7 +1359,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qU-Pd-11Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2406" y="586"/>
+            <point key="canvasLocation" x="2844" y="-310"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Sq-yU-jnb">
@@ -1300,6 +1386,7 @@
         <image name="VKLoginButton.png" width="370" height="112"/>
         <image name="VKLoginButtonPressed.png" width="370" height="112"/>
         <image name="find_parties_L" width="28" height="24"/>
+        <image name="ic_bar_map" width="24" height="24"/>
         <image name="ic_follow" width="40" height="27"/>
         <image name="ic_profile_settings" width="20" height="19"/>
         <image name="logo.jpg" width="2086" height="2048"/>

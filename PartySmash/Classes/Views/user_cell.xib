@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="0M5-wL-YhR" customClass="PSUserCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0M5-wL-YhR" id="R8S-gD-gSM">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ndk-nN-ILZ" customClass="PFImageView">
+                        <rect key="frame" x="8" y="9" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="pY2-7D-eFK"/>
+                            <constraint firstAttribute="width" constant="50" id="yzh-0V-dOf"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpM-AM-7dF">
+                        <rect key="frame" x="66" y="22" width="198" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6S-hf-dIt">
+                        <rect key="frame" x="272" y="18" width="40" height="27"/>
+                        <state key="normal" image="ic_follow">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="followUser:" destination="0M5-wL-YhR" eventType="touchUpInside" id="ypY-Gh-u0j"/>
+                        </connections>
+                    </button>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Вы" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYA-u0-Chj">
+                        <rect key="frame" x="280" y="21" width="24" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ndk-nN-ILZ" firstAttribute="top" secondItem="R8S-gD-gSM" secondAttribute="topMargin" id="mb9-q0-pnz"/>
+                    <constraint firstItem="ndk-nN-ILZ" firstAttribute="leading" secondItem="R8S-gD-gSM" secondAttribute="leadingMargin" id="uAr-1j-e8a"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="itsYouLabel" destination="RYA-u0-Chj" id="M59-oI-ygk"/>
+                <outlet property="userActionButton" destination="o6S-hf-dIt" id="cR3-N9-RZQ"/>
+                <outlet property="userImg" destination="ndk-nN-ILZ" id="zDw-V4-iuz"/>
+                <outlet property="userNic" destination="gpM-AM-7dF" id="lPS-Oa-Xim"/>
+            </connections>
+            <point key="canvasLocation" x="694" y="562"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_follow" width="40" height="27"/>
+    </resources>
+</document>

@@ -71,6 +71,7 @@ static NSDateFormatter *_dateFormatter;
                            withParameters:@{
                                                @"partyId": self.objectId,
                                                @"recipientId": self.creator.objectId,
+                                               @"pushText": [NSString stringWithFormat:@"%@ хочет пойти на вашу вечеринку", [[PSUser currentUser] username]]
                                            }
                                     block:^(id result, NSError *error) {
                                         if (!error) {
@@ -82,6 +83,7 @@ static NSDateFormatter *_dateFormatter;
                            withParameters:@{
                                                @"userId": [[PSUser currentUser] objectId],
                                                @"partyId": self.objectId,
+//                                               @"pushText": [NSString stringWithFormat:@"%@ просит приглашение", [[PSUser currentUser] username]]
                                            }
                                     block:^(id result, NSError *error) {
                                         if (!error) {

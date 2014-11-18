@@ -4,7 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ParseUI/ParseUI.h>
+#import "PSCellDelegate.h"
 
 
-@interface PSMyPartiesVC : UIViewController
+@interface PSFuturePartiesVC : UITableViewController <PSCellDelegate>
 @end

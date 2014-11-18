@@ -27,7 +27,8 @@
                        withParameters:@{
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
-                                           @"invitationId": self.objectId
+                                           @"invitationId": self.objectId,
+                                           @"pushText": [NSString stringWithFormat:@"%@ отклонил(-a) ваш запрос", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
@@ -41,7 +42,8 @@
                        withParameters:@{
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
-                                           @"invitationId": self.objectId
+                                           @"invitationId": self.objectId,
+                                           @"pushText": [NSString stringWithFormat:@"%@ одобрил(-a) ваш запрос", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
@@ -55,7 +57,8 @@
                        withParameters:@{
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
-                                           @"invitationId": self.objectId
+                                           @"invitationId": self.objectId,
+                                           @"pushText": [NSString stringWithFormat:@"%@ отклонил(-а) ваше приглашение", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
@@ -70,7 +73,8 @@
                        withParameters:@{
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
-                                           @"invitationId": self.objectId
+                                           @"invitationId": self.objectId,
+                                           @"pushText": [NSString stringWithFormat:@"%@ принял(-а) ваше приглашение", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
@@ -119,12 +123,11 @@
 }
 
 + (void)sendInviteTo:(PSUser *)recipient forParty:(PSParty *)party {
-    [PFCloud callFunctionInBackground:@"helper_SendInvite"
+    [PFCloud callFunctionInBackground:@"sendInvite"
                        withParameters:@{
-                               @"senderId": [[PSUser currentUser] objectId],
                                @"recipientId": recipient.objectId,
                                @"partyId": party.objectId,
-                               @"type": [NSNumber numberWithInt:SEND_INVITATION_TYPE],
+                               @"pushText": [NSString stringWithFormat:@"%@ пригласил вас на свою вечеринку", [[PSUser currentUser] username]]
                        }
                                 block:^(id result, NSError *error) {
 //                                        if (!error) {
@@ -139,6 +142,7 @@
                        withParameters:@{
                                @"recipientId": recipient.objectId,
                                @"partyId": party.objectId,
+                               @"pushText": [NSString stringWithFormat:@"%@ рекомендует вам вечеринку", [[PSUser currentUser] username]]
                        }
                                 block:^(id result, NSError *error) {
 //                                        if (!error) {
@@ -158,9 +162,9 @@
     if (self.type == SEND_INVITATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ приглашает вас на вечеринку %@", self.sender.username, self.party.name];
     } else if (self.type == ACCEPT_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ принял приглашение на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ принял(-a) приглашение на вечеринку %@", self.sender.username, self.party.name];
     } else if (self.type == DECLINE_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ отклонил приглашение на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ отклонил(-a) приглашение на вечеринку %@", self.sender.username, self.party.name];
     } else if (self.type == SEND_REQUEST_TYPE) {
         if ([self.recipient.objectId isEqualToString:[[PSUser currentUser] objectId]]) {
             pure = [NSString stringWithFormat:@"%@ просит приглашение на вечеринку %@", self.sender.username, self.party.name];
@@ -181,6 +185,8 @@
         pure = [NSString stringWithFormat:@"%@ отклонил ваш запрос на вечеринку %@", self.sender.username, self.party.name];
     } else if (self.type == SEND_RECOMMENDATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ предлагает сходить на вечеринку %@", self.sender.username, self.party.name];
+    } else if (self.type == STARTED_FOLLOWING) {
+        pure = [NSString stringWithFormat:@"%@ подписался на вас", self.sender.username];
     }
 
     body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
