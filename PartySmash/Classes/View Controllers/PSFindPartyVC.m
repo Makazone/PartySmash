@@ -80,6 +80,7 @@
     PFQuery *query = [PFQuery queryWithClassName:[PSParty parseClassName]];
     [query whereKey:@"geoPosition" nearGeoPoint:_userPosition];
     [query whereKey:@"date" greaterThanOrEqualTo:[[NSDate alloc] initWithTimeIntervalSinceNow:-86400]];
+    [query whereKey:@"creator" notEqualTo:[PSUser currentUser]];
     [query includeKey:@"creator"];
 
     // If no objects are loaded in memory, we look to the cache first to fill the table

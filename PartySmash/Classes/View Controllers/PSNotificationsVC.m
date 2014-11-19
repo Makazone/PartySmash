@@ -19,16 +19,8 @@ static NSString *invitaion_waits_approval = @"invitaion_waits_approval";
 static NSString *party_cellid = @"party_cellid";
 
 @implementation PSNotificationsVC {
+    BOOL _firstLoad;
     NSMutableArray *_invitations;
-}
-
-- (id)initWithCoder:(NSCoder *)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"my_parties_S"];
-    }
-
-    return self;
 }
 
 - (void)viewDidLoad {
@@ -41,22 +33,13 @@ static NSString *party_cellid = @"party_cellid";
     [[self tableView] registerNib:[UINib nibWithNibName:@"invitation_waits_approval_cell" bundle:nil] forCellReuseIdentifier:invitaion_waits_approval];
 //    [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:friend_goestoparty_cellid];
 
-    self.refreshControl = [UIRefreshControl new];
     [self.refreshControl addTarget:self action:@selector(refreshContent:) forControlEvents:UIControlEventValueChanged];
 
+    _firstLoad = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.refreshControl beginRefreshing];
     [self refreshContent:self];
-
-//    self.tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0);
 }
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    self.tableView.contentOffset = CGPointMake(0, 0);
-}
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -80,7 +63,22 @@ static NSString *party_cellid = @"party_cellid";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (_firstLoad) {
+        UILabel *messageLabel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        messageLabel.backgroundColor = [UIColor redColor];
+
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.backgroundView.layer.zPosition -= 1;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        _firstLoad = NO;
+    } else {
+        self.tableView.backgroundView = nil;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        return 1;
+    }
+
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

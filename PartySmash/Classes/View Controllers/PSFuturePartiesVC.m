@@ -8,6 +8,7 @@
 #import "PSParty.h"
 #import "PSUser.h"
 #import "PSPartyListCell.h"
+#import "PSPartyViewController.h"
 
 @interface PSFuturePartiesVC () {
 
@@ -31,22 +32,23 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"party_cell" bundle:nil] forCellReuseIdentifier:@"party_list_cell"];
 
     // Initialize the refresh control.
-    self.refreshControl = [UIRefreshControl new];
-    NSLog(@"self.refreshControl.frame.origin.y = %f", self.refreshControl.frame.origin.y);
+//    self.refreshControl = [UIRefreshControl new];
+//    NSLog(@"self.refreshControl.frame.origin.y = %f", self.refreshControl.frame.origin.y);
 //    self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
                             action:@selector(downloadObjects)
                   forControlEvents:UIControlEventValueChanged];
 
     _firstLoad = YES;
+    [self.refreshControl beginRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     if (_firstLoad) {
+//        [self.refreshControl beginRefreshing];
         [self downloadObjects];
-        _firstLoad = NO;
     }
 }
 
@@ -59,7 +61,7 @@
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-//    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 49, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)downloadObjects {
@@ -78,6 +80,7 @@
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *error) {
         if (!error) {
+            _firstLoad = NO;
             [self objectsDidLoad:result];
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
@@ -98,22 +101,18 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([self.myParties count] == 0 && self.myParties.count == 0) {
+    if (_firstLoad) {
 
         // Display a message when the table is empty
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-
-        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
-        messageLabel.textColor = [UIColor blackColor];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
-        [messageLabel sizeToFit];
+        UILabel *messageLabel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
 
         self.tableView.backgroundView = messageLabel;
+        self.tableView.backgroundView.layer.zPosition -= 1;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     } else {
+
+        self.tableView.backgroundView = nil;
 
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         return 2;
@@ -140,6 +139,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
+    partyVC.party = [self objectAtIndexPath:indexPath];
+
+    [self.navigationController pushViewController:partyVC animated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,6 +153,7 @@
     PSPartyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"party_list_cell" forIndexPath:indexPath];
 
     cell.partyBody.attributedText = [party getBodyWithKilo:-3.0];
+    NSLog(@"width = %f", cell.partyBody.frame.size.width);
 
     PFFile *userImg = party.creator.photo100;
     cell.partyCreatorPic.image = [UIImage imageNamed:@"feed_S"];
@@ -163,7 +169,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSParty *party = [self objectAtIndexPath:indexPath];
-    CGRect r = [[party getBodyWithKilo:-3.0] boundingRectWithSize:CGSizeMake(240, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    CGRect r = [[party getBodyWithKilo:-3.0] boundingRectWithSize:CGSizeMake(246, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    NSLog(@"party.getBodyWithKilo:-1 = %@", [party getBodyWithKilo:-1]);
 //    NSLog(@"r.si = %f", r.size.height);
     float result = MAX(r.size.height + 23, 65);
 

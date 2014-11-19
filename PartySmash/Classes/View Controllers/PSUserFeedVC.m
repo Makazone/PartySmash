@@ -47,7 +47,7 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
         self.parseClassName = @"Event";
         self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = NO;
+        self.paginationEnabled = YES;
         self.objectsPerPage = 25;
     }
     return self;
@@ -180,7 +180,7 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     if (self.objects.count - 1 < indexPath.row) {
         _recompute = NO;
-        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+        return 0;
     }
 
     if (!_recompute) {

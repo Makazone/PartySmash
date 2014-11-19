@@ -31,6 +31,8 @@
 
     [self addChildViewController:partiesVC];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     self.controllers = @[self.currentController, partiesVC];
 }
 
@@ -38,6 +40,7 @@
                toViewController:(UIViewController*) toController
                   withDirection:(UIViewAnimationOptions) direction
 {
+    toController.view.frame = fromController.view.frame;
     [self addChildViewController:toController];                                     //
     [fromController willMoveToParentViewController:nil];                            //
 

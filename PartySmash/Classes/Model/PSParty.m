@@ -116,11 +116,28 @@ static NSDateFormatter *_dateFormatter;
 - (NSString *)getDateStr {
     NSDate *today = [NSDate new];
     NSString *str;
+
     if ([self.date timeIntervalSinceDate:today] < 24 * 60 * 60) {
         [_dateFormatter setDateFormat:@"HH:mm"];
-        str = [NSString stringWithFormat:@"Сегодня в %@", [_dateFormatter stringFromDate:self.date]];
+
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        [components setDay:-1];
+
+        int todayDate = [calendar components:(NSDayCalendarUnit) fromDate:today].day;
+        int partiesDate = [calendar components:NSDayCalendarUnit fromDate:self.date].day;
+
+        if (todayDate == partiesDate) {
+            str = [NSString stringWithFormat:@"Сегодня в %@", [_dateFormatter stringFromDate:self.date]];
+        } else if (todayDate - partiesDate == 1) {
+            str = [NSString stringWithFormat:@"Вчера в %@", [_dateFormatter stringFromDate:self.date]];
+        } else { // TODO don't forget to delete
+            str = [NSString stringWithFormat:@"Хуйню запрогал в %@", [_dateFormatter stringFromDate:today]];
+        }
+
         [_dateFormatter setDateFormat:@"d MMMM"];
     } else str = [_dateFormatter stringFromDate:self.date];
+
     return str;
 }
 
@@ -128,7 +145,9 @@ static NSDateFormatter *_dateFormatter;
     if (self.body) { return self.body; }
 
     NSString *pure, *dateStr = [self getDateStr];
-    if (kilo < 1) {
+    if (kilo < 0) {
+        pure = [NSString stringWithFormat:@"%@\n%@", self.name, dateStr];
+    } else if (kilo < 1) {
         int meters = kilo * 1000;
         pure = [NSString stringWithFormat:@"%@\n%@ в %dм", self.name, dateStr, meters];
     } else {
@@ -161,6 +180,5 @@ static NSDateFormatter *_dateFormatter;
 
     return self.body = body;
 }
-
 
 @end

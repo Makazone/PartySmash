@@ -1232,11 +1232,10 @@
         <!--NotificationsVC-->
         <scene sceneID="3tF-ZJ-5Sf">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="cYg-0L-tLR" customClass="PSNotificationsVC" sceneMemberID="viewController">
+                <tableViewController id="cYg-0L-tLR" customClass="PSNotificationsVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="7PY-rw-YJL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="BK3-Yv-Nuz">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1262,6 +1261,9 @@
                             </segments>
                         </segmentedControl>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="c82-xf-G0g">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6p-ca-V9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1270,11 +1272,10 @@
         <!--Future PartiesVC-->
         <scene sceneID="5On-A8-8wR">
             <objects>
-                <tableViewController storyboardIdentifier="FuturePartiesVC" automaticallyAdjustsScrollViewInsets="NO" id="s2Y-Li-dQD" customClass="PSFuturePartiesVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FuturePartiesVC" id="s2Y-Li-dQD" customClass="PSFuturePartiesVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ggp-SN-CMJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OXE-Yq-5hT">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1291,6 +1292,9 @@
                     </tableView>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="455"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="NOq-aO-5hX">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C0w-SN-vrY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
