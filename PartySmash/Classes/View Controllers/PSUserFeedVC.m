@@ -13,7 +13,7 @@
 #import "PSAuthService.h"
 #import "PSEventNewPartyCell.h"
 #import "PSParty.h"
-#import "PSEventFriendGoesCell.h"
+#import "PSEventCell.h"
 #import "PSEvent.h"
 #import "PSPartyViewController.h"
 
@@ -22,22 +22,15 @@
 }
 
 @property (nonatomic) NSMutableArray *atribitedStrings;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadMoreControl;
-@property (weak, nonatomic) IBOutlet UIView *loadMoreView;
+@property (nonatomic) NSMutableDictionary *offscreenCells;
 
 @end
 
-static NSString *newparty_cellid = @"newparty_event_cell";
-static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
+static NSString *event_cell_id = @"event_cell_id";
 
 @implementation PSUserFeedVC {
     int _selectedRow;
     BOOL _redirected;
-
-    NSMutableArray *_cellHeights;
-    BOOL _recompute;
-
-    BOOL _loadMoreStatus;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -49,6 +42,8 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = YES;
         self.objectsPerPage = 25;
+
+        self.offscreenCells = [NSMutableDictionary new];
     }
     return self;
 }
@@ -85,17 +80,9 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
 
     NSLog(@"%s", sel_getName(_cmd));
 
-    [[self tableView] registerNib:[UINib nibWithNibName:@"event_newparty_tablecell" bundle:nil] forCellReuseIdentifier:newparty_cellid];
-    [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:friend_goestoparty_cellid];
+    [self.tableView registerClass:[PSEventCell class] forCellReuseIdentifier:event_cell_id];
 
-    _cellHeights = [NSMutableArray new];
-    _recompute = YES;
-
-    _loadMoreStatus = NO;
-//    [self.tableView addSubview:_loadMoreControl];
-    self.loadMoreView.hidden = YES;
-
-//    [[PSUser currentUser] clearFollow];
+    self.tableView.estimatedRowHeight = 87.2;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,7 +93,7 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
         [self presentViewController:loginViewController animated:YES completion:^{
             _redirected = YES;
-//            [self loadObjects];
+            [self loadObjects];
         }];
     }
 
@@ -124,8 +111,6 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
     if (![PSAuthService isUserLoggedIn]) {
         return nil;
     }
-
-    _recompute = YES;
 
     NSLog(@"%s", sel_getName(_cmd));
     PFRelation *relation = [[PSUser currentUser] getFollowingRelation];
@@ -148,70 +133,102 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
     return query;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
 {
+//    [self setRecompute:NO];
     PSEvent *event = object;
 
-    PSEventFriendGoesCell *cell = [tableView dequeueReusableCellWithIdentifier:friend_goestoparty_cellid forIndexPath:indexPath];
+    PSEventCell *cell = [tableView dequeueReusableCellWithIdentifier:event_cell_id forIndexPath:indexPath];
 
+    // Configure the cell for this indexPath
     cell.body.attributedText = [event getEventTextBody];
-    cell.body.userInteractionEnabled = NO;
-
-    // TODO optimize attributed string creation
-//    cell.timePassed.text = [event getTimePassed];
 
     PFFile *userImg = event.owner.photo100;
-    cell.userImg.image = [UIImage imageNamed:@"feed_S"];
-    cell.userImg.file = userImg;
+    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+    cell.imageView.file = userImg;
 
-    cell.userImg.layer.cornerRadius = 30.0f;
-//    cell.creatorImage.layer.borderWidth = 1.0f;
-//    cell.creatorImage.layer.borderColor = [UIColor grayColor].CGColor;
-    cell.userImg.clipsToBounds = YES;
+//    cell.imageView.layer.cornerRadius = 30.0f;
+//    cell.imageView.clipsToBounds = YES;
 
-    [cell.userImg loadInBackground];
+//    [cell.userImg loadInBackground];
+
+    // [cell updateFonts];
+
+    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (self.objects.count - 1 < indexPath.row) {
-        _recompute = NO;
-        return 0;
-    }
-
-    if (!_recompute) {
-        return [_cellHeights[indexPath.row] floatValue];
-    }
-
-    NSLog(@"%s", sel_getName(_cmd));
-//    if (self.atribitedStrings.count <= indexPath.row || ![self.atribitedStrings objectAtIndex:indexPath.row]) {
-        PSEvent *event = [self objectAtIndexPath:indexPath];
-        [self.atribitedStrings insertObject:[event getEventTextBody] atIndex:indexPath.row];
+//    NSLog(@"self.objects.count = %u", self.objects.count);
+//    NSLog(@"self.numberOfComputedHeights = %i", self.numberOfComputedHeights);
+//    NSLog(@"indexPath = %d", indexPath.row);
+//    if (self.cellHeights.count > indexPath.row) {
+//        return [self.cellHeights[indexPath.row] floatValue];
 //    }
 
-    CGRect r = [[self.atribitedStrings objectAtIndex:indexPath.row] boundingRectWithSize:CGSizeMake(225, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-//    NSLog(@"(%d) r.size.height = %f", indexPath.row, r.size.height);
+    // This project has only one cell identifier, but if you are have more than one, this is the time
+    // to figure out which reuse identifier should be used for the cell at this index path.
+    NSString *reuseIdentifier = event_cell_id;
 
-    NSLog(@"_cellHeights.count = %u", _cellHeights.count);
+    // Use the dictionary of offscreen cells to get a cell for the reuse identifier, creating a cell and storing
+    // it in the dictionary if one hasn't already been added for the reuse identifier.
+    // WARNING: Don't call the table view's dequeueReusableCellWithIdentifier: method here because this will result
+    // in a memory leak as the cell is created but never returned from the tableView:cellForRowAtIndexPath: method!
+    PSEventCell *cell = (self.offscreenCells)[reuseIdentifier];
+    if (!cell) {
+//        cell = (PSEventCell *)[[NSBundle mainBundle] loadNibNamed:@"event_friendgoes_tablecell" owner:self options:nil][0];//[[PSEventCell alloc] init];
+        cell = [PSEventCell new];
+        cell.translatesAutoresizingMaskIntoConstraints = NO;
+        (self.offscreenCells)[reuseIdentifier] = cell;
+    }
 
-    float result = MAX(ceil(r.size.height) + 20, 85);
-    [_cellHeights insertObject:@(result) atIndex:indexPath.row];
-    return result;
-//    if (r.size.height <= 75) {
-//        return 85;
-//    } else return r.size.height + 30;
+    // Configure the cell for this indexPath
+    // [cell updateFonts];
+    PSEvent *event = [self objectAtIndexPath:indexPath];
+    cell.body.attributedText = [event getEventTextBody];
+
+    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+
+    // The cell's width must be set to the same size it will end up at once it is in the table view.
+    // This is important so that we'll get the correct height for different table view widths, since our cell's
+    // height depends on its width due to the multi-line UILabel word wrapping. Don't need to do this above in
+    // -[tableView:cellForRowAtIndexPath:] because it happens automatically when the cell is used in the table view.
+    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    // NOTE: if you are displaying a section index (e.g. alphabet along the right side of the table view), or
+    // if you are using a grouped table view style where cells have insets to the edges of the table view,
+    // you'll need to adjust the cell.bounds.size.width to be smaller than the full width of the table view we just
+    // set it to above. See http://stackoverflow.com/questions/3647242 for discussion on the section index width.
+
+    // Do the layout pass on the cell, which will calculate the frames for all the views based on the constraints
+    // (Note that the preferredMaxLayoutWidth is set on multi-line UILabels inside the -[layoutSubviews] method
+    // in the UITableViewCell subclass
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+
+    // Get the actual height required for the cell
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+
+    // Add an extra point to the height to account for the cell separator, which is added between the bottom
+    // of the cell's contentView and the bottom of the table view cell.
+    height += 1;
+
+    (self.cellHeights)[indexPath.row] = @(height);
+//    self.numberOfComputedHeights += 1;
+//    NSLog(@"height = %f", height);
+
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    if (self.objects.count - 1 < indexPath.row) {
-        return [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    }
 
     _selectedRow = indexPath.row;
     [self performSegueWithIdentifier:@"partyScreenSegueId" sender:self];
@@ -225,41 +242,6 @@ static NSString *friend_goestoparty_cellid = @"friend_goestoparty_cell";
         destVC.party = event.party;
     }
 }
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    float currentOffset = scrollView.contentOffset.y;
-
-    if (currentOffset <= 0) { return; }
-
-    NSLog(@"currentOffset = %f", currentOffset);
-
-    float maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-    float deltaOffset   = maximumOffset - currentOffset;
-
-    if (deltaOffset <= 0) {
-        [self loadMoreItems:self];
-    }
-}
-
-- (void)loadMoreItems:(id)sender {
-    if (!self.loadMoreControl.isAnimating) {
-//        _loadMoreStatus = YES;
-        [self.loadMoreControl startAnimating];
-        [self.loadMoreView setHidden:NO];
-        NSLog(@"Loading next page");
-        [self loadNextPage];
-    }
-}
-
-
-- (void)objectsDidLoad:(NSError *)error {
-    [super objectsDidLoad:error];
-    [self.loadMoreControl stopAnimating];
-//    _loadMoreStatus = NO;
-//    [_loadMoreControl endRefreshing];
-    [self.loadMoreView setHidden:YES];
-}
-
 
 #pragma mark - Getters & Setters
 

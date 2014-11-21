@@ -105,18 +105,17 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
     PFQuery *query = [PSUser query];
     [query whereKey:@"vkId" equalTo:vkId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *result, NSError *error) {
+        [_loginButton removeIndicator];
         if (!error) {
             NSString *username = [(PSUser *) result.firstObject username];
             NSLog(@"username = %@", username);
 
             if (!username) {
-                [_loginButton removeIndicator];
                 [self performSegueWithIdentifier:CREATE_NEW_USER_SEGUE sender:self];
                 return;
             }
 
             [PSUser logInWithUsernameInBackground:username password:@"password" block:^(PFUser *user, NSError *error) {
-                [_loginButton removeIndicator];
                 if (error) {
                     [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"LoginVC.error.title", @"Alert view's title when log in error occuried")
                                                 message:NSLocalizedString(@"LoginVC.error.message check your internet connection", @"Alert view's message when login error occuried")

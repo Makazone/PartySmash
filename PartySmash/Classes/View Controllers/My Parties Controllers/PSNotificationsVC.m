@@ -23,6 +23,19 @@ static NSString *party_cellid = @"party_cellid";
     NSMutableArray *_invitations;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"feed_S"];
+
+        self.parseClassName = @"Event";
+        self.pullToRefreshEnabled = YES;
+        self.paginationEnabled = YES;
+        self.objectsPerPage = 25;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -31,14 +44,14 @@ static NSString *party_cellid = @"party_cellid";
 
     [[self tableView] registerNib:[UINib nibWithNibName:@"invitaion_requeres_answer_cell" bundle:nil] forCellReuseIdentifier:invitaion_requires_answer_cellid];
     [[self tableView] registerNib:[UINib nibWithNibName:@"invitation_waits_approval_cell" bundle:nil] forCellReuseIdentifier:invitaion_waits_approval];
-//    [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:friend_goestoparty_cellid];
+//    [[self tableView] registerNib:[UINib nibWithNibName:@"event_friendgoes_tablecell" bundle:nil] forCellReuseIdentifier:event_cell_id];
 
-    [self.refreshControl addTarget:self action:@selector(refreshContent:) forControlEvents:UIControlEventValueChanged];
+//    [self.refreshControl addTarget:self action:@selector(refreshContent:) forControlEvents:UIControlEventValueChanged];
 
-    _firstLoad = YES;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.refreshControl beginRefreshing];
-    [self refreshContent:self];
+//    _firstLoad = YES;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.refreshControl beginRefreshing];
+//    [self refreshContent:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,34 +68,55 @@ static NSString *party_cellid = @"party_cellid";
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return _invitations.count;
-    }
-    return 0;
+- (PFQuery *)queryForTable {
+    PFQuery *generalQuery = [PFQuery queryWithClassName:[PSInvitation parseClassName]];
+    [generalQuery whereKey:@"recipient" equalTo:[PSUser currentUser]];
+
+    // Invitaion to display that user is waiting for an approval
+    PFQuery *userRequestedQuery = [PFQuery queryWithClassName:[PSInvitation parseClassName]];
+    [userRequestedQuery whereKey:@"sender" equalTo:[PSUser currentUser]];
+    [userRequestedQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:SEND_REQUEST_TYPE]];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[generalQuery, userRequestedQuery]];
+    [query includeKey:@"sender"];
+    [query includeKey:@"party"];
+    [query includeKey:@"party.creator"];
+    [query includeKey:@"recipient"];
+
+    [query orderByDescending:@"createdAt"];
+
+    return query;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_firstLoad) {
-        UILabel *messageLabel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        messageLabel.backgroundColor = [UIColor redColor];
 
-        self.tableView.backgroundView = messageLabel;
-        self.tableView.backgroundView.layer.zPosition -= 1;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    if (section == 0) {
+//        return _invitations.count;
+//    }
+//    return 0;
+//}
 
-        _firstLoad = NO;
-    } else {
-        self.tableView.backgroundView = nil;
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        return 1;
-    }
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    if (_firstLoad) {
+//        UILabel *messageLabel = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//        messageLabel.backgroundColor = [UIColor redColor];
+//
+//        self.tableView.backgroundView = messageLabel;
+//        self.tableView.backgroundView.layer.zPosition -= 1;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//
+//        _firstLoad = NO;
+//    } else {
+//        self.tableView.backgroundView = nil;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        return 1;
+//    }
+//
+//    return 0;
+//}
 
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PSInvitation *invitation = [_invitations objectAtIndex:indexPath.row];
+- (PFTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
+    PSInvitation *invitation = object;
     [invitation removePartyFromDefaults];
 
     NSLog(@"indexPath = %d", indexPath.row);
@@ -199,18 +233,18 @@ static NSString *party_cellid = @"party_cellid";
     [self.tableView endUpdates];
 }
 
-- (void)refreshContent:(id)sender {
-    [PSInvitation loadInvitationsInBackgroundWithCompletion:^(NSArray *invitations, NSError *error) {
-        if (!error) {
-            NSLog(@"invitations = %d", invitations.count);
-            _invitations = [[NSMutableArray alloc] initWithArray:invitations];
-            [self.refreshControl endRefreshing];
-            [self.tableView reloadData];
-        } else {
-            NSLog(@"ERROR");
-            NSLog(@"error = %@", error);
-        }
-    }];
-}
+//- (void)refreshContent:(id)sender {
+//    [PSInvitation loadInvitationsInBackgroundWithCompletion:^(NSArray *invitations, NSError *error) {
+//        if (!error) {
+//            NSLog(@"invitations = %d", invitations.count);
+//            _invitations = [[NSMutableArray alloc] initWithArray:invitations];
+//            [self.refreshControl endRefreshing];
+//            [self.tableView reloadData];
+//        } else {
+//            NSLog(@"ERROR");
+//            NSLog(@"error = %@", error);
+//        }
+//    }];
+//}
 
 @end

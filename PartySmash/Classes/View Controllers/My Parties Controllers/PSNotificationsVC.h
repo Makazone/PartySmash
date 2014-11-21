@@ -5,7 +5,8 @@
 
 #import <Foundation/Foundation.h>
 #import "PSInvitationCell.h"
+#import "PSQueryTableViewController.h"
 
 
-@interface PSNotificationsVC : UITableViewController <PSCellDelegate>
+@interface PSNotificationsVC : PSQueryTableViewController <PSCellDelegate>
 @end
