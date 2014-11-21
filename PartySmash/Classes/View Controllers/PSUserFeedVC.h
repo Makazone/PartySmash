@@ -10,8 +10,9 @@
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import "PSQueryTableViewController.h"
 
 //@interface PSUserFeedVC : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-@interface PSUserFeedVC : PFQueryTableViewController <UIScrollViewDelegate>
+@interface PSUserFeedVC : PSQueryTableViewController <UIScrollViewDelegate>
 
 @end

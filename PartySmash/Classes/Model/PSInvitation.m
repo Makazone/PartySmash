@@ -127,7 +127,7 @@
                        withParameters:@{
                                @"recipientId": recipient.objectId,
                                @"partyId": party.objectId,
-                               @"pushText": [NSString stringWithFormat:@"%@ пригласил вас на свою вечеринку", [[PSUser currentUser] username]]
+                               @"pushText": [NSString stringWithFormat:@"%@ приглашает вас на свою вечеринку", [[PSUser currentUser] username]]
                        }
                                 block:^(id result, NSError *error) {
 //                                        if (!error) {

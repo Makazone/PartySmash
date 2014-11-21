@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import "ParseUI/PFQueryTableViewController.h"
+#import "PSQueryTableViewController.h"
 
-@interface PSFindPartyVC : PFQueryTableViewController
+@interface PSFindPartyVC : PSQueryTableViewController
 @end

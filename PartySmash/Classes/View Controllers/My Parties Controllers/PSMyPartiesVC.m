@@ -21,6 +21,19 @@
 
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"my_parties_S"];
+
+//        self.parseClassName = @"Event";
+//        self.pullToRefreshEnabled = YES;
+//        self.paginationEnabled = YES;
+//        self.objectsPerPage = 25;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.segmentControl addTarget:self action:@selector(changeVC:) forControlEvents:UIControlEventValueChanged];
