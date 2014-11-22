@@ -11,17 +11,15 @@
 #import "PSUser.h"
 #import "PSParty.h"
 #import "PSEvent.h"
-#import "PSAuthService.h"
-#import "PSInvitation.h"
+#import "PSNotification.h"
 #import <Crashlytics/Crashlytics.h>
-#import <Parse/Parse.h>
 #import <GoogleMaps/GoogleMaps.h>
 
 @implementation PSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[Crashlytics sharedInstance] setDebugMode:YES];
+    [[Crashlytics sharedInstance] setDebugMode:NO];
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
 
     [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
@@ -29,7 +27,7 @@
     [PSUser registerSubclass];
     [PSParty registerSubclass];
     [PSEvent registerSubclass];
-    [PSInvitation registerSubclass];
+    [PSNotification registerSubclass];
 
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];

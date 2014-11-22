@@ -7,7 +7,7 @@
 #import "PSParty.h"
 #import "Parse/PFObject+Subclass.h";
 #import "PSUser.h"
-#import "PSInvitation.h"
+#import "PSNotification.h"
 
 static NSDateFormatter *_dateFormatter;
 
@@ -103,13 +103,13 @@ static NSDateFormatter *_dateFormatter;
 
 - (void)recommendToFriends:(NSArray *)friends {
     for (int i = 0; i < friends.count; i++) {
-        [PSInvitation sendRecommendationTo:friends[i] forParty:self];
+        [PSNotification sendRecommendationTo:friends[i] forParty:self];
     }
 }
 
 - (void)inviteFriends:(NSArray *)friends {
     for (int i = 0; i < friends.count; i++) {
-        [PSInvitation sendInviteTo:friends[i] forParty:self];
+        [PSNotification sendInviteTo:friends[i] forParty:self];
     }
 }
 
@@ -117,7 +117,10 @@ static NSDateFormatter *_dateFormatter;
     NSDate *today = [NSDate new];
     NSString *str;
 
-    if ([self.date timeIntervalSinceDate:today] < 24 * 60 * 60) {
+    NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
+
+    if (abs((int)[self.date timeIntervalSinceDate:today]) < 24 * 60 * 60) {
+        NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
         [_dateFormatter setDateFormat:@"HH:mm"];
 
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -127,12 +130,14 @@ static NSDateFormatter *_dateFormatter;
         int todayDate = [calendar components:(NSDayCalendarUnit) fromDate:today].day;
         int partiesDate = [calendar components:NSDayCalendarUnit fromDate:self.date].day;
 
+        NSLog(@"todayDate - partiesDate = %i", todayDate - partiesDate);
+
         if (todayDate == partiesDate) {
             str = [NSString stringWithFormat:@"Сегодня в %@", [_dateFormatter stringFromDate:self.date]];
         } else if (todayDate - partiesDate == 1) {
             str = [NSString stringWithFormat:@"Вчера в %@", [_dateFormatter stringFromDate:self.date]];
-        } else { // TODO don't forget to delete
-            str = [NSString stringWithFormat:@"Хуйню запрогал в %@", [_dateFormatter stringFromDate:today]];
+        } else if (partiesDate - todayDate == 1) { // TODO don't forget to delete
+            str = [NSString stringWithFormat:@"Завтра в %@", [_dateFormatter stringFromDate:self.date]];
         }
 
         [_dateFormatter setDateFormat:@"d MMMM"];

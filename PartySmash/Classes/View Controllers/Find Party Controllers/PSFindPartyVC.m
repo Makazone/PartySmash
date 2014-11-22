@@ -9,12 +9,12 @@
 #import "PSParty.h"
 #import "PSPartyListCell.h"
 #import "PSPartyViewController.h"
-
+#import "PSAttributedDrawer.h"
 
 @implementation PSFindPartyVC {
     PFGeoPoint *_userPosition;
 
-    NSMutableArray *_cellHeights;
+    NSMutableDictionary *_offscreenCells;
     BOOL _recompute;
 }
 
@@ -27,6 +27,8 @@
         self.pullToRefreshEnabled = YES;
         self.paginationEnabled = YES;
         self.objectsPerPage = 25;
+
+        _offscreenCells = [NSMutableDictionary new];
     }
 
     return self;
@@ -47,9 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[UINib nibWithNibName:@"party_cell" bundle:nil] forCellReuseIdentifier:@"party_list_cell"];
+    [self.tableView registerClass:[PSPartyListCell class] forCellReuseIdentifier:@"party_list_cell"];
 
-    _cellHeights = [NSMutableArray new];
     _recompute = NO;
 
     self.searchDisplayController.delegate = self.searchDisplayController;
@@ -58,6 +59,8 @@
     self.searchDisplayController.searchBar.delegate = self.searchDisplayController;
 
     [self.searchDisplayController.searchResultsTableView registerNib:[UINib nibWithNibName:@"user_cell" bundle:nil] forCellReuseIdentifier:@"user_cell"];
+
+
 }
 
 - (void)loadObjects {
@@ -102,39 +105,44 @@
 
     PSPartyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"party_list_cell" forIndexPath:indexPath];
 
-    cell.partyBody.attributedText = [party getBodyWithKilo:-3.0];
+    cell.body.attributedString = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
-    cell.partyCreatorPic.image = [UIImage imageNamed:@"feed_S"];
-    cell.partyCreatorPic.file = userImg;
+    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+    cell.imageView.file = userImg;
 
-    cell.partyCreatorPic.layer.cornerRadius = 25.0f;
-    cell.partyCreatorPic.clipsToBounds = YES;
-
-    [cell.partyCreatorPic loadInBackground];
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.objects.count - 1 < indexPath.row) {
-        _recompute = NO;
-        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
-    }
+    NSString *reuseId = @"party_list_cell";
 
-    if (!_recompute && [_cellHeights count] > indexPath.row) {
-        return [[_cellHeights objectAtIndex:indexPath.row] floatValue];
+    PSPartyListCell *cell = _offscreenCells[reuseId];
+    if (!cell) {
+        cell = [PSPartyListCell new];
+        cell.translatesAutoresizingMaskIntoConstraints = NO;
+        _offscreenCells[reuseId] = cell;
     }
-
-    NSLog(@"_cellHeights.count = %u", _cellHeights.count);
 
     PSParty *party = [self objectAtIndexPath:indexPath];
-    CGRect r = [[party getBodyWithKilo:[party.geoPosition distanceInKilometersTo:_userPosition]] boundingRectWithSize:CGSizeMake(240, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    NSLog(@"r.si = %f", r.size.height);
-    float result = MAX(r.size.height + 23, 65);
 
-    [_cellHeights insertObject:@(result) atIndex:indexPath.row];
-    return result;
+    cell.body.attributedString = [party getBodyWithKilo:[party.geoPosition distanceInKilometersTo:_userPosition]];
+
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+
+    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    height += 1;
+
+    return height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

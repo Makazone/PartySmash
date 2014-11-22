@@ -16,6 +16,9 @@
 #import "PSEventCell.h"
 #import "PSEvent.h"
 #import "PSPartyViewController.h"
+#import "PSAttributedDrawer.h"
+#import "PSNotification.h"
+#import "PSNotificationFollowCell.h"
 
 @interface PSUserFeedVC () {
     
@@ -82,7 +85,7 @@ static NSString *event_cell_id = @"event_cell_id";
 
     [self.tableView registerClass:[PSEventCell class] forCellReuseIdentifier:event_cell_id];
 
-    self.tableView.estimatedRowHeight = 87.2;
+//    self.tableView.estimatedRowHeight = 87.2;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,11 +96,12 @@ static NSString *event_cell_id = @"event_cell_id";
         UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
         [self presentViewController:loginViewController animated:YES completion:^{
             _redirected = YES;
-            [self loadObjects];
+//            [self loadObjects];
         }];
     }
 
     if (_redirected) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [self loadObjects];
         _redirected = NO;
     }
@@ -133,7 +137,6 @@ static NSString *event_cell_id = @"event_cell_id";
     return query;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
@@ -144,16 +147,12 @@ static NSString *event_cell_id = @"event_cell_id";
     PSEventCell *cell = [tableView dequeueReusableCellWithIdentifier:event_cell_id forIndexPath:indexPath];
 
     // Configure the cell for this indexPath
-    cell.body.attributedText = [event getEventTextBody];
+    cell.body.attributedString = [event getEventTextBody];
 
     PFFile *userImg = event.owner.photo100;
     cell.imageView.image = [UIImage imageNamed:@"feed_S"];
-    cell.imageView.file = userImg;
-
-//    cell.imageView.layer.cornerRadius = 30.0f;
-//    cell.imageView.clipsToBounds = YES;
-
-//    [cell.userImg loadInBackground];
+//    cell.imageView.file = userImg;
+    cell.imageView.file = event.owner.photo100;
 
     // [cell updateFonts];
 
@@ -161,17 +160,13 @@ static NSString *event_cell_id = @"event_cell_id";
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
 
+//    [cell setNeedsLayout];
+//    [cell layoutIfNeeded];
+
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"self.objects.count = %u", self.objects.count);
-//    NSLog(@"self.numberOfComputedHeights = %i", self.numberOfComputedHeights);
-//    NSLog(@"indexPath = %d", indexPath.row);
-//    if (self.cellHeights.count > indexPath.row) {
-//        return [self.cellHeights[indexPath.row] floatValue];
-//    }
-
     // This project has only one cell identifier, but if you are have more than one, this is the time
     // to figure out which reuse identifier should be used for the cell at this index path.
     NSString *reuseIdentifier = event_cell_id;
@@ -191,7 +186,7 @@ static NSString *event_cell_id = @"event_cell_id";
     // Configure the cell for this indexPath
     // [cell updateFonts];
     PSEvent *event = [self objectAtIndexPath:indexPath];
-    cell.body.attributedText = [event getEventTextBody];
+    cell.body.attributedString = [event getEventTextBody];
 
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];
@@ -220,7 +215,7 @@ static NSString *event_cell_id = @"event_cell_id";
     // of the cell's contentView and the bottom of the table view cell.
     height += 1;
 
-    (self.cellHeights)[indexPath.row] = @(height);
+//    (self.cellHeights)[indexPath.row] = @(height);
 //    self.numberOfComputedHeights += 1;
 //    NSLog(@"height = %f", height);
 

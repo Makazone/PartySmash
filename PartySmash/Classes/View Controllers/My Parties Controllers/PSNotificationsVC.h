@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PSInvitationCell.h"
+#import "PSNotificationCell.h"
 #import "PSQueryTableViewController.h"
 
 

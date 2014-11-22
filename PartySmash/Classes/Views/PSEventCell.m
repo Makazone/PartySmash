@@ -1,4 +1,5 @@
 #import "PSEventCell.h"
+#import "PSAttributedDrawer.h"
 
 #define kLabelHorizontalInsets      15.0f
 #define kLabelVerticalInsets        10.0f
@@ -17,22 +18,16 @@
     NSLog(@"%s", sel_getName(_cmd));
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.body = [UILabel new];
+        self.body = [PSAttributedDrawer new];
         self.body.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.body setLineBreakMode:NSLineBreakByTruncatingTail];
-        [self.body setNumberOfLines:0];
 
-//        self.userImg = [PFImageView new];
-//        self.userImg.translatesAutoresizingMaskIntoConstraints = NO;
         self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
 
         [self.contentView addSubview:self.body];
-//        [self.contentView addSubview:self.userImg];
 
         // Optimization tricks
         self.contentView.backgroundColor = [UIColor whiteColor];
         self.body.backgroundColor = [UIColor whiteColor];
-//        self.userImg.backgroundColor = [UIColor whiteColor];
         self.imageView.backgroundColor = [UIColor whiteColor];
 
 //        [self updateFonts];
@@ -50,11 +45,6 @@
         // As a fix, you can temporarily increase the size of the cell's contentView so that this does not occur using code similar to the line below.
         // See here for further discussion: https://github.com/Alex311/TableCellWithAutoLayout/commit/bde387b27e33605eeac3465475d2f2ff9775f163#commitcomment-4633188
 //        self.contentView.bounds = CGRectMake(0.0f, 0.0f, 99999.0f, 99999.0f);
-
-        NSLog(@"self.body.translatesAutoresizingMaskIntoConstraints = %d", self.body.translatesAutoresizingMaskIntoConstraints);
-        NSLog(@"self.body.translatesAutoresizingMaskIntoConstraints = %d", self.userImg.translatesAutoresizingMaskIntoConstraints);
-
-        NSLog(@"self.body.numberOfLines = %i", self.body.numberOfLines);
 
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[userPic(60)]-10-[body]-10-|" options:0 metrics:nil views:viewsDictionary]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userPic(60)]->=8-|" options:0 metrics:nil views:viewsDictionary]];
@@ -81,8 +71,6 @@
 //        [self.bodyLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:kLabelVerticalInsets];
 
         self.didSetupConstraints = YES;
-
-        NSLog(@"%s", sel_getName(_cmd));
     }
 
     [super updateConstraints];

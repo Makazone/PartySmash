@@ -79,6 +79,12 @@ Parse.Cloud.define("helper_SendInvite", function(request, response) {
     invite.set("sender", sender);
     invite.set("recipient", recipient);
 
+    var type = request.params.type;
+    console.log("TYPE === " + type);
+    if (type == SEND_REQUEST_TYPE || type == SEND_INVITATION_TYPE) {
+        invite.set("didRespond", false);
+    } else invite.set("didRespond", true);
+
     if (request.params.partyId) {
         invite.set("party", party);
     } else {
@@ -94,6 +100,28 @@ Parse.Cloud.define("helper_SendInvite", function(request, response) {
             response.error(error);
         }
     );
+});
+
+/**
+ * Changes invitation's didRespond to true
+ * @param invitationId
+ */
+Parse.Cloud.define("helper_UpdateInvitation", function(request, response) {
+    var Invitation = Parse.Object.extend("Invitation");
+    var invitation = new Invitation();
+    invitation.id  = request.params.invitationId;
+    invitation.set("didRespond", true);
+
+    invitation.save(null, {
+        success: function(myObject) {
+            console.log("invitation " + myObject + " updated");
+            response.success("went well");
+        },
+        error: function(error) {
+            console.log("object " + myObject + " error = " + error);
+            response.error("smth wrong");
+        }
+    });
 });
 
 /**
@@ -209,10 +237,9 @@ Parse.Cloud.define("sendInvite", function(request, response) {
 Parse.Cloud.define("acceptInvitation", function(request, response) {
     console.log(request.params);
 
-    Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
+    Parse.Cloud.run("helper_UpdateInvitation", {"invitationId": request.params.invitationId}, {
         success: function(myObject) {
             console.log("invitation " + myObject + " destroyed");
-
             Parse.Cloud.run("helper_AddToInvitedList", {"userId": request.user.id, "partyId": request.params.partyId}, {
 //            Parse.Cloud.run("helper_AddToInvitedList", {"userId": request.params.userId, "partyId": request.params.partyId}, {
                 success: function(party) {
@@ -271,7 +298,7 @@ Parse.Cloud.define("acceptInvitation", function(request, response) {
 Parse.Cloud.define("declineInvitation", function(request, response) {
     console.log(request.params);
 
-    Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
+    Parse.Cloud.run("helper_UpdateInvitation", {"invitationId": request.params.invitationId}, {
         success: function (myObject) {
             console.log("invitation " + myObject + " destroyed");
 
@@ -368,7 +395,7 @@ Parse.Cloud.define("sendRequest", function(request, response) {
  * @param pushText
  */
 Parse.Cloud.define("acceptRequest", function(request, response) {
-    Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
+    Parse.Cloud.run("helper_UpdateInvitation", {"invitationId": request.params.invitationId}, {
         success: function(myObject) {
             console.log("invitation " + myObject + " destroyed");
 
@@ -426,7 +453,7 @@ Parse.Cloud.define("acceptRequest", function(request, response) {
  * @param pushText
  */
 Parse.Cloud.define("declineRequest", function(request, response) {
-    Parse.Cloud.run("helper_DeleteInvitation", {"invitationId": request.params.invitationId}, {
+    Parse.Cloud.run("helper_UpdateInvitation", {"invitationId": request.params.invitationId}, {
         success: function (myObject) {
             console.log("invitation " + myObject + " destroyed");
 
@@ -523,12 +550,12 @@ Parse.Cloud.afterSave("Party", function(request) {
         var Event = Parse.Object.extend("Event");
         var event = new Event();
 
-        console.log("owner " + request.user);
-//        console.log("owner " + request.object.get("creator"));
+//        console.log("owner " + request.user);
+        console.log("owner " + request.object.get("creator"));
         console.log("party " + request.object);
 
         event.set("type", 0);
-        event.set("owner", request.user);
+        event.set("owner", request.object.get("creator"));
         event.set("party", request.object);
 
         event.save();
@@ -903,7 +930,7 @@ Parse.Cloud.define("createTestParty", function(request, response) {
     var position = new Parse.GeoPoint({latitude: request.params.lat, longitude: request.params.lon});
     party.set("geoPosition", position);
 
-    party.set("isPrivate", false);
+    party.set("isPrivate", true);
     party.set("generalDescription", "This party was created automatically.");
     party.set("price", "100 000 000$");
     party.set("capacity", 13);

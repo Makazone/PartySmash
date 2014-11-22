@@ -3,12 +3,12 @@
 // Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
-#import "PSInvitation.h"
+#import "PSNotification.h"
 #import "PSParty.h"
 #import "PSUser.h"
 
 
-@implementation PSInvitation {
+@implementation PSNotification {
 
     NSAttributedString *_body;
 }
@@ -17,6 +17,7 @@
 @dynamic recipient;
 @dynamic sender;
 @dynamic party;
+@dynamic didRespond;
 
 + (NSString *)parseClassName {
     return @"Invitation";
@@ -97,11 +98,11 @@
 
 
 + (void)loadInvitationsInBackgroundWithCompletion:(void (^)(NSArray *, NSError *))completion {
-    PFQuery *generalQuery = [PFQuery queryWithClassName:[PSInvitation parseClassName]];
+    PFQuery *generalQuery = [PFQuery queryWithClassName:[PSNotification parseClassName]];
     [generalQuery whereKey:@"recipient" equalTo:[PSUser currentUser]];
 
     // Invitaion to display that user is waiting for an approval
-    PFQuery *userRequestedQuery = [PFQuery queryWithClassName:[PSInvitation parseClassName]];
+    PFQuery *userRequestedQuery = [PFQuery queryWithClassName:[PSNotification parseClassName]];
     [userRequestedQuery whereKey:@"sender" equalTo:[PSUser currentUser]];
     [userRequestedQuery whereKey:@"type" equalTo:[NSNumber numberWithInt:SEND_REQUEST_TYPE]];
 
@@ -162,38 +163,39 @@
     if (self.type == SEND_INVITATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ приглашает вас на вечеринку %@", self.sender.username, self.party.name];
     } else if (self.type == ACCEPT_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ принял(-a) приглашение на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ принял(-a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == DECLINE_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ отклонил(-a) приглашение на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ отклонил(-a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == SEND_REQUEST_TYPE) {
         if ([self.recipient.objectId isEqualToString:[[PSUser currentUser] objectId]]) {
-            pure = [NSString stringWithFormat:@"%@ просит приглашение на вечеринку %@", self.sender.username, self.party.name];
+            pure = [NSString stringWithFormat:@"%@ просит приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
         } else {
-            pure = [NSString stringWithFormat:@"%@\n\nприглашение запрошено", self.party.name];
+            pure = [NSString stringWithFormat:@"Вы попросили приглашение на вечеринку \"%@\"", self.party.name];
 
-            body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
-            [body addAttributes:@{
-                    NSForegroundColorAttributeName : [UIColor orangeColor],
-                    NSFontAttributeName : [UIFont systemFontOfSize:14]
-            }             range:[pure rangeOfString:@"приглашение запрошено"]];
+            body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+//            [body addAttributes:@{
+//                    NSForegroundColorAttributeName : [UIColor orangeColor],
+//                    NSFontAttributeName : [UIFont systemFontOfSize:14]
+//            }             range:[pure rangeOfString:@"приглашение запрошено"]];
 
-            return body;
+            return _body = body;
         }
     } else if (self.type == ACCEPT_REQUEST_TYPE) {
-        pure = [NSString stringWithFormat:@"Вас включили в список приглашенны на вечеринку %@", self.party.name];
+        pure = [NSString stringWithFormat:@"Вы приглашены на вечеринку \"%@\"", self.party.name];
     } else if (self.type == DECLINE_REQUEST_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ отклонил ваш запрос на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ отклонил ваш запрос на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == SEND_RECOMMENDATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ предлагает сходить на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ предлагает сходить на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == STARTED_FOLLOWING) {
-        pure = [NSString stringWithFormat:@"%@ подписался на вас", self.sender.username];
+        pure = [NSString stringWithFormat:@"%@ подписался на вас.", self.sender.username];
     }
 
-    body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]}];
-    if (self.type != ACCEPT_REQUEST_TYPE) {
+    body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+    NSRange r = [pure rangeOfString:self.sender.username];
+    if (r.length > 0) {
         [body addAttributes:@{
                 NSForegroundColorAttributeName : [UIColor colorWithRed:129 / 255.0 green:28 / 255.0 blue:64 / 255.0 alpha:1.0]
-        }             range:[pure rangeOfString:self.sender.username]];
+        }             range:r];
     }
 
     return _body = body;

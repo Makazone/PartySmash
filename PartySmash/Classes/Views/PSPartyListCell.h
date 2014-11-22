@@ -10,9 +10,10 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 
+@class PSAttributedDrawer;
+
 @interface PSPartyListCell : PFTableViewCell
 
-@property (weak, nonatomic) IBOutlet PFImageView *partyCreatorPic;
-@property (weak, nonatomic) IBOutlet UITextView *partyBody;
+@property (nonatomic) PSAttributedDrawer *body;
 
 @end

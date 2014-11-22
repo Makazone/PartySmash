@@ -9,6 +9,7 @@
 #import "PSUser.h"
 #import "PSPartyListCell.h"
 #import "PSPartyViewController.h"
+#import "PSAttributedDrawer.h"
 
 @interface PSFuturePartiesVC () {
 
@@ -21,6 +22,7 @@
 
 @implementation PSFuturePartiesVC {
     BOOL _firstLoad;
+    NSMutableDictionary *_offscreenCells;
 }
 
 - (void)viewDidLoad {
@@ -28,8 +30,9 @@
 
     self.myParties = [NSMutableArray new];
     self.goingToParties = [NSMutableArray new];
+    _offscreenCells = [NSMutableDictionary new];
 
-    [self.tableView registerNib:[UINib nibWithNibName:@"party_cell" bundle:nil] forCellReuseIdentifier:@"party_list_cell"];
+    [self.tableView registerClass:[PSPartyListCell class] forCellReuseIdentifier:@"party_list_cell"];
 
     // Initialize the refresh control.
 //    self.refreshControl = [UIRefreshControl new];
@@ -47,21 +50,8 @@
     [super viewWillAppear:animated];
 
     if (_firstLoad) {
-//        [self.refreshControl beginRefreshing];
         [self downloadObjects];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    NSLog(@"self.tableView.contentOffset (%f, %f)", self.tableView.contentOffset.x, self.tableView.contentOffset.y);
-    NSLog(@"self.tableView.contentInset.top = (%f, %f, %f, %f)", self.tableView.contentInset.top, self.tableView.contentInset.right, self.tableView.contentInset.bottom, self.tableView.contentInset.left);
-}
-
--(void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)downloadObjects {
@@ -72,7 +62,7 @@
 
     PFQuery *myParties = [PFQuery queryWithClassName:[PSParty parseClassName]];
     [myParties whereKey:@"creator" equalTo:[PSUser currentUser]];
-    [goingTo whereKey:@"date" greaterThanOrEqualTo:[[NSDate alloc] initWithTimeIntervalSinceNow:-86400]];
+    [myParties whereKey:@"date" greaterThanOrEqualTo:[[NSDate alloc] initWithTimeIntervalSinceNow:-86400]];
 
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[goingTo, myParties]];
     [query orderByAscending:@"date"];
@@ -152,30 +142,46 @@
 
     PSPartyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"party_list_cell" forIndexPath:indexPath];
 
-    cell.partyBody.attributedText = [party getBodyWithKilo:-3.0];
-    NSLog(@"width = %f", cell.partyBody.frame.size.width);
+    cell.body.attributedString = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
-    cell.partyCreatorPic.image = [UIImage imageNamed:@"feed_S"];
-    cell.partyCreatorPic.file = userImg;
+    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+    cell.imageView.file = userImg;
 
-    cell.partyCreatorPic.layer.cornerRadius = 25.0f;
-    cell.partyCreatorPic.clipsToBounds = YES;
+    [cell.imageView loadInBackground];
 
-    [cell.partyCreatorPic loadInBackground];
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PSParty *party = [self objectAtIndexPath:indexPath];
-    CGRect r = [[party getBodyWithKilo:-3.0] boundingRectWithSize:CGSizeMake(246, 10000) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    NSLog(@"party.getBodyWithKilo:-1 = %@", [party getBodyWithKilo:-1]);
-//    NSLog(@"r.si = %f", r.size.height);
-    float result = MAX(r.size.height + 23, 65);
+    NSString *cellId = @"party_list_cell";
 
-//    [_cellHeights insertObject:@(result) atIndex:indexPath.row];
-    return result;
+    PSPartyListCell *cell = _offscreenCells[cellId];
+    if (!cell) {
+        cell = [PSPartyListCell new];
+        [cell setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _offscreenCells[cellId] = cell;
+    }
+
+    PSParty *party = [self objectAtIndexPath:indexPath];
+
+    cell.body.attributedString = [party getBodyWithKilo:-3.0];
+
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+
+    cell.bounds = CGRectMake(0, 0, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    height += 1;
+
+    return height;
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath {

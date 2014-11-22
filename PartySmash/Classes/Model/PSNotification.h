@@ -17,7 +17,7 @@ static int DECLINE_REQUEST_TYPE = 5;
 static int SEND_RECOMMENDATION_TYPE = 6;
 static int STARTED_FOLLOWING = 7;
 
-@interface PSInvitation : PFObject <PFSubclassing>
+@interface PSNotification : PFObject <PFSubclassing>
 
 + (NSString *)parseClassName;
 
@@ -25,6 +25,7 @@ static int STARTED_FOLLOWING = 7;
 @property (retain) PSParty *party;
 @property (retain) PSUser *sender;
 @property (retain) PSUser *recipient;
+@property BOOL didRespond;
 
 - (void)acceptInvitationWithCompletion:(void (^)(NSError *))completion;
 - (void)declineInvitationWithCompletion:(void (^)(NSError *))completion;

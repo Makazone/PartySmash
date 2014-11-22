@@ -347,7 +347,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)otherTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    _recompute = NO;
-    NSLog(@"%s", sel_getName(_cmd));
 
     PFTableViewCell *cell;
 //    if ([self _shouldShowPaginationCell] && [indexPath isEqual:[self _indexPathForPaginationCell]]) {
