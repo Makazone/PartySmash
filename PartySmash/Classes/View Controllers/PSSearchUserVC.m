@@ -63,7 +63,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     NSLog(@"searchString = %@", searchString);
-//    [self performSearchFor:searchString];
+    [self performSearchFor:searchString];
     return YES;
 }
 

@@ -21,6 +21,7 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
 
 @dynamic photo100;
 @dynamic photo200;
+@dynamic vkId;
 @synthesize isFollowing;
 
 - (void)getFriendsToFollowWithBlock:(void (^)(NSError *, NSArray *))completion {

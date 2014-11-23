@@ -14,7 +14,10 @@
 #import "PSSelectPlaceVC.h"
 #import "PSGeneralDescriptionVC.h"
 #import "PSMapInfoView.h"
+#import "PSAppDelegate.h"
+#import "PSUserFeedVC.h"
 
+static NSString *GA_SCREEN_NAME = @"Party Create - basic info";
 static NSDateFormatter *dateFormatter;
 
 @interface PSCreatePartyVC () {
@@ -96,6 +99,13 @@ static NSDateFormatter *dateFormatter;
 //    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.nearRight];
 //    [self printVisibleRegion:self.partyLocationMap.projection.visibleRegion.nearLeft];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:GA_SCREEN_NAME];
+}
+
 
 - (void)printVisibleRegion:(CLLocationCoordinate2D) a {
     NSLog(@"[latitude = %f, longitude = %f]", a.latitude, a.longitude);
@@ -222,20 +232,20 @@ static NSDateFormatter *dateFormatter;
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
-        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
-        NSString *headerText = @"";
-        if (section == 1) {
-            headerText = @"When should we come?";
-        } else if (section == 2) {
-            headerText = @"Are you open minded?";
-        } else if (section == 3) {
-            headerText = @"So..how large will it be?";
-        } else if (section == 4) {
-            headerText = @"What about a place?";
-        }
-        tableViewHeaderFooterView.textLabel.text = headerText;
-    }
+//    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
+//        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
+//        NSString *headerText = @"";
+//        if (section == 1) {
+//            headerText = @"When should we come?";
+//        } else if (section == 2) {
+//            headerText = @"Are you open minded?";
+//        } else if (section == 3) {
+//            headerText = @"So..how large will it be?";
+//        } else if (section == 4) {
+//            headerText = @"What about a place?";
+//        }
+//        tableViewHeaderFooterView.textLabel.text = headerText;
+//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -362,16 +372,12 @@ static NSDateFormatter *dateFormatter;
     return self.partyLocationMap;
 }
 
-- (void)setPartyAddressString:(NSString *)partyAddressString {
-    _partyAddressString = partyAddressString;
-}
-
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     static NSString *descrSegue = @"enterDescriptionSegue";
     if ([segue.identifier isEqualToString:descrSegue]) {
         PSGeneralDescriptionVC *vc = segue.destinationViewController;
         [vc setParty:self.newParty];
+        vc.delegate = self.delegate;
     }
 }
 

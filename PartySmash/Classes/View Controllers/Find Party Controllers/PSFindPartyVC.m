@@ -4,12 +4,15 @@
 //
 
 #import "PSFindPartyVC.h"
+#import "PSAppDelegate.h"
 #import "PSAuthService.h"
 #import "PSUser.h"
 #import "PSParty.h"
 #import "PSPartyListCell.h"
 #import "PSPartyViewController.h"
 #import "PSAttributedDrawer.h"
+
+static NSString *GA_SCREEN_NAME = @"Find party list";
 
 @implementation PSFindPartyVC {
     PFGeoPoint *_userPosition;
@@ -44,6 +47,8 @@
     }
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
 
 - (void)viewDidLoad {

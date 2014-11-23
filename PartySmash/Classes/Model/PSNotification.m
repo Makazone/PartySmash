@@ -8,6 +8,8 @@
 #import "PSUser.h"
 
 
+static NSDateFormatter *dateFormatter;
+
 @implementation PSNotification {
 
     NSAttributedString *_body;
@@ -18,6 +20,16 @@
 @dynamic sender;
 @dynamic party;
 @dynamic didRespond;
+
+@synthesize invalidateBody;
+
++ (void)initialize
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    dateFormatter = [NSDateFormatter new];
+    dateFormatter.locale = locale;
+    dateFormatter.dateFormat = @"d MMMM";
+}
 
 + (NSString *)parseClassName {
     return @"Invitation";
@@ -155,13 +167,13 @@
 
 
 - (NSAttributedString *)getBody {
-    if (_body) { return _body; }
+    if (_body && !invalidateBody) { return _body; }
 
     NSString *pure;
     NSMutableAttributedString *body;
 
     if (self.type == SEND_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ приглашает вас на вечеринку %@", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ приглашает вас на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == ACCEPT_INVITATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ принял(-a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == DECLINE_INVITATION_TYPE) {
@@ -178,7 +190,7 @@
 //                    NSFontAttributeName : [UIFont systemFontOfSize:14]
 //            }             range:[pure rangeOfString:@"приглашение запрошено"]];
 
-            return _body = body;
+//            return _body = body;
         }
     } else if (self.type == ACCEPT_REQUEST_TYPE) {
         pure = [NSString stringWithFormat:@"Вы приглашены на вечеринку \"%@\"", self.party.name];
@@ -190,7 +202,14 @@
         pure = [NSString stringWithFormat:@"%@ подписался на вас.", self.sender.username];
     }
 
-    body = [[NSMutableAttributedString alloc] initWithString:pure attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
+    NSString *timePassed = self.getTimePassed;
+
+    NSString *pure2, *waitsResponse = @"(ожидает вашего ответа)";
+    if ((self.type == SEND_INVITATION_TYPE || self.type == SEND_REQUEST_TYPE) && !self.didRespond && ![self.sender.objectId isEqualToString:[PSUser currentUser].objectId]) {
+        pure2 = [NSString stringWithFormat:@"%@ %@\n%@", pure, timePassed, waitsResponse];
+    } else pure2 = [NSString stringWithFormat:@"%@ %@", pure, timePassed];
+
+    body = [[NSMutableAttributedString alloc] initWithString:pure2 attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15]}];
     NSRange r = [pure rangeOfString:self.sender.username];
     if (r.length > 0) {
         [body addAttributes:@{
@@ -198,12 +217,46 @@
         }             range:r];
     }
 
+    r = [pure2 rangeOfString:waitsResponse];
+    if (r.length > 0) {
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        [style setLineHeightMultiple:1.5];
+        [body addAttribute:NSParagraphStyleAttributeName
+                     value:style
+                     range:r];
+
+        [body addAttributes:@{
+                NSFontAttributeName : [UIFont systemFontOfSize:14],
+                NSForegroundColorAttributeName : [UIColor colorWithRed:129 / 255.0 green:28 / 255.0 blue:64 / 255.0 alpha:1.0]
+        }             range:r];
+    }
+
+    [body addAttributes:@{
+            NSFontAttributeName : [UIFont systemFontOfSize:14],
+            NSForegroundColorAttributeName : [UIColor lightGrayColor]
+    }             range:[pure2 rangeOfString:timePassed]];
+
+    invalidateBody = NO;
     return _body = body;
 }
 
 - (void)removePartyFromDefaults {
     if (self.type == ACCEPT_REQUEST_TYPE || self.type == DECLINE_REQUEST_TYPE) {
         [[PSUser currentUser] removePartyFromWaitDefaults:self.party.objectId];
+    }
+}
+
+- (NSString *)getTimePassed {
+    NSTimeInterval timePassed = abs([self.createdAt timeIntervalSinceNow]);
+
+    if (timePassed > 60*60*24) {
+        return [dateFormatter stringFromDate:self.createdAt];
+    } else if (timePassed > 60*60) {
+        int hours = (int)timePassed / 3600;
+        return [NSString stringWithFormat:@"%dч", hours];
+    } else {
+        int minutes = (int)timePassed/60;
+        return [NSString stringWithFormat:@"%dм", minutes];
     }
 }
 

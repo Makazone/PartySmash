@@ -12,6 +12,11 @@
 #import "PSAuthService.h"
 #import "UIView+PSViewInProgress.h"
 #import "MBProgressHUD.h"
+#import "PSAppDelegate.h"
+#import "GAI.h"
+#import "PSUser.h"
+
+static NSString *GA_SCREEN_NAME = @"Create new user";
 
 @interface PSCreateNewUserController ()
 
@@ -87,6 +92,8 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
     [self setNeedsStatusBarAppearanceUpdate];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -134,6 +141,13 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
                                       cancelButtonTitle:NSLocalizedString(@"OK", @"UIAlerView Ok button")
                                       otherButtonTitles:nil] show];
                 } else {
+                    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+                    // You only need to set User ID on a tracker once. By setting it on the tracker, the ID will be
+                    // sent with all subsequent hits.
+                    [tracker set:@"&uid"
+                           value:[PSUser currentUser].objectId];
+
                     NSLog(@"Success!");
                     [self performSegueWithIdentifier:FOLLOW_FRIENDS_SEGUE sender:self];
                 }

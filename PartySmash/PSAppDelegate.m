@@ -14,16 +14,22 @@
 #import "PSNotification.h"
 #import <Crashlytics/Crashlytics.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
+#import "PSAuthService.h"
+#import "iRate.h"
 
 @implementation PSAppDelegate
 
++ (void)initialize {
+    [[iRate sharedInstance] setApplicationBundleID:@"ru.partysmash.PartySmash"];
+//    [iRate sharedInstance].previewMode = YES;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[Crashlytics sharedInstance] setDebugMode:NO];
-    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
-
-    [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
-
     [PSUser registerSubclass];
     [PSParty registerSubclass];
     [PSEvent registerSubclass];
@@ -32,6 +38,34 @@
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+//    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-52406320-3"];
+    
+    // Enable IDFA collection.
+    [[GAI sharedInstance] defaultTracker].allowIDFACollection = YES;
+
+    if ([PSAuthService isUserLoggedIn]) {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+        // You only need to set User ID on a tracker once. By setting it on the tracker, the ID will be
+        // sent with all subsequent hits.
+        [tracker set:@"&uid"
+               value:[PSUser currentUser].objectId];
+    }
+    
+    [[Crashlytics sharedInstance] setDebugMode:NO];
+    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
+
+    [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
 
     [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
 
@@ -108,5 +142,29 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:userNotificationTypes];
     }
 }
+
+- (void)trackScreen:(NSString *)name {
+    // May return nil if a tracker has not already been initialized with a property ID.
+    id tracker = [[GAI sharedInstance] defaultTracker];
+
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName value:name];
+
+    // New SDK versions
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
+
+- (void)trackEventWithCategory:(NSString *)category action:(NSString *)action label:(NSString *)label value:(NSNumber *)value {
+    //May return nil if a tracker has not already been initialized with a property
+    //ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:category     // Event category (required)
+                                                          action:action  // Event action (required)
+                                                           label:label          // Event label
+                                                           value:value] build]];    // Event value
+}
+
 
 @end

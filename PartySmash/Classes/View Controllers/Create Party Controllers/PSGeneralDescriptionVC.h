@@ -4,12 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PSUserFeedVC.h"
 
 @class PSParty;
-
 
 @interface PSGeneralDescriptionVC : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) PSParty *party;
+@property (weak, nonatomic) id<CreatePartyDelegate> delegate;
 
 @end

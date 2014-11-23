@@ -10,6 +10,7 @@
 #import "UIView+PSViewInProgress.h"
 #import "PSProfileVC.h"
 #import "PSParty.h"
+#import "PSAppDelegate.h"
 
 @interface PSTableUsersVC ()
 
@@ -28,6 +29,9 @@
     BOOL _hasMoreItemsToShow;
 }
 
+#pragma mark -
+#pragma mark Init
+
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
@@ -38,6 +42,9 @@
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark Controller lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +91,16 @@
 //    [self.tableView setContentInset:UIEdgeInsetsMake(38, 0, -38, 0)];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:self.gaScreenName];
+}
+
+
+#pragma mark -
+#pragma mark Parse query
+
 - (PFQuery *)queryForTable {
     PFQuery *query;
     if (!self.needsFollow) {
@@ -100,6 +117,9 @@
 
     return query;
 }
+
+#pragma mark -
+#pragma mark UI Table Controller
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,6 +225,8 @@
     } else return 0;
 }
 
+#pragma mark -
+#pragma mark Cell delegate
 
 - (void)didClickOnCellAtIndexPath:(NSIndexPath *)cellIndex withData:(id)data {
     PSUser *user = [self objectAtIndexPath:cellIndex];

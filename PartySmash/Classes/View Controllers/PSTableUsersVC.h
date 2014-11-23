@@ -16,10 +16,12 @@
 @property (nonatomic) PFQuery *userQueryToDisplay;
 @property (nonatomic) BOOL needsFollow;
 @property (nonatomic) BOOL sendsInvites;
+@property (nonatomic) BOOL fromParty;
 
 @property (nonatomic) int placesLeft;
 
 @property (nonatomic) PSParty *party;
 @property (nonatomic) NSString *screenTitle;
+@property (nonatomic) NSString *gaScreenName;
 
 @end

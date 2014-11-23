@@ -11,6 +11,11 @@
 #import "UIView+PSViewInProgress.h"
 #import "PSUser.h"
 #import "PSAppDelegate.h"
+#import "GAI.h"
+
+static NSString *const CREATE_NEW_USER_SEGUE = @"createNewUserSegue";
+static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
+static NSString *GA_SCREEN_NAME = @"Login";
 
 @interface PSLoginViewController ()
 
@@ -18,9 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *LogoView;
 
 @end
-
-static NSString *const CREATE_NEW_USER_SEGUE = @"createNewUserSegue";
-static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 
 @implementation PSLoginViewController {
     NSOperationQueue *_logInQueue;
@@ -45,6 +47,8 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -126,7 +130,13 @@ static NSString *const GO_TO_FEED_SEGUE = @"toUserFeed";
                     [(PSAppDelegate *)[[UIApplication sharedApplication] delegate] registerForNotifications];
                     [[PSUser currentUser] checkFollowDefaults];
                     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-                    NSLog(@"Logged in!");
+
+                    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+
+                    // You only need to set User ID on a tracker once. By setting it on the tracker, the ID will be
+                    // sent with all subsequent hits.
+                    [tracker set:@"&uid"
+                           value:user.objectId];
                 }
             }];
 

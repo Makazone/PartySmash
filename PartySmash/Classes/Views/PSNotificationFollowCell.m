@@ -38,6 +38,12 @@
         self.imageView.backgroundColor = [UIColor whiteColor];
         self.contentView.backgroundColor = [UIColor whiteColor];
 
+        [self.followButton addTarget:self action:@selector(followPressed) forControlEvents:UIControlEventTouchUpInside];
+
+        UITapGestureRecognizer *tapOnUserImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedOnUser)];
+        self.imageView.userInteractionEnabled = YES;
+        [self.imageView addGestureRecognizer:tapOnUserImg];
+
         _didSetupConstraints = NO;
     }
 
@@ -107,13 +113,23 @@
     // Set the preferredMaxLayoutWidth of the mutli-line bodyLabel based on the evaluated width of the label's frame,
     // as this will allow the text to wrap correctly, and as a result allow the label to take on the correct height.
     self.body.preferredMaxLayoutWidth = CGRectGetWidth(self.body.frame);
-    NSLog(@"self.body.preferredMaxLayoutWidth = %f", self.body.preferredMaxLayoutWidth);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+#pragma mark -
+#pragma mark Target & Action
+
+- (void)followPressed {
+    [self.delegate didClickOnCellAtIndexPath:self.indexPath withData:@(tapForFollow)];
+}
+
+- (void)pressedOnUser {
+    [self.delegate didClickOnCellAtIndexPath:self.indexPath withData:@(tapForUser)];
 }
 
 @end

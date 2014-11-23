@@ -4,14 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PSUserFeedVC.h"
+#import "GoogleMaps/GMSMapView.h"
 
-@class MKMapView;
+@class GMSMapView;
+//@protocol CreatePartyDelegate;
+//@protocol MKMapViewDelegate;
 
-@interface PSCreatePartyVC : UITableViewController <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, GMSMapViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@interface PSCreatePartyVC : UITableViewController <UITextFieldDelegate, UIPickerViewDataSource,  GMSMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
-@property (readonly) MKMapView *map;
-@property (nonatomic) MKPlacemark *partyLocation;
-@property (nonatomic) NSString *partyAddressString;
+@property (readonly) GMSMapView *map;
+
+@property (weak, nonatomic) id<CreatePartyDelegate> delegate;
 
 @end
 

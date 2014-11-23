@@ -11,6 +11,7 @@
 #import "PSNotificationCell.h"
 #import "PSCellDelegate.h"
 #import "PSAttributedDrawer.h"
+#import "PSNotificationFollowCell.h"
 
 @interface PSNotificationCell () {
     BOOL _didSetupConstraints;
@@ -36,6 +37,9 @@
         self.imageView.backgroundColor = [UIColor whiteColor];
         self.contentView.backgroundColor = [UIColor whiteColor];
 
+        UITapGestureRecognizer *tapOnUserImg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pressedOnUser)];
+        self.imageView.userInteractionEnabled = YES;
+        [self.imageView addGestureRecognizer:tapOnUserImg];
 //        _didSetupConstraints = NO;
     }
 
@@ -104,6 +108,10 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)pressedOnUser {
+    [self.delegate didClickOnCellAtIndexPath:self.cellIndexPath withData:@(tapForUser)];
 }
 
 @end

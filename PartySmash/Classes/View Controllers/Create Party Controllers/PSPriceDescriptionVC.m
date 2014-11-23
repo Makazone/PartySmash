@@ -6,6 +6,12 @@
 #import "PSPriceDescriptionVC.h"
 #import "SZTextView.h"
 #import "PSParty.h"
+#import "PSAppDelegate.h"
+#import "MBProgressHUD.h"
+#import "PSPartyViewController.h"
+#import "PSUserFeedVC.h"
+
+static NSString *GA_SCREEN_NAME = @"Party Create - price";
 
 @interface PSPriceDescriptionVC () {
 
@@ -47,18 +53,46 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:GA_SCREEN_NAME];
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     PSPriceDescriptionVC *vc = segue.destinationViewController;
     [vc setParty:self.party];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = @"Сохраняем вечеринку";//NSLocalizedString(@"CreateUser.hudLabel.Creating account", @"Hud label when signing up user");
+    [hud show:YES];
+
     NSLog(@"Finished creating party");
     if (self.party.isFree) {
         [self.party setPrice:@"0"];
     }
-    [self.party saveInBackground];
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    [self.party saveInBackgroundWithBlock:^(BOOL success, NSError *error) {
+        [hud hide:YES];
+
+        if (error) {
+            [[[UIAlertView alloc] initWithTitle:@"Упс =(" message:@"Мы не смогли сохранить вашу вечеринку, проверить свое соединение и попробуйте еще раз." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        } else {
+            [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                              action:@"button_pressed"
+                                                                                               label:@"publish_party"
+                                                                                               value:nil];
+
+            [self.delegate didCreateParty:self.party];
+            [self dismissViewControllerAnimated:YES completion:^{
+            }];
+
+        }
+    }];
 }
 
 #pragma mark - UI Text View delegate

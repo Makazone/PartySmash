@@ -10,6 +10,9 @@
 @class PFTableViewCell;
 @protocol PSCellDelegate;
 
+static int tapForFollow = 0;
+static int tapForUser = 0;
+
 @interface PSNotificationFollowCell : PFTableViewCell
 
 @property (nonatomic) PSAttributedDrawer *body;

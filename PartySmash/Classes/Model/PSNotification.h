@@ -27,6 +27,8 @@ static int STARTED_FOLLOWING = 7;
 @property (retain) PSUser *recipient;
 @property BOOL didRespond;
 
+@property BOOL invalidateBody;
+
 - (void)acceptInvitationWithCompletion:(void (^)(NSError *))completion;
 - (void)declineInvitationWithCompletion:(void (^)(NSError *))completion;
 

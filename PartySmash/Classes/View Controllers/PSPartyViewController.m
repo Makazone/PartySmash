@@ -13,8 +13,10 @@
 #import "PSPartyCell.h"
 #import "UIView+PSViewInProgress.h"
 #import "PSTableUsersVC.h"
+#import "PSAppDelegate.h"
 
 static NSDateFormatter *_dateFormatter;
+static NSString *GA_SCREEN_NAME = @"Party profile";
 
 @interface PSPartyViewController ()
 
@@ -153,6 +155,13 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         }];
     }
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (_partyExpired) { return 4; }
@@ -332,6 +341,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         usersTableVC.userQueryToDisplay = [self.party relationForKey:@"invited"].query;
         usersTableVC.needsFollow = YES;
         usersTableVC.screenTitle = @"Идут";
+        usersTableVC.gaScreenName = @"Invited list";
 
         [self.navigationController pushViewController:usersTableVC animated:YES];
     } else {
@@ -378,6 +388,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
     usersTableVC.placesLeft = _placesLeft;
     usersTableVC.party = self.party;
     usersTableVC.screenTitle = @"Пригласить";
+    usersTableVC.gaScreenName = @"Invite to party";
 
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -397,6 +408,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
     usersTableVC.placesLeft = 5000000;
     usersTableVC.party = self.party;
     usersTableVC.screenTitle = @"Предложить";
+    usersTableVC.gaScreenName = @"Recommend party";
 
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -414,6 +426,18 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:4]] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
     }];
+}
+
+- (IBAction)showOnMap:(id)sender {
+    if ([[UIApplication sharedApplication] canOpenURL:
+            [NSURL URLWithString:@"comgooglemaps://"]]) {
+        [[UIApplication sharedApplication] openURL:
+                [NSURL URLWithString:[NSString stringWithFormat:@"comgooglemaps://?q=%f,%f&zoom=14", self.party.geoPosition.latitude, self.party.geoPosition.longitude]]];
+    } else {
+        NSString *mapStr  = [NSString stringWithFormat:@"http://maps.apple.com/?q=%f,%f", self.party.geoPosition.latitude, self.party.geoPosition.longitude];
+        NSURL *mapUrl = [NSURL URLWithString:mapStr];
+        [[UIApplication sharedApplication] openURL:mapUrl];
+    }
 }
 
 @end

@@ -12,7 +12,9 @@
 #import "GCGeocodingService.h"
 #import "PSParty.h"
 #import "UIView+PSViewInProgress.h"
+#import "PSAppDelegate.h"
 
+static NSString *GA_SCREEN_NAME = @"Party Create - select place";
 static NSTimeInterval const animatedTransitionDuration = 0.5f;
 
 @interface PSSelectPlaceVC () {
@@ -59,6 +61,9 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
     return self;
 }
 
+#pragma mark -
+#pragma mark Controller lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -70,16 +75,26 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
     NSString *address = self.party.address;
     [self updateGeoInfo:address location:currentAddress firstTime:YES];
 
-    self.dissmissMapButtion = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.dissmissMapButtion.frame = CGRectMake(self.gmsMapView.frame.size.width-70, self.gmsMapView.frame.size.height-50, 70, 50);
-    self.dissmissMapButtion.backgroundColor = [UIColor redColor];
-    [self.dissmissMapButtion setTitle:@"Close" forState:UIControlStateNormal];
-    [self.dissmissMapButtion addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.gmsMapView addSubview:self.dissmissMapButtion];
 
     _geocodeQueue = [NSOperationQueue new];
     _geocodeQueue.name = @"Geocode queue";
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//
+//    self.dissmissMapButtion = [UIButton buttonWithType:UIButtonTypeSystem];
+////    self.dissmissMapButtion.frame = CGRectMake(self.gmsMapView.frame.size.width-70, self.gmsMapView.frame.size.height-50, 70, 50);
+//    self.dissmissMapButtion.frame = CGRectMake(0,0,70,50);
+//    NSLog(@"MAPFRAME = %@", NSStringFromCGRect(self.gmsMapView.frame));
+//    self.dissmissMapButtion.backgroundColor = [UIColor redColor];
+//    [self.dissmissMapButtion setTitle:@"Close" forState:UIControlStateNormal];
+//    [self.dissmissMapButtion addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.gmsMapView addSubview:self.dissmissMapButtion];
+
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:GA_SCREEN_NAME];
+}
+
 
 #pragma mark - Google Map delegate methods
 
@@ -88,9 +103,11 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
         [_activeResponder resignFirstResponder];
         _activeResponder = nil;
     }
+    [self mapView:mapView didLongPressAtCoordinate:coordinate];
 }
 
 - (void)mapView:(GMSMapView *)mapView didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    [self.gmsMapView removeIndicator];
     [self.gmsMapView showIndicatorWithCornerRadius:0];
     NSArray *subs = self.gmsMapView.subviews;
 
@@ -319,8 +336,11 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
             fromViewController.view.bounds = _endMapBounds;
             fromViewController.view.center = CGPointMake(CGRectGetMidX(_endMapBounds), CGRectGetMidY(_endMapBounds));
         } else {
-            toViewController.view.bounds = CGRectMake(0, 0, 320, 568);
-            toViewController.view.center = CGPointMake(160, 284);
+            CGRect r = CGRectMake(0, 106, CGRectGetWidth(fromViewController.view.frame), CGRectGetHeight(fromViewController.view.frame) - 106);
+            toViewController.view.bounds = CGRectMake(0, 0, CGRectGetWidth(fromViewController.view.frame), CGRectGetHeight(fromViewController.view.frame));
+//            toViewController.view.bounds = CGRectMake(0, 106, CGRectGetWidth(r), CGRectGetHeight(r));
+//            toViewController.view.center = CGPointMake(CGRectGetMidX(r), CGRectGetMidY(r));
+            toViewController.view.center = CGPointMake(CGRectGetMidX(fromViewController.view.frame), CGRectGetMidY(fromViewController.view.frame));
 //            toViewController.view.bounds = fromViewController.view.frame;
 //            toViewController.view.bounds = CGRectMake(0, 295, fromViewController.view.frame.size.width, fromViewController.view.frame.size.height);
 //            self.mapView.bounds = fromViewController.view.frame;
@@ -331,8 +351,26 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
         NSLog(@"map bound after %@", NSStringFromCGRect(toViewController.view.bounds));
         NSLog(@"new center after animating = %@", NSStringFromCGPoint(toViewController.view.center));
 //        toViewController.view.bounds = CGRectMake(0, 0, fromViewController.view.frame.size.width, fromViewController.view.frame.size.height);
-        toViewController.view.bounds = CGRectMake(0, 0, 320, 568);
-        toViewController.view.center = CGPointMake(160, 284);
+//        toViewController.view.bounds = CGRectMake(0, 0, 320, 568);
+//        toViewController.view.center = CGPointMake(160, 284);
+
+        CGRect r = self.gmsMapView.frame;
+        r.size.height = toViewController.view.bounds.size.height - 106;
+        self.gmsMapView.frame = r;
+
+        self.dissmissMapButtion = [UIButton buttonWithType:UIButtonTypeSystem];
+
+        UIImage *dismissIc = [UIImage imageNamed:@"ic_dismiss_map"];
+        CGFloat width = dismissIc.size.width;
+        CGFloat height = dismissIc.size.width;
+
+        self.dissmissMapButtion.frame = CGRectMake(self.gmsMapView.frame.size.width-width - 5, self.gmsMapView.frame.size.height-height - 5, width, height);
+//        self.dissmissMapButtion.frame = CGRectMake(0,0,70,50);
+//        NSLog(@"MAPFRAME = %@", NSStringFromCGRect(self.gmsMapView.frame));
+        [self.dissmissMapButtion setBackgroundImage:dismissIc forState:UIControlStateNormal];
+        [self.dissmissMapButtion addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.gmsMapView addSubview:self.dissmissMapButtion];
+
         [transitionContext completeTransition:finished];
         if (!_reverseTransition) {
             [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleDefault];

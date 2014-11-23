@@ -6,5 +6,5 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PSSettingsVC : UIViewController
+@interface PSSettingsVC : UITableViewController <MFMailComposeViewControllerDelegate>
 @end

@@ -10,6 +10,9 @@
 #import "PSPartyListCell.h"
 #import "PSPartyViewController.h"
 #import "PSAttributedDrawer.h"
+#import "PSAppDelegate.h"
+
+static NSString *GA_SCREEN_NAME = @"Future parties";
 
 @interface PSFuturePartiesVC () {
 
@@ -52,6 +55,8 @@
     if (_firstLoad) {
         [self downloadObjects];
     }
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
 
 - (void)downloadObjects {

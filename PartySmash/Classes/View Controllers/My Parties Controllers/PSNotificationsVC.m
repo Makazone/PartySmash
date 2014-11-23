@@ -17,14 +17,21 @@
 #import "PSNotificationFollowCell.h"
 #import "PSEventCell.h"
 #import "PSEvent.h"
+#import "UIView+PSViewInProgress.h"
+#import "PSAppDelegate.h"
+#import "PSProfileVC.h"
 
 static NSString *notification_cell = @"notification_cell";
 static NSString *notification_following_cell = @"notification_started_following";
+static NSString *GA_SCREEN_NAME = @"Notifications";
 
 @implementation PSNotificationsVC {
     BOOL _firstLoad;
     NSMutableArray *_invitations;
     NSMutableDictionary *_offscreenCells;
+
+    PSNotification *_showingNotificationForAS;
+    NSIndexPath *_indexPathToReload;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -63,7 +70,12 @@ static NSString *notification_following_cell = @"notification_started_following"
 //    }
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
+
+#pragma mark -
+#pragma mark Parse Query
 
 - (PFQuery *)queryForTable {
     PFQuery *generalQuery = [PFQuery queryWithClassName:[PSNotification parseClassName]];
@@ -91,8 +103,12 @@ static NSString *notification_following_cell = @"notification_started_following"
     return query;
 }
 
+#pragma mark -
+#pragma mark Table View
+
 - (PFTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     PSNotification *notification = object;
+    [notification removePartyFromDefaults];
 
     if (notification.type == STARTED_FOLLOWING) {
         PSNotificationFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:notification_following_cell forIndexPath:indexPath];
@@ -116,6 +132,9 @@ static NSString *notification_following_cell = @"notification_started_following"
         cell.imageView.image = [UIImage imageNamed:@"feed_S"];
         cell.imageView.file = notification.sender.photo100;
 
+        cell.delegate = self;
+        cell.cellIndexPath = indexPath;
+
         [cell setNeedsUpdateConstraints];
         [cell updateConstraintsIfNeeded];
 
@@ -123,11 +142,6 @@ static NSString *notification_following_cell = @"notification_started_following"
     }
 }
 
-- (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {
-    if ([user isFollowing]) {
-        [button setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
-    } else [button setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PSNotification *notification = [self objectAtIndexPath:indexPath];
@@ -190,6 +204,14 @@ static NSString *notification_following_cell = @"notification_started_following"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    PSNotification *notification = [self objectAtIndexPath:indexPath];
+
+    if (!notification.didRespond && [notification.recipient.objectId isEqualToString:[PSUser currentUser].objectId]) {
+        _indexPathToReload = indexPath;
+        [self showActionSheetFor:notification];
+        return;
+    }
+
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
     partyVC.party =  ((PSNotification *)[self objectAtIndexPath:indexPath]).party;
@@ -197,38 +219,158 @@ static NSString *notification_following_cell = @"notification_started_following"
     [self.navigationController pushViewController:partyVC animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    PSNotification *notification = [self objectAtIndexPath:indexPath];
+    if (notification.type == STARTED_FOLLOWING) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark -
+#pragma mark Cell Delegate
+
 // Actually did click on button in cell at indexpath
 - (void)didClickOnCellAtIndexPath:(NSIndexPath *)cellIndex withData:(id)data {
-    if (cellIndex.section != 0) { return; }
+    PSNotification *notification = [self objectAtIndexPath:cellIndex];
 
-    PSNotificationCell *cell = (NSArray*)data[0];
-    int code = [((NSArray *)data)[1] intValue];
+    if ([data intValue] == tapForUser) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        PSProfileVC *userProfileVS = [sb instantiateViewControllerWithIdentifier:@"userProfileVC"];
+        userProfileVS.user = notification.sender;
 
-    NSIndexPath *path = [self.tableView indexPathForCell:cell];
-    PSNotification *invitation = [_invitations objectAtIndex:path.row];
+        [self.navigationController pushViewController:userProfileVS animated:YES];
 
-    if (code == 3) { // OK
-        [invitation deleteEventually];
-    } else if (code == 2) { // accept
-        [invitation acceptWithCompletion:^(NSError *error) {
-            if (error) {
-                NSLog(@"error = %@", error);
-            }
-        }];
-    } else {
-        [invitation declineWithCompletion:^(NSError *error) {
-            if (error) {
-                NSLog(@"error = %@", error);
-            }
-        }];
+        return;
     }
 
-    [self.tableView beginUpdates];
+    if (notification.type == STARTED_FOLLOWING) {
+        PSUser *user = notification.sender;
+        PSNotificationFollowCell *cell = [self.tableView cellForRowAtIndexPath:cellIndex];
 
-    [_invitations removeObjectAtIndex:path.row];
-    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationRight];
+        [cell.followButton showIndicatorWithCornerRadius:5];
+        if ([user isFollowing]) {
+//        NSLog(@"Unfollow user");
+            [[PSUser currentUser] unfollowUser:user withCompletion:^(NSError *error) {
+                [cell.followButton removeIndicator];
+                if (!error) {
+                    [user setIsFollowing:NO];
+                    [cell.followButton setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
+                }
+            }];
+        } else {
+//        NSLog(@"Follow user");
+            [[PSUser currentUser] followUser:user withCompletion:^(NSError *error) {
+                [cell.followButton removeIndicator];
+                if (!error) {
+                    [user setIsFollowing:YES];
+                    [cell.followButton setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
+                }
+            }];
+        }
+    }
+//    if (cellIndex.section != 0) {return;}
 
-    [self.tableView endUpdates];
+//    PSNotificationCell *cell = (NSArray *) data[0];
+//    int code = [((NSArray *) data)[1] intValue];
+//
+//    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+//    PSNotification *invitation = [_invitations objectAtIndex:path.row];
+//
+//    if (code == 3) { // OK
+//        [invitation deleteEventually];
+//    } else if (code == 2) { // accept
+//        [invitation acceptWithCompletion:^(NSError *error) {
+//            if (error) {
+//                NSLog(@"error = %@", error);
+//            }
+//        }];
+//    } else {
+//        [invitation declineWithCompletion:^(NSError *error) {
+//            if (error) {
+//                NSLog(@"error = %@", error);
+//            }
+//        }];
+//    }
+//
+//    [self.tableView beginUpdates];
+//
+//    [_invitations removeObjectAtIndex:path.row];
+//    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationRight];
+//
+//    [self.tableView endUpdates];
+}
+
+- (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {
+    if ([user isFollowing]) {
+        [button setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
+    } else [button setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
+}
+
+#pragma mark -
+#pragma mark Action Sheet
+
+- (void)showActionSheetFor:(PSNotification *)notification {
+    UIActionSheet *actionSheet;
+
+    _showingNotificationForAS = notification;
+
+    if (notification.type == SEND_INVITATION_TYPE) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@ приглашает на свою вечеринку", notification.sender.username]
+                                                  delegate:self
+                                         cancelButtonTitle:@"Отмена"
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"Посмотреть вечеринку", @"Да, я хочу пойти", @"Нет, мне это неинтересно", nil];
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@ хочет пойти на вашу вечеринку", notification.sender.username]
+                                                  delegate:self
+                                         cancelButtonTitle:@"Отмена"
+                                    destructiveButtonTitle:nil
+                                         otherButtonTitles:@"Включить в список", @"Отклонить заявку", nil];
+    }
+
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    void (^updateBlock)(NSError *) = ^void(NSError *error) {
+        if (!error) {
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[_indexPathToReload] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"Упс =(" message:@"Что-то пошло не так, может соединение пропало?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    };
+
+    if (_showingNotificationForAS.type == SEND_INVITATION_TYPE) {
+        if (buttonIndex == 0) {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
+            partyVC.party = _showingNotificationForAS.party;
+
+            [self.navigationController pushViewController:partyVC animated:YES];
+
+            return;
+        } else if (buttonIndex == 1) {
+            [_showingNotificationForAS acceptInvitationWithCompletion:updateBlock];
+        } else if (buttonIndex == 2) {
+            [_showingNotificationForAS declineInvitationWithCompletion:updateBlock];
+        }
+    } else {
+        if (buttonIndex == 0) {
+            [_showingNotificationForAS acceptRequestWithCompletion:updateBlock];
+        } else if (buttonIndex == 1) {
+            [_showingNotificationForAS declineRequestWithCompletion:updateBlock];
+        }
+    }
+
+    _showingNotificationForAS.didRespond = YES;
+    _showingNotificationForAS.invalidateBody = YES;
+}
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
+
 }
 
 @end

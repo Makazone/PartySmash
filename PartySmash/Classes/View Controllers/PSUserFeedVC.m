@@ -13,12 +13,17 @@
 #import "PSAuthService.h"
 #import "PSEventNewPartyCell.h"
 #import "PSParty.h"
+#import "PSParty.h"
 #import "PSEventCell.h"
 #import "PSEvent.h"
 #import "PSPartyViewController.h"
 #import "PSAttributedDrawer.h"
 #import "PSNotification.h"
 #import "PSNotificationFollowCell.h"
+#import "PSAppDelegate.h"
+#import "PSCreatePartyVC.h"
+
+static NSString *GA_SCREEN_NAME = @"User Feed";
 
 @interface PSUserFeedVC () {
     
@@ -109,6 +114,7 @@ static NSString *event_cell_id = @"event_cell_id";
     NSLog(@"%s", sel_getName(_cmd));
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:GA_SCREEN_NAME];
 }
 
 - (PFQuery *)queryForTable {
@@ -235,6 +241,9 @@ static NSString *event_cell_id = @"event_cell_id";
         PSEvent *event = [self objectAtIndexPath:[NSIndexPath indexPathForRow:_selectedRow inSection:0]];
 
         destVC.party = event.party;
+    } else if ([segue.identifier isEqualToString:@"CreatePartySegue"]) {
+        PSCreatePartyVC *vc = segue.destinationViewController;
+        vc.delegate = self;
     }
 }
 
@@ -246,5 +255,16 @@ static NSString *event_cell_id = @"event_cell_id";
     }
     return _atribitedStrings;
 }
+
+- (void)didCreateParty:(PSParty *)party {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
+    partyVC.party = party;
+
+    NSLog(@"self.presentingViewController = %@", self.presentingViewController);
+
+    [self.navigationController pushViewController:partyVC animated:YES];
+}
+
 
 @end

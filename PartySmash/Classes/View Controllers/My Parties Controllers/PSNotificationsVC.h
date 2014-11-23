@@ -8,5 +8,5 @@
 #import "PSQueryTableViewController.h"
 
 
-@interface PSNotificationsVC : PSQueryTableViewController <PSCellDelegate>
+@interface PSNotificationsVC : PSQueryTableViewController <PSCellDelegate, UIActionSheetDelegate>
 @end

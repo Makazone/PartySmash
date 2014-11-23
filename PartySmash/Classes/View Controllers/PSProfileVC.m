@@ -8,6 +8,10 @@
 #import "PSUser.h"
 #import "UIView+PSViewInProgress.h"
 #import "PSTableUsersVC.h"
+#import "PSAppDelegate.h"
+#import "PSPartyListVC.h"
+
+static NSString *GA_SCREEN_NAME = @"User Profile";
 
 @interface PSProfileVC () {
     
@@ -92,15 +96,16 @@
 
     self.userNic.text = self.user.username;
 
-    self.userPic.layer.cornerRadius = 90.0f;
-    self.userPic.clipsToBounds = YES;
-
-    [self.userPic showIndicatorWithCornerRadius:90];
     self.userPic.file = self.user.photo200;
-    [self.userPic loadInBackground:^(UIImage *img, NSError *error) {
-        [self.userPic removeIndicator];
-    }];
+    [self.userPic loadInBackground];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
+}
+
 
 - (IBAction)followUser:(id)sender {
     [self.followButton showIndicatorWithCornerRadius:5];
@@ -131,6 +136,7 @@
     usersTableVC.userQueryToDisplay = query;
     usersTableVC.needsFollow = YES;
     usersTableVC.screenTitle = @"Подписчики";
+    usersTableVC.gaScreenName = @"Followers";
 
     [self.navigationController pushViewController:usersTableVC animated:YES];
 }
@@ -141,8 +147,34 @@
     usersTableVC.userQueryToDisplay = [self.user getFollowingRelation].query;
     usersTableVC.needsFollow = YES;
     usersTableVC.screenTitle = @"Подписки";
+    usersTableVC.gaScreenName = @"Following";
 
     [self.navigationController pushViewController:usersTableVC animated:YES];
+}
+
+- (IBAction)showCreated:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSPartyListVC *vc = [sb instantiateViewControllerWithIdentifier:@"partyListVC"];
+    vc.shouldShowMyParties = YES;
+
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)showVisited:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PSPartyListVC *vc = [sb instantiateViewControllerWithIdentifier:@"partyListVC"];
+    vc.shouldShowMyParties = NO;
+
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)goToVkProfile:(id)sender {
+    NSURL *vkURL = [NSURL URLWithString:[NSString stringWithFormat:@"vk://vk.com/id%@", self.user.vkId]];
+    if ([[UIApplication sharedApplication] canOpenURL:vkURL]) {
+        [[UIApplication sharedApplication] openURL:vkURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/id%@", self.user.vkId]]];
+    }
 }
 
 @end

@@ -10,7 +10,9 @@
 #import "PSParty.h"
 #import "PSUser.h"
 #import "PSPartyViewController.h"
+#import "PSAppDelegate.h"
 
+static NSString *GA_SCREEN_NAME = @"Find party map";
 static NSDateFormatter *_dateFormatter;
 
 @interface PSFindPartyMapVC () {
@@ -40,6 +42,13 @@ static NSDateFormatter *_dateFormatter;
 
     [self setUpMap];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
+}
+
 
 - (void)setUpMap {
     self.gmsMapView.delegate = self;

@@ -7,6 +7,10 @@
 #import "PSParty.h"
 #import "SZTextView.h"
 #import "PSPriceDescriptionVC.h"
+#import "PSAppDelegate.h"
+#import "PSUserFeedVC.h"
+
+static NSString *GA_SCREEN_NAME = @"Party Create - description";
 
 @interface PSGeneralDescriptionVC () {
 
@@ -26,7 +30,7 @@
     self.textField.placeholderTextColor = [UIColor lightGrayColor];
 //    self.textField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
 
-    [self.textField setPlaceholder:@"Теперь расскажите нам о своей вечеринке и ее особенностях! Знаменитые гости? Незабываемые конкурсы? Взрывная атмосфера и лучшие миксы? Дресс-код? Напишите все, что делает Вашу вечеринку уникальной!\n"
+    [self.textField setPlaceholder:@"Расскажите нам о своей вечеринке и ее особенностях! Знаменитые гости? Незабываемые конкурсы? Взрывная атмосфера и лучшие миксы? Дресс-код? Напишите все, что делает Вашу вечеринку уникальной!\n"
             "\n"
             "О чем не стоит говорить:\n"
             "\t- Цена\n"
@@ -53,15 +57,23 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [((PSAppDelegate *)[[UIApplication sharedApplication] delegate]) trackScreen:GA_SCREEN_NAME];
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     self.party.generalDescription = self.textField.text;
 
     PSPriceDescriptionVC *vc = segue.destinationViewController;
     [vc setParty:self.party];
+    vc.delegate = self.delegate;
 }
 
 
-#pragma mark - UI Text View Delegate
+#pragma mark - Text View Delegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSMutableString *descr = [textView.text mutableCopy];

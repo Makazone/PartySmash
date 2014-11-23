@@ -33,8 +33,6 @@ static NSDateFormatter *dateFormatter;
 - (NSAttributedString *)getEventTextBody {
     if (_body) { return _body; }
 
-    NSLog(@"%s", sel_getName(_cmd));
-
     NSString *pureBody;
     NSMutableAttributedString *body;
 

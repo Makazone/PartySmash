@@ -12,7 +12,15 @@
 #import <ParseUI/ParseUI.h>
 #import "PSQueryTableViewController.h"
 
+@class PSParty;
+
+@protocol CreatePartyDelegate
+
+- (void)didCreateParty:(PSParty *)party;
+
+@end
+
 //@interface PSUserFeedVC : UITableViewController <UITableViewDataSource, UITableViewDelegate>
-@interface PSUserFeedVC : PSQueryTableViewController <UIScrollViewDelegate>
+@interface PSUserFeedVC : PSQueryTableViewController <UIScrollViewDelegate, CreatePartyDelegate>
 
 @end
