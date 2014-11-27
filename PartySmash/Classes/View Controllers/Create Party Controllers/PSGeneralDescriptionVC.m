@@ -30,15 +30,7 @@ static NSString *GA_SCREEN_NAME = @"Party Create - description";
     self.textField.placeholderTextColor = [UIColor lightGrayColor];
 //    self.textField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
 
-    [self.textField setPlaceholder:@"Расскажите нам о своей вечеринке и ее особенностях! Знаменитые гости? Незабываемые конкурсы? Взрывная атмосфера и лучшие миксы? Дресс-код? Напишите все, что делает Вашу вечеринку уникальной!\n"
-            "\n"
-            "О чем не стоит говорить:\n"
-            "\t- Цена\n"
-            "\t- Контактные данные\n"
-            "\n"
-            "Эту информацию Вы укажите позже.\n"
-            "\t\n"
-            " "];
+    [self.textField setPlaceholder:@"Любая полезная информация о вашей вечеринке."];
 
     [self.textField becomeFirstResponder];
 
@@ -69,7 +61,7 @@ static NSString *GA_SCREEN_NAME = @"Party Create - description";
 
     PSPriceDescriptionVC *vc = segue.destinationViewController;
     [vc setParty:self.party];
-    vc.delegate = self.delegate;
+    vc.createDelegate = self.createDelegate;
 }
 
 

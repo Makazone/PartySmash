@@ -70,6 +70,42 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
         [b showIndicatorWithCornerRadius:5];
     }
 
+//    [self.user getProfileInformation:^(NSError *error, int followers, int following, int visited, int created, BOOL isFollowed){
+//        for (int i=0; i < 4; i++) {
+//            UIButton *b = self.statButtons[i];
+//            [b removeIndicator];
+//        }
+//
+//        [self.followers setTitle:[NSString stringWithFormat:@"Подписчики\n%d", followers] forState:UIControlStateNormal];
+//        [self.following setTitle:[NSString stringWithFormat:@"Подписки\n%d", following] forState:UIControlStateNormal];
+//        [self.visited setTitle:[NSString stringWithFormat:@"Создал(a)\n%d", created] forState:UIControlStateNormal];
+//        [self.created setTitle:[NSString stringWithFormat:@"Посетил(a)\n%d", visited] forState:UIControlStateNormal];
+//
+//        if (_myProfile) return;
+//
+//        _isFollowed = isFollowed;
+//
+//        if (isFollowed) {
+//            [self.followButton setImage:[UIImage imageNamed:@"ic_unfollow"] forState:UIControlStateNormal];
+//        } else {
+//            [self.followButton setImage:[UIImage imageNamed:@"ic_follow"] forState:UIControlStateNormal];
+//        }
+//
+//        self.followButton.hidden = NO;
+//    }];
+
+    self.userNic.text = self.user.username;
+
+    self.userPic.file = self.user.photo200;
+    [self.userPic loadInBackground:^(UIImage *image, NSError *error) {
+        NSLog(@"error = %@", error);
+        NSLog(@"image = %@", image);
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
     [self.user getProfileInformation:^(NSError *error, int followers, int following, int visited, int created, BOOL isFollowed){
         for (int i=0; i < 4; i++) {
             UIButton *b = self.statButtons[i];
@@ -78,8 +114,8 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
 
         [self.followers setTitle:[NSString stringWithFormat:@"Подписчики\n%d", followers] forState:UIControlStateNormal];
         [self.following setTitle:[NSString stringWithFormat:@"Подписки\n%d", following] forState:UIControlStateNormal];
-        [self.visited setTitle:[NSString stringWithFormat:@"Создал\n%d", created] forState:UIControlStateNormal];
-        [self.created setTitle:[NSString stringWithFormat:@"Посетил\n%d", visited] forState:UIControlStateNormal];
+        [self.visited setTitle:[NSString stringWithFormat:@"Создал(a)\n%d", created] forState:UIControlStateNormal];
+        [self.created setTitle:[NSString stringWithFormat:@"Посетил(a)\n%d", visited] forState:UIControlStateNormal];
 
         if (_myProfile) return;
 
@@ -93,15 +129,6 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
 
         self.followButton.hidden = NO;
     }];
-
-    self.userNic.text = self.user.username;
-
-    self.userPic.file = self.user.photo200;
-    [self.userPic loadInBackground];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 
     [(PSAppDelegate *)[UIApplication sharedApplication].delegate trackScreen:GA_SCREEN_NAME];
 }
@@ -156,6 +183,7 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PSPartyListVC *vc = [sb instantiateViewControllerWithIdentifier:@"partyListVC"];
     vc.shouldShowMyParties = YES;
+    vc.user = self.user;
 
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -164,6 +192,7 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PSPartyListVC *vc = [sb instantiateViewControllerWithIdentifier:@"partyListVC"];
     vc.shouldShowMyParties = NO;
+    vc.user = self.user;
 
     [self.navigationController pushViewController:vc animated:YES];
 }

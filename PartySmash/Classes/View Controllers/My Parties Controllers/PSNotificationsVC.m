@@ -129,7 +129,7 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
         PSNotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:notification_cell forIndexPath:indexPath];
         cell.body.attributedString = [notification getBody];
 
-        cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+//        cell.imageView.image = [UIImage imageNamed:@"feed_S"];
         cell.imageView.file = notification.sender.photo100;
 
         cell.delegate = self;
@@ -248,7 +248,7 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
         PSUser *user = notification.sender;
         PSNotificationFollowCell *cell = [self.tableView cellForRowAtIndexPath:cellIndex];
 
-        [cell.followButton showIndicatorWithCornerRadius:5];
+        [cell.followButton showIndicatorWithCornerRadius:6];
         if ([user isFollowing]) {
 //        NSLog(@"Unfollow user");
             [[PSUser currentUser] unfollowUser:user withCompletion:^(NSError *error) {
@@ -269,36 +269,6 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
             }];
         }
     }
-//    if (cellIndex.section != 0) {return;}
-
-//    PSNotificationCell *cell = (NSArray *) data[0];
-//    int code = [((NSArray *) data)[1] intValue];
-//
-//    NSIndexPath *path = [self.tableView indexPathForCell:cell];
-//    PSNotification *invitation = [_invitations objectAtIndex:path.row];
-//
-//    if (code == 3) { // OK
-//        [invitation deleteEventually];
-//    } else if (code == 2) { // accept
-//        [invitation acceptWithCompletion:^(NSError *error) {
-//            if (error) {
-//                NSLog(@"error = %@", error);
-//            }
-//        }];
-//    } else {
-//        [invitation declineWithCompletion:^(NSError *error) {
-//            if (error) {
-//                NSLog(@"error = %@", error);
-//            }
-//        }];
-//    }
-//
-//    [self.tableView beginUpdates];
-//
-//    [_invitations removeObjectAtIndex:path.row];
-//    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationRight];
-//
-//    [self.tableView endUpdates];
 }
 
 - (void)setUpFollowButton:(UIButton *)button forUser:(PSUser *)user {
@@ -356,12 +326,16 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
             [_showingNotificationForAS acceptInvitationWithCompletion:updateBlock];
         } else if (buttonIndex == 2) {
             [_showingNotificationForAS declineInvitationWithCompletion:updateBlock];
+        } else {
+            return;
         }
     } else {
         if (buttonIndex == 0) {
             [_showingNotificationForAS acceptRequestWithCompletion:updateBlock];
         } else if (buttonIndex == 1) {
             [_showingNotificationForAS declineRequestWithCompletion:updateBlock];
+        } else {
+            return;
         }
     }
 

@@ -11,6 +11,6 @@
 @interface PSPriceDescriptionVC : UIViewController <UITextViewDelegate>
 
 @property (nonatomic) PSParty *party;
-@property (weak, nonatomic) id<CreatePartyDelegate> delegate;
+@property (weak, nonatomic) id<CreatePartyDelegate> createDelegate;
 
 @end

@@ -32,29 +32,36 @@
                                     <action selector="logInAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="28X-Wk-y0B"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="TkQ-w5-pfY">
-                                <rect key="frame" x="51" y="74" width="218" height="220"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="220" id="h9R-Vl-3u9"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="TkQ-w5-pfY">
+                                <rect key="frame" x="51" y="74" width="218" height="226"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use your social account to log in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="227" translatesAutoresizingMaskIntoConstraints="NO" id="vdy-7M-yHU">
-                                <rect key="frame" x="42" y="399" width="227" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="753" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wcd-aK-aeU">
+                                <rect key="frame" x="16" y="395" width="288" height="67"/>
+                                <string key="text">Не беспокойтесь: мы НИКОГДА не будем публиковать записи во Вконтакте без вашего согласия или воровать ваши данные. Сами этого не любим!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="753" text="Use your social account to log in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="227" translatesAutoresizingMaskIntoConstraints="NO" id="vdy-7M-yHU">
+                                <rect key="frame" x="51" y="348" width="210" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="vdy-7M-yHU" secondAttribute="centerX" constant="4.5" id="MMZ-hx-bms"/>
                             <constraint firstItem="TkQ-w5-pfY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="51" id="PDA-EE-6LM"/>
+                            <constraint firstAttribute="centerX" secondItem="Wcd-aK-aeU" secondAttribute="centerX" id="PQv-2l-hNy"/>
+                            <constraint firstItem="Wcd-aK-aeU" firstAttribute="top" secondItem="vdy-7M-yHU" secondAttribute="bottom" constant="6" id="PxV-qX-MBK"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="RcQ-OM-Kbq" secondAttribute="bottom" constant="39" id="Sgw-sv-R3q"/>
-                            <constraint firstAttribute="trailing" secondItem="vdy-7M-yHU" secondAttribute="trailing" constant="51" id="ZKE-yk-sGS"/>
-                            <constraint firstItem="vdy-7M-yHU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="42" id="cYZ-2n-dZB"/>
+                            <constraint firstItem="RcQ-OM-Kbq" firstAttribute="top" secondItem="Wcd-aK-aeU" secondAttribute="bottom" constant="11" id="Xxt-dA-BlU"/>
                             <constraint firstItem="RcQ-OM-Kbq" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="68" id="esr-cK-AVf"/>
                             <constraint firstAttribute="trailing" secondItem="RcQ-OM-Kbq" secondAttribute="trailing" constant="67" id="h1r-nU-c7O"/>
+                            <constraint firstItem="Wcd-aK-aeU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="h4q-Tf-Tjh"/>
                             <constraint firstAttribute="trailing" secondItem="TkQ-w5-pfY" secondAttribute="trailing" constant="51" id="ha9-kw-2Cs"/>
                             <constraint firstItem="TkQ-w5-pfY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="54" id="pxL-Mi-RKc"/>
-                            <constraint firstItem="RcQ-OM-Kbq" firstAttribute="top" secondItem="vdy-7M-yHU" secondAttribute="bottom" constant="33" id="uD7-xb-5oA"/>
+                            <constraint firstItem="vdy-7M-yHU" firstAttribute="top" secondItem="TkQ-w5-pfY" secondAttribute="bottom" constant="48" id="vK4-rC-vdS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tJk-UV-Zcv"/>
@@ -134,7 +141,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select a date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MX5-Gs-UwQ">
-                                                    <rect key="frame" x="20" y="11" width="247" height="22"/>
+                                                    <rect key="frame" x="11" y="11" width="247" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -162,8 +169,8 @@
                                                     </segments>
                                                     <color key="tintColor" red="0.38039215686274508" green="0.14117647058823529" blue="0.38823529411764707" alpha="1" colorSpace="calibratedRGB"/>
                                                 </segmentedControl>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- YES! Anyone is welcomed!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmT-lT-jYI">
-                                                    <rect key="frame" x="67" y="47" width="217" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="- YES! Anyone is welcomed!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmT-lT-jYI">
+                                                    <rect key="frame" x="8" y="48" width="304" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -250,7 +257,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ygP-QI-BjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3254" y="-174"/>
+            <point key="canvasLocation" x="3254" y="-176"/>
         </scene>
         <!--Description-->
         <scene sceneID="bbU-2f-3dU">
@@ -277,7 +284,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Description" id="f1O-GA-Tmp">
                         <barButtonItem key="backBarButtonItem" title="Description" id="qUC-Ys-r3o"/>
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="gXl-g1-q8T">
+                        <barButtonItem key="rightBarButtonItem" title="Цена" id="gXl-g1-q8T">
                             <connections>
                                 <segue destination="5jg-0k-ldk" kind="push" id="orZ-Mb-PJg"/>
                             </connections>
@@ -308,6 +315,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RwA-Mp-o6v">
                                 <rect key="frame" x="66" y="83" width="188" height="30"/>
                                 <state key="normal" title="My party is absolutly FREE!">
+                                    <color key="titleColor" red="0.3803921569" green="0.14117647059999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -315,15 +323,15 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E2O-F6-ynZ" customClass="SZTextView">
-                                <rect key="frame" x="9" y="154" width="303" height="201"/>
+                                <rect key="frame" x="16" y="150" width="288" height="250"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <outlet property="delegate" destination="5jg-0k-ldk" id="cet-19-FDB"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8P-vu-O2D">
-                                <rect key="frame" x="151" y="121" width="19" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8P-vu-O2D">
+                                <rect key="frame" x="129" y="121" width="63" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -331,15 +339,16 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X8z-US-FH6" userLabel="Party free view">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your party is free!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rp3-J0-L1n">
-                                        <rect key="frame" x="93" y="83" width="134" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your party is free!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rp3-J0-L1n">
+                                        <rect key="frame" x="8" y="83" width="304" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z4D-Ec-WeF">
-                                        <rect key="frame" x="95" y="129" width="131" height="30"/>
+                                        <rect key="frame" x="8" y="129" width="304" height="30"/>
                                         <state key="normal" title="Want some money.">
+                                            <color key="titleColor" red="0.3803921569" green="0.14117647059999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -541,7 +550,7 @@
                                     <outletCollection property="gestureRecognizers" destination="Hkq-s3-taR" appends="YES" id="vOp-09-bCc"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1L-VU-SEo">
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="255" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1L-VU-SEo">
                                 <rect key="frame" x="140" y="305" width="40" height="27"/>
                                 <state key="normal" image="ic_follow">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -911,11 +920,11 @@
             </objects>
             <point key="canvasLocation" x="-1024" y="145"/>
         </scene>
-        <!--Feed-->
+        <!--Лента-->
         <scene sceneID="ZaM-mo-bfM">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pqc-4s-kFP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="tab_bar_feed_line" id="m5c-iC-MDn"/>
+                    <tabBarItem key="tabBarItem" title="Лента" image="tab_bar_feed_line" id="m5c-iC-MDn"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="69E-n8-Mzo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -934,7 +943,7 @@
             </objects>
             <point key="canvasLocation" x="1376" y="-927"/>
         </scene>
-        <!--Feed-->
+        <!--Лента-->
         <scene sceneID="WVn-ic-JGZ">
             <objects>
                 <tableViewController id="uW9-Re-dwY" customClass="PSUserFeedVC" sceneMemberID="viewController">
@@ -955,7 +964,7 @@
                             <outlet property="delegate" destination="uW9-Re-dwY" id="pES-qi-His"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feed" id="ckf-BC-lgz">
+                    <navigationItem key="navigationItem" title="Лента" id="ckf-BC-lgz">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ptC-Lh-Eyd">
                             <connections>
                                 <segue destination="tgn-Ti-DI3" kind="modal" identifier="CreatePartySegue" id="RIg-BL-isQ"/>
@@ -1250,11 +1259,11 @@
             </objects>
             <point key="canvasLocation" x="3753" y="-893"/>
         </scene>
-        <!--Find party-->
+        <!--Поиск-->
         <scene sceneID="ErN-Sh-o4P">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ddw-mI-aBH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Find party" image="find_parties_L" id="Zn5-wj-Nnj"/>
+                    <tabBarItem key="tabBarItem" title="Поиск" image="find_parties_L" id="Zn5-wj-Nnj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vN2-xx-YzP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1299,6 +1308,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Найти вечеринку" id="nCg-Hw-h02">
+                        <barButtonItem key="backBarButtonItem" title=" " id="6qw-9n-Y4v"/>
                         <barButtonItem key="rightBarButtonItem" image="ic_bar_map" id="Jaf-GL-0nF">
                             <connections>
                                 <segue destination="Tsf-hC-GSq" kind="push" id="zvV-6H-hCk"/>
@@ -1350,11 +1360,11 @@
             </objects>
             <point key="canvasLocation" x="2355" y="-162"/>
         </scene>
-        <!--My parties-->
+        <!--Вечеринки-->
         <scene sceneID="6Xx-BL-cZL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WOF-mI-Kdg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My parties" image="my_parties_L" id="iIH-iJ-Zmp"/>
+                    <tabBarItem key="tabBarItem" title="Вечеринки" image="my_parties_L" id="iIH-iJ-Zmp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="glG-uO-BWV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1369,11 +1379,11 @@
             </objects>
             <point key="canvasLocation" x="1376" y="586"/>
         </scene>
-        <!--Profile-->
+        <!--Профиль-->
         <scene sceneID="oN9-LG-4K9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e1V-pt-ZHm" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="profile_L" id="i1k-z3-uX0"/>
+                    <tabBarItem key="tabBarItem" title="Профиль" image="profile_L" id="i1k-z3-uX0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3ad-0u-ZkR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1497,8 +1507,8 @@
                             <rect key="frame" x="48" y="6" width="224" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="Notifications"/>
-                                <segment title="Parties"/>
+                                <segment title="Новости"/>
+                                <segment title="Вечеринки"/>
                             </segments>
                         </segmentedControl>
                     </navigationItem>
@@ -1569,6 +1579,7 @@
         <image name="ic_profile_settings" width="20" height="19"/>
         <image name="ic_show_partyloc.png" width="48" height="48"/>
         <image name="logo.jpg" width="2086" height="2048"/>
+        <image name="logo.png" width="512" height="512"/>
         <image name="my_parties_L" width="20" height="25"/>
         <image name="profile_L" width="34" height="18"/>
         <image name="social_insta" width="41" height="41"/>

@@ -8,6 +8,7 @@
 #import "Parse/PFObject+Subclass.h";
 #import "PSUser.h"
 #import "PSNotification.h"
+#import "PSAppDelegate.h"
 
 static NSDateFormatter *_dateFormatter;
 
@@ -75,6 +76,10 @@ static NSDateFormatter *_dateFormatter;
                                            }
                                     block:^(id result, NSError *error) {
                                         if (!error) {
+                                            [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                            action:@"button_pressed"
+                                                                                                                            label:@"send_request"
+                                                                                                                            value:nil];
                                             callback(nil);
                                         } else callback(error);
                                     }];
@@ -87,6 +92,10 @@ static NSDateFormatter *_dateFormatter;
                                            }
                                     block:^(id result, NSError *error) {
                                         if (!error) {
+                                            [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                              action:@"button_pressed"
+                                                                                                                               label:@"enroll_open"
+                                                                                                                               value:nil];
                                             callback(nil);
                                         } else callback(error);
                                     }];
@@ -119,7 +128,7 @@ static NSDateFormatter *_dateFormatter;
 
     NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
 
-    if (abs((int)[self.date timeIntervalSinceDate:today]) < 24 * 60 * 60) {
+    if (abs((int) [self.date timeIntervalSinceDate:today]) < 24 * 60 * 60) {
         NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
         [_dateFormatter setDateFormat:@"HH:mm"];
 

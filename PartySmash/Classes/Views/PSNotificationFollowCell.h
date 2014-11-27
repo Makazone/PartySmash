@@ -11,7 +11,7 @@
 @protocol PSCellDelegate;
 
 static int tapForFollow = 0;
-static int tapForUser = 0;
+static int tapForUser = 1;
 
 @interface PSNotificationFollowCell : PFTableViewCell
 

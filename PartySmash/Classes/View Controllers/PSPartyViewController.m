@@ -171,13 +171,13 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section < 4) { return 1; }
-    if (_status == CREATOR || _status == GOES) {
+    if (_status == GOES) {
         return 2;
     }
     if (_status == NONE) {
         return 0;
     }
-    if (_status == NEW || _status == WAITS) {
+    if (_status == NEW || _status == WAITS || _status == CREATOR) {
         return 1;
     } else return -1;
 }
@@ -389,6 +389,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
     usersTableVC.party = self.party;
     usersTableVC.screenTitle = @"Пригласить";
     usersTableVC.gaScreenName = @"Invite to party";
+    usersTableVC.userQueryToDisplay = [[PSUser currentUser] queryForFriends];
 
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -409,6 +410,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
     usersTableVC.party = self.party;
     usersTableVC.screenTitle = @"Предложить";
     usersTableVC.gaScreenName = @"Recommend party";
+    usersTableVC.userQueryToDisplay = [[PSUser currentUser] queryForFriends];
 
     [self presentViewController:nav animated:YES completion:nil];
 }

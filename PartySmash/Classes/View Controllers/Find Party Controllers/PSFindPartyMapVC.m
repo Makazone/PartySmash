@@ -54,6 +54,7 @@ static NSDateFormatter *_dateFormatter;
     self.gmsMapView.delegate = self;
     self.gmsMapView.settings.myLocationButton = YES;
     self.gmsMapView.settings.rotateGestures = NO;
+//    self.gmsMapView.settings. = NO;
 
     _locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;

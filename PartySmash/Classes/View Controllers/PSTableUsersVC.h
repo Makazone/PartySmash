@@ -7,11 +7,12 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "PSCellDelegate.h"
+#import "PSQueryTableViewController.h"
 
 @class PSUser;
 @class PSParty;
 
-@interface PSTableUsersVC : PFQueryTableViewController <PSCellDelegate, UIScrollViewDelegate>
+@interface PSTableUsersVC : PSQueryTableViewController <PSCellDelegate, UIScrollViewDelegate>
 
 @property (nonatomic) PFQuery *userQueryToDisplay;
 @property (nonatomic) BOOL needsFollow;

@@ -38,6 +38,7 @@ static NSString *IS_USER_GOING = @"is_going";
 
 @property (retain) NSString *name;
 @property (retain) NSDate *date;
+
 @property int capacity;
 
 @property BOOL isPrivate;

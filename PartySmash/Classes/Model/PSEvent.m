@@ -17,6 +17,7 @@ static NSDateFormatter *dateFormatter;
 @dynamic owner;
 @dynamic party;
 @dynamic type;
+@dynamic timePassed;
 
 + (void)initialize
 {
@@ -39,7 +40,7 @@ static NSDateFormatter *dateFormatter;
     NSString *timePassed = [self getTimePassed];
 
     if (self.type == 0) {
-        pureBody = [NSString stringWithFormat:@"%@ создал(-а) вечеринку %@\n%@", self.owner.username, self.party.name, timePassed];
+        pureBody = [NSString stringWithFormat:@"%@ создал(а) вечеринку %@\n%@", self.owner.username, self.party.name, timePassed];
         body = [[NSMutableAttributedString alloc] initWithString:pureBody attributes:@{
                 NSFontAttributeName : [UIFont systemFontOfSize:16]
         }];
@@ -83,20 +84,22 @@ static NSDateFormatter *dateFormatter;
         return [dateFormatter stringFromDate:self.createdAt];
     } else if (timePassed > 60*60) {
         int hours = (int)timePassed / 3600;
+        int lastDigit = hours / 10;
         NSString *russianHour;
-        if (hours == 1) {
+        if (lastDigit == 1) {
             russianHour = @"час";
-        } else if (hours <= 4) russianHour = @"часа";
+        } else if (lastDigit <= 4) russianHour = @"часа";
         else {
             russianHour = @"часов";
         }
         return [NSString stringWithFormat:@"%d %@ назад", hours, russianHour];
     } else {
         int minutes = (int)timePassed/60;
+        int lastDigit = minutes / 10;
         NSString *russianMinute;
-        if (minutes == 1) {
+        if (lastDigit == 1) {
             russianMinute = @"минуту";
-        } else if (minutes <= 4) {
+        } else if (lastDigit <= 4) {
             russianMinute = @"минуты";
         } else {
             russianMinute = @"минут";

@@ -110,7 +110,7 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
     [PFCloud callFunctionInBackground:@"followUser"
                        withParameters:@{
                                            @"userId": user.objectId,
-                                           @"pushText": [NSString stringWithFormat:@"%@ подписался на тебя", [[PSUser currentUser] username]]
+                                           @"pushText": [NSString stringWithFormat:@"%@ подписался на вас", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
@@ -189,5 +189,16 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
     }
     return isFollowing;
 }
+
+- (PFQuery *)queryForFriends {
+//    PFQuery *innerQuery = [PSUser query];
+//    [innerQuery whereKey:@"following" equalTo:[PSUser currentUser]];
+
+    PFQuery *query = [[PSUser currentUser] getFollowingRelation].query;
+    [query whereKey:@"following" equalTo:[PSUser currentUser]];
+
+    return query;
+}
+
 
 @end

@@ -11,5 +11,6 @@
 @interface PSPartyListVC : PSQueryTableViewController
 
 @property (nonatomic) BOOL shouldShowMyParties;
+@property (nonatomic) PSUser *user;
 
 @end

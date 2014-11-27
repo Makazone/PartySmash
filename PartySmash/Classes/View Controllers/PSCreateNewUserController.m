@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <Crashlytics/Crashlytics.h>
 #import "PSCreateNewUserController.h"
 #import "VKRequest.h"
 #import "VKApi.h"
@@ -147,6 +148,8 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
                     // sent with all subsequent hits.
                     [tracker set:@"&uid"
                            value:[PSUser currentUser].objectId];
+
+                    [[Crashlytics sharedInstance] setUserIdentifier:[PSUser currentUser].objectId];
 
                     NSLog(@"Success!");
                     [self performSegueWithIdentifier:FOLLOW_FRIENDS_SEGUE sender:self];

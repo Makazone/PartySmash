@@ -15,7 +15,7 @@
 
 @property (readonly) GMSMapView *map;
 
-@property (weak, nonatomic) id<CreatePartyDelegate> delegate;
+@property (weak, nonatomic) id<CreatePartyDelegate> createDelegate;
 
 @end
 

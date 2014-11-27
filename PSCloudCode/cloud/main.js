@@ -26,7 +26,7 @@ Parse.Cloud.define("helper_SendPush", function(request, response) {
     var pushQuery = new Parse.Query(Parse.Installation);
     pushQuery.equalTo("user", user);
 
-    var pushString = "Android sucks!, " + request.user.get("username");
+    var pushString = "Hi!";
     if (request.params.text) {
         pushString = request.params.text;
     }
@@ -557,6 +557,7 @@ Parse.Cloud.afterSave("Party", function(request) {
         event.set("type", 0);
         event.set("owner", request.object.get("creator"));
         event.set("party", request.object);
+        event.set("timePassed", "Like really a lot");
 
         event.save();
     }
@@ -782,12 +783,14 @@ Parse.Cloud.define("createTestUsers", function(request, response) {
                 var image = new Image();
                 console.log(httpResponse.text);
                 return image.setData(httpResponse.buffer);
-            }).then(function(image) {
-                return image.scale({
-                    width:100,
-                    height:100
-                });
-            }).then(function(image) {
+            })
+//                .then(function(image) {
+//                return image.scale({
+//                    width:200,
+//                    height:200
+//                });
+//            })
+                .then(function(image) {
                 return image.data();
             }).then(function(buffer) {
                 var base64 = buffer.toString("base64");
@@ -856,48 +859,44 @@ Parse.Cloud.define("getAllUsersNics", function(request, response) {
     });
 });
 
+/**
+ * @param userId
+ * @param partyId
+ */
 Parse.Cloud.define("addInvitedToParty", function(request, response) {
     var Party = Parse.Object.extend("Party");
     var party = new Party();
     party.id = request.params.partyId;
     party.fetch().then(function() {
-        var query = new Parse.Query(Parse.User);
-        query.limit(request.params.peopleLimit);
-        query.find({
-            success: function(users) {
-                relation = party.relation("invited");
-                for (j = 0; j < users.length; j++) {
-                    // Creator shouldn't be invited
-                    if (users[j].id == party.get("creator").id) {
-                        continue;
-                    }
-                    console.log("   "+users[j].get("username") + " now goes to party "+party.get("name"));
-                    relation.add(users[j]);
+            relation = party.relation("invited");
 
-                    var Event = Parse.Object.extend("Event");
-                    var event = new Event();
-                    event.set("type", 1);
-                    event.set("party", party);
-                    event.set("owner", users[j]);
-                    event.save(null, {
-                        success: function(event) {
-                            console.warn("event for user created");
-                        },
-                        error: function(event, error){
-                            console.warn("failed to create event for user "+error);
-                        }
-                    });
+            var user = new Parse.User();
+            user.id = request.params.userId;
+            relation.add(user);
+
+            var Event = Parse.Object.extend("Event");
+            var event = new Event();
+            event.set("type", 1);
+            event.set("party", party);
+            event.set("owner", user);
+            event.set("timePassed", request.params.timePassed);
+            event.save(null, {
+                success: function(event) {
+                    console.warn("event for user created");
+                },
+                error: function(event, error){
+                    console.warn("failed to create event for user "+error);
                 }
-                party.save(null, {
-                    success: function(user) {
-                        response.success("Added users to party invited relation");
-                    },
-                    error: function(user, error) {
-                        response.error(error);
-                    }
-                });
-            }
-        });
+            });
+
+            party.save(null, {
+                success: function(user) {
+                    response.success("Added users to party invited relation");
+                },
+                error: function(user, error) {
+                    response.error(error);
+                }
+            });
     });
 
 });
@@ -939,7 +938,7 @@ Parse.Cloud.define("createTestParty", function(request, response) {
     party.save(null, {
         success: function(party) {
 
-            response.success("Party created.");
+            response.success(party.id);
         },
         error: function(party, error) {
             response.error(error);

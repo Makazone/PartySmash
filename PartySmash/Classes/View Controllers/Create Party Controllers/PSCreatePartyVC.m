@@ -166,11 +166,11 @@ static NSDateFormatter *dateFormatter;
     PSMapInfoView *plainView = [nibContents lastObject];
 
     if (self.newParty.address) {
-        plainView.subtitle.text  = @"Tap to change";
+        plainView.subtitle.text  = @"Сменить место";
         plainView.title.text = self.newParty.address;
         plainView.title.font = [UIFont systemFontOfSize:16];
     } else {
-        plainView.title.text = @"Tap to select a place";
+        plainView.title.text = @"Выбрать место";
         plainView.subtitle.text = @"";
     }
 
@@ -377,7 +377,7 @@ static NSDateFormatter *dateFormatter;
     if ([segue.identifier isEqualToString:descrSegue]) {
         PSGeneralDescriptionVC *vc = segue.destinationViewController;
         [vc setParty:self.newParty];
-        vc.delegate = self.delegate;
+        vc.createDelegate = self.createDelegate;
     }
 }
 
@@ -396,10 +396,10 @@ static NSDateFormatter *dateFormatter;
 
 - (IBAction)changePartyType:(id)sender {
     if (self.partyTypeControl.selectedSegmentIndex == 0) {
-        self.partyStatusLabel.text = @"YES! Anyone is welcomed!";
+        self.partyStatusLabel.text = @"Вход свободный, прийти может любой";
         [self.newParty setIsPrivate:NO];
     } else {
-        self.partyStatusLabel.text = @"Invitations are required.";
+        self.partyStatusLabel.text = @"Вход только по приглашениям";
         [self.newParty setIsPrivate:YES];
     }
 }
@@ -409,9 +409,9 @@ static NSDateFormatter *dateFormatter;
 
     [self.newParty setCapacity:descreteValue];
 
-    NSString *capLabel = [NSString stringWithFormat:@"%d people max.", descreteValue];
+    NSString *capLabel = [NSString stringWithFormat:@"%d человек максимум", descreteValue];
     if (descreteValue == 101) {
-        capLabel = @"NO Limits!";
+        capLabel = @"Количество не ограничено";
         [self.newParty setCapacity:0];
     }
 

@@ -33,7 +33,7 @@ static NSString *GA_SCREEN_NAME = @"Party Create - price";
     self.textField.placeholderTextColor = [UIColor lightGrayColor];
 //    self.textField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0];
 
-    [self.textField setPlaceholder:@"Provide any necessary information about the price. Don't forget to say about your special offers and discounts!"];
+    [self.textField setPlaceholder:@"Необходимая информация о цене."];
 
     if (!self.party.isFree) {
         [self.textField becomeFirstResponder];
@@ -80,14 +80,14 @@ static NSString *GA_SCREEN_NAME = @"Party Create - price";
         [hud hide:YES];
 
         if (error) {
-            [[[UIAlertView alloc] initWithTitle:@"Упс =(" message:@"Мы не смогли сохранить вашу вечеринку, проверить свое соединение и попробуйте еще раз." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [[[UIAlertView alloc] initWithTitle:@"Упс =(" message:@"Мы не смогли сохранить вашу вечеринку, проверить соединение и попробуйте еще раз." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         } else {
             [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
                                                                                               action:@"button_pressed"
                                                                                                label:@"publish_party"
                                                                                                value:nil];
 
-            [self.delegate didCreateParty:self.party];
+            [self.createDelegate didCreateParty:self.party];
             [self dismissViewControllerAnimated:YES completion:^{
             }];
 

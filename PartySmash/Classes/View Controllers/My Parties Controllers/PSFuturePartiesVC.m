@@ -150,7 +150,7 @@ static NSString *GA_SCREEN_NAME = @"Future parties";
     cell.body.attributedString = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
-    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+//    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
     cell.imageView.file = userImg;
 
     [cell.imageView loadInBackground];

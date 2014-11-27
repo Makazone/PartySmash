@@ -45,7 +45,7 @@
     [GAI sharedInstance].dispatchInterval = 20;
     
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-52406320-3"];
@@ -60,14 +60,17 @@
         // sent with all subsequent hits.
         [tracker set:@"&uid"
                value:[PSUser currentUser].objectId];
+
+        [[Crashlytics sharedInstance] setUserIdentifier:[PSUser currentUser].objectId];
     }
     
-    [[Crashlytics sharedInstance] setDebugMode:NO];
-    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
 
     [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
 
     [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
+
+    [[Crashlytics sharedInstance] setDebugMode:NO];
+    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
 
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
 

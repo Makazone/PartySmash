@@ -93,7 +93,7 @@ static NSString *GA_SCREEN_NAME = @"Settings";
         NSLog(@"E-mailing Unavailable");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Customer.send_email_error.error", nil)
                                                             message:NSLocalizedString(@"Customer.send_email_error.unable to send email", @"MFMailComposeVC.canSendEmail = NO")
-                                                           delegate:nil cancelButtonTitle:NSLocalizedString(@"Error.Ok", @"Cancel OK button title of alertView")
+                                                           delegate:nil cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
         [alertView show];
     }

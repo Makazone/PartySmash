@@ -34,6 +34,8 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 - (BOOL)isFollowingUser:(NSString *)userId;
 - (void)checkFollowDefaults;
 
+- (PFQuery *)queryForFriends;
+
 
 @property (retain) PFFile *photo100;
 @property (retain) PFFile *photo200;

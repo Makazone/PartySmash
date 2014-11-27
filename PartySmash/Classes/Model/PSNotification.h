@@ -26,6 +26,7 @@ static int STARTED_FOLLOWING = 7;
 @property (retain) PSUser *sender;
 @property (retain) PSUser *recipient;
 @property BOOL didRespond;
+@property (retain) NSString *timePassed;
 
 @property BOOL invalidateBody;
 

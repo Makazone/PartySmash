@@ -20,5 +20,6 @@
 
 @property (retain) PSParty *party;
 @property (retain) PSUser *owner;
+@property (retain) NSString *timePassed;
 
 @end

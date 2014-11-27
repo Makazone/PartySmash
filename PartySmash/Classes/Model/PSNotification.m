@@ -6,6 +6,7 @@
 #import "PSNotification.h"
 #import "PSParty.h"
 #import "PSUser.h"
+#import "PSAppDelegate.h"
 
 
 static NSDateFormatter *dateFormatter;
@@ -20,6 +21,7 @@ static NSDateFormatter *dateFormatter;
 @dynamic sender;
 @dynamic party;
 @dynamic didRespond;
+@dynamic timePassed;
 
 @synthesize invalidateBody;
 
@@ -45,6 +47,10 @@ static NSDateFormatter *dateFormatter;
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
+                                        [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                          action:@"button_pressed"
+                                                                                                                           label:@"decline_request"
+                                                                                                                           value:nil];
                                         completion(nil);
                                     } else completion(error);
                                 }];
@@ -60,6 +66,10 @@ static NSDateFormatter *dateFormatter;
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
+                                        [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                          action:@"button_pressed"
+                                                                                                                           label:@"accept_request"
+                                                                                                                           value:nil];
                                         completion(nil);
                                     } else completion(error);
                                 }];
@@ -71,10 +81,14 @@ static NSDateFormatter *dateFormatter;
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
                                            @"invitationId": self.objectId,
-                                           @"pushText": [NSString stringWithFormat:@"%@ отклонил(-а) ваше приглашение", [[PSUser currentUser] username]]
+                                           @"pushText": [NSString stringWithFormat:@"%@ отклонил(а) ваше приглашение", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
+                                        [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                          action:@"button_pressed"
+                                                                                                                           label:@"decline_invitation"
+                                                                                                                           value:nil];
                                         completion(nil);
                                     } else completion(error);
                                 }];
@@ -87,10 +101,14 @@ static NSDateFormatter *dateFormatter;
                                            @"partyId": self.party.objectId,
                                            @"recipientId": self.sender.objectId,
                                            @"invitationId": self.objectId,
-                                           @"pushText": [NSString stringWithFormat:@"%@ принял(-а) ваше приглашение", [[PSUser currentUser] username]]
+                                           @"pushText": [NSString stringWithFormat:@"%@ принял(а) ваше приглашение", [[PSUser currentUser] username]]
                                        }
                                 block:^(id result, NSError *error) {
                                     if (!error) {
+                                        [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                          action:@"button_pressed"
+                                                                                                                           label:@"accept_invitation"
+                                                                                                                           value:nil];
                                         completion(nil);
                                     } else completion(error);
                                 }];
@@ -143,9 +161,12 @@ static NSDateFormatter *dateFormatter;
                                @"pushText": [NSString stringWithFormat:@"%@ приглашает вас на свою вечеринку", [[PSUser currentUser] username]]
                        }
                                 block:^(id result, NSError *error) {
-//                                        if (!error) {
-//                                            callback(nil);
-//                                        } else callback(error);
+                                        if (!error) {
+                                            [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                              action:@"button_pressed"
+                                                                                                                               label:@"send_invitation"
+                                                                                                                               value:nil];
+                                        }
 
                                 }];
 }
@@ -158,9 +179,12 @@ static NSDateFormatter *dateFormatter;
                                @"pushText": [NSString stringWithFormat:@"%@ рекомендует вам вечеринку", [[PSUser currentUser] username]]
                        }
                                 block:^(id result, NSError *error) {
-//                                        if (!error) {
-//                                            callback(nil);
-//                                        } else callback(error);
+                                        if (!error) {
+                                            [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"ui_action"
+                                                                                                                              action:@"button_pressed"
+                                                                                                                               label:@"send_recommendation"
+                                                                                                                               value:nil];
+                                        }
 
                                 }];
 }
@@ -175,9 +199,9 @@ static NSDateFormatter *dateFormatter;
     if (self.type == SEND_INVITATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ приглашает вас на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == ACCEPT_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ принял(-a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ принял(a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == DECLINE_INVITATION_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ отклонил(-a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ отклонил(a) приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == SEND_REQUEST_TYPE) {
         if ([self.recipient.objectId isEqualToString:[[PSUser currentUser] objectId]]) {
             pure = [NSString stringWithFormat:@"%@ просит приглашение на вечеринку \"%@\"", self.sender.username, self.party.name];
@@ -195,11 +219,11 @@ static NSDateFormatter *dateFormatter;
     } else if (self.type == ACCEPT_REQUEST_TYPE) {
         pure = [NSString stringWithFormat:@"Вы приглашены на вечеринку \"%@\"", self.party.name];
     } else if (self.type == DECLINE_REQUEST_TYPE) {
-        pure = [NSString stringWithFormat:@"%@ отклонил ваш запрос на вечеринку \"%@\"", self.sender.username, self.party.name];
+        pure = [NSString stringWithFormat:@"%@ отклонил(a) ваш запрос на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == SEND_RECOMMENDATION_TYPE) {
         pure = [NSString stringWithFormat:@"%@ предлагает сходить на вечеринку \"%@\"", self.sender.username, self.party.name];
     } else if (self.type == STARTED_FOLLOWING) {
-        pure = [NSString stringWithFormat:@"%@ подписался на вас.", self.sender.username];
+        pure = [NSString stringWithFormat:@"%@ подписан(а) на вас.", self.sender.username];
     }
 
     NSString *timePassed = self.getTimePassed;
@@ -249,13 +273,13 @@ static NSDateFormatter *dateFormatter;
 - (NSString *)getTimePassed {
     NSTimeInterval timePassed = abs([self.createdAt timeIntervalSinceNow]);
 
-    if (timePassed > 60*60*24) {
+    if (timePassed > 60 * 60 * 24) {
         return [dateFormatter stringFromDate:self.createdAt];
-    } else if (timePassed > 60*60) {
-        int hours = (int)timePassed / 3600;
+    } else if (timePassed > 60 * 60) {
+        int hours = (int) timePassed / 3600;
         return [NSString stringWithFormat:@"%dч", hours];
     } else {
-        int minutes = (int)timePassed/60;
+        int minutes = (int) timePassed / 60;
         return [NSString stringWithFormat:@"%dм", minutes];
     }
 }

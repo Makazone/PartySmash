@@ -53,16 +53,16 @@ static NSString *GA_SCREEN_NAME = @"Party list";
 
     [self.tableView registerClass:[PSPartyListCell class] forCellReuseIdentifier:@"party_list_cell"];
 
-    [self.navigationItem setTitle:(self.shouldShowMyParties) ? @"Создал" : @"Посетил"];
+    [self.navigationItem setTitle:(self.shouldShowMyParties) ? @"Создал(a)" : @"Посетил(a)"];
 }
 
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:[PSParty parseClassName]];
 
     if (self.shouldShowMyParties) {
-        [query whereKey:@"creator" equalTo:[PSUser currentUser]];
+        [query whereKey:@"creator" equalTo:self.user];
     } else {
-        [query whereKey:@"invited" equalTo:[PSUser currentUser]];
+        [query whereKey:@"invited" equalTo:self.user];
         [query whereKey:@"date" lessThanOrEqualTo:[NSDate new]];
     }
 
@@ -90,7 +90,7 @@ static NSString *GA_SCREEN_NAME = @"Party list";
     cell.body.attributedString = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
-    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+//    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
     cell.imageView.file = userImg;
 
     [cell setNeedsUpdateConstraints];

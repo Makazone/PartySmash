@@ -68,6 +68,7 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
     [super viewDidLoad];
 
     self.gmsMapView.delegate = self;
+    self.gmsMapView.myLocationEnabled = YES;
 
     _geocodingService = [[GCGeocodingService alloc] init];
 
@@ -118,7 +119,7 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
                 [self.gmsMapView removeIndicator];
                 if (error) {
                     UIAlertView *errorAlert = [[UIAlertView alloc]
-                            initWithTitle:@"Couldn't find your location." message:@"Try text search and check connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            initWithTitle:@"Не можем декодировать адрес места" message:@"Попробуйте текстовый поиск" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [errorAlert show];
                 } else {
                     [self updateGeoInfo];
@@ -232,11 +233,11 @@ static NSTimeInterval const animatedTransitionDuration = 0.5f;
             [self.gmsMapView removeIndicator];
                 if (error.code == 1) {
                     UIAlertView *errorAlert = [[UIAlertView alloc]
-                            initWithTitle:@"Check your connection" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            initWithTitle:@"Проверьте соединение" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [errorAlert show];
                 } else if (error) {
                     UIAlertView *errorAlert = [[UIAlertView alloc]
-                            initWithTitle:@"No such place!" message:@"Try changing query." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                            initWithTitle:@"Место не найдено" message:@"Попробуйте точнее указать место" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [errorAlert show];
                 }
                 else {

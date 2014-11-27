@@ -113,7 +113,7 @@ static NSString *GA_SCREEN_NAME = @"Find party list";
     cell.body.attributedString = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
-    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+//    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
     cell.imageView.file = userImg;
 
     [cell setNeedsUpdateConstraints];

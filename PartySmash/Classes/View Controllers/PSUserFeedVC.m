@@ -7,6 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import <Crashlytics/Crashlytics.h>
 #import "PSUserFeedVC.h"
 #import "PSLoginViewController.h"
 #import "PSUser.h"
@@ -84,6 +85,7 @@ static NSString *event_cell_id = @"event_cell_id";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     NSLog(@"%s", sel_getName(_cmd));
 
     NSLog(@"%s", sel_getName(_cmd));
@@ -143,6 +145,30 @@ static NSString *event_cell_id = @"event_cell_id";
     return query;
 }
 
+#pragma mark -
+#pragma mark Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    if (self.objects.count == 0) {
+//        // Display a message when the table is empty
+//        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//
+//        messageLabel.text = @"Тут будут события пользователей, на которых вы подписаны";
+//        messageLabel.textColor = [UIColor blackColor];
+//        messageLabel.numberOfLines = 0;
+//        messageLabel.textAlignment = NSTextAlignmentCenter;
+////        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+//        [messageLabel sizeToFit];
+//
+//        self.tableView.backgroundView = messageLabel;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    }
+
+    return 1;
+
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
                         object:(PFObject *)object
@@ -156,7 +182,7 @@ static NSString *event_cell_id = @"event_cell_id";
     cell.body.attributedString = [event getEventTextBody];
 
     PFFile *userImg = event.owner.photo100;
-    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
+//    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
 //    cell.imageView.file = userImg;
     cell.imageView.file = event.owner.photo100;
 
@@ -242,8 +268,8 @@ static NSString *event_cell_id = @"event_cell_id";
 
         destVC.party = event.party;
     } else if ([segue.identifier isEqualToString:@"CreatePartySegue"]) {
-        PSCreatePartyVC *vc = segue.destinationViewController;
-        vc.delegate = self;
+        PSCreatePartyVC *vc = [(UINavigationController *)(segue.destinationViewController) topViewController];
+        vc.createDelegate = self;
     }
 }
 
@@ -257,6 +283,7 @@ static NSString *event_cell_id = @"event_cell_id";
 }
 
 - (void)didCreateParty:(PSParty *)party {
+    NSLog(@"%s", sel_getName(_cmd));
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PSPartyViewController *partyVC = [sb instantiateViewControllerWithIdentifier:@"party_vc"];
     partyVC.party = party;

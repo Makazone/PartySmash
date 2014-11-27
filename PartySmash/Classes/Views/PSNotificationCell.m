@@ -111,7 +111,7 @@
 }
 
 - (void)pressedOnUser {
-    [self.delegate didClickOnCellAtIndexPath:self.cellIndexPath withData:@(tapForUser)];
+    [self.delegate didClickOnCellAtIndexPath:self.cellIndexPath withData:@(1)];
 }
 
 @end

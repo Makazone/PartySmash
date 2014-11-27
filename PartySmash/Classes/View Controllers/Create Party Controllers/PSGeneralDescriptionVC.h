@@ -11,6 +11,6 @@
 @interface PSGeneralDescriptionVC : UIViewController <UITextViewDelegate>
 
 @property (strong, nonatomic) PSParty *party;
-@property (weak, nonatomic) id<CreatePartyDelegate> delegate;
+@property (weak, nonatomic) id<CreatePartyDelegate> createDelegate;
 
 @end

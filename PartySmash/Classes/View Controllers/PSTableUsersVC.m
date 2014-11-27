@@ -49,17 +49,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSLog(@"self.presentingViewController.presentedViewController = %@", self.presentingViewController.presentedViewController);
-    NSLog(@"self.presentingViewController = %@", self.presentingViewController);
-
     [self.navigationItem setTitle:self.screenTitle];
 
     if (!self.isModal) {
 //        [self.navItem removeFromSuperview];
-        NSLog(@"%d", self.tableView.frame.origin.y);
         self.navItem = self.navigationController.navigationItem;
 //        self.tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0);
-        NSLog(@"%@", self.navItem.title);
     } else {
 //        [(UINavigationItem *)self.navigationBar.items[0] setTitle:@"Пригласить"];
     }
@@ -84,7 +79,6 @@
 //    self.loadMoreView.hidden = YES;
     _hasMoreItemsToShow = NO;
 
-    NSLog(@"self.tableView.tableFooterView = %@", self.tableView.tableFooterView);
 
     self.tableView.tableFooterView.hidden = YES;
 //    [_loadMoreView removeFromSuperview];
@@ -163,7 +157,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%s", sel_getName(_cmd));
     if (self.objects.count - 1 < indexPath.row) {
         _hasMoreItemsToShow = YES;
 //        [tableView addSubview:self.loadMoreView];
@@ -207,8 +200,6 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    NSLog(@"%s", sel_getName(_cmd));
-
     if (_hasMoreItemsToShow) {
         self.loadMoreControl = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.loadMoreControl.frame = CGRectMake(0, 0, 320, 50);
@@ -219,7 +210,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    NSLog(@"%s", sel_getName(_cmd));
     if (_hasMoreItemsToShow) {
         return 48;
     } else return 0;
@@ -295,36 +285,45 @@
     self.placesLeftLabel.text = [NSString stringWithFormat:@"Осталось приглашений: %d", self.placesLeft];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    float currentOffset = scrollView.contentOffset.y;
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    float currentOffset = scrollView.contentOffset.y;
+//
+//    if (currentOffset <= 0 || !_hasMoreItemsToShow) { return; }
+//
+//    NSLog(@"currentOffset = %f", currentOffset);
+//
+//    float maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+//    float deltaOffset   = maximumOffset - currentOffset;
+//
+//    if (deltaOffset <= 0) {
+//        [self loadMoreItems:self];
+//    }
+//}
 
-    if (currentOffset <= 0 || !_hasMoreItemsToShow) { return; }
-
-    NSLog(@"currentOffset = %f", currentOffset);
-
-    float maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-    float deltaOffset   = maximumOffset - currentOffset;
-
-    if (deltaOffset <= 0) {
-        [self loadMoreItems:self];
-    }
-}
-
-- (void)loadMoreItems:(id)sender {
-    if (!self.isLoading) {
-        _hasMoreItemsToShow = NO;
-//        _loadMoreStatus = YES;
-//        [self.tableView.tableFooterView setHidden:NO];
-        [self.loadMoreControl startAnimating];
-//        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 38, 0)];
-        NSLog(@"Loading next page");
-        [self loadNextPage];
-    }
-}
-
-
+//- (void)loadMoreItems:(id)sender {
+//    if (!self.isLoading) {
+//        _hasMoreItemsToShow = NO;
+////        _loadMoreStatus = YES;
+////        [self.tableView.tableFooterView setHidden:NO];
+//        [self.loadMoreControl startAnimating];
+////        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 38, 0)];
+//        NSLog(@"Loading next page");
+//        [self loadNextPage];
+//    }
+//}
+//
+//
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
+
+    if (error.code == 1) {
+        [((PSAppDelegate *) [[UIApplication sharedApplication] delegate]) trackEventWithCategory:@"parse_error"
+                                                                                          action:@"friends_list"
+                                                                                           label:@"no_friends"
+                                                                                           value:nil];
+    }
+
+
     [self.loadMoreControl stopAnimating];
 //    [self.tableView.tableFooterView setHidden:YES];
 //    [self.tableView setContentInset:UIEdgeInsetsMake(38, 0, -38, 0)];

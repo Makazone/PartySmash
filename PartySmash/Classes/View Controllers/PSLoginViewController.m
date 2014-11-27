@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 PartySmash. All rights reserved.
 //
 
+#import <Crashlytics/Crashlytics.h>
 #import "PSLoginViewController.h"
 #import "PSAuthService.h"
 #import "UIView+PSViewInProgress.h"
@@ -137,6 +138,8 @@ static NSString *GA_SCREEN_NAME = @"Login";
                     // sent with all subsequent hits.
                     [tracker set:@"&uid"
                            value:user.objectId];
+
+                    [[Crashlytics sharedInstance] setUserIdentifier:user.objectId];
                 }
             }];
 
