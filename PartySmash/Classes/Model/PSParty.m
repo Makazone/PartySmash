@@ -195,4 +195,11 @@ static NSDateFormatter *_dateFormatter;
     return self.body = body;
 }
 
+- (void)reportOffensiveContent {
+    [PFCloud callFunctionInBackground:@"report_offensive_party"
+            withParameters:@{ @"partyId": self.objectId, }
+            block:^(id result, NSError *error) {
+            }];
+}
+
 @end

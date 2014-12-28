@@ -151,6 +151,8 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
             NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(3, 1)];
             [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationNone];
 
+            if (_status != CREATOR) [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:5]] withRowAnimation:UITableViewRowAnimationNone];
+
             [self.tableView endUpdates];
         }];
     }
@@ -164,13 +166,24 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_partyExpired) { return 4; }
-    return 5;
+    if (_partyExpired) { return 5; }
+//    return 5;
+    return 6;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section < 4) { return 1; }
+
+    if (section == 5) {
+        if (_status != NONE && _status != CREATOR) return 1;
+        return 0;
+    }
+
+    if (_partyExpired && section == 4) {
+        return 1;
+    }
+
     if (_status == GOES) {
         return 2;
     }
@@ -214,7 +227,11 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         if (_placesLeftText) {
             cell.placesLeft.attributedText = _placesLeftText;
         }
+    } else if(section == 5 || (section == 4 && _partyExpired)) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"report_party_cell" forIndexPath:indexPath];
+        [cell.actionButton addTarget:self action:@selector(reportParty) forControlEvents:UIControlEventTouchUpInside];
     } else {
+
         cell = [tableView dequeueReusableCellWithIdentifier:@"party_actions_cell" forIndexPath:indexPath];
         [cell.actionButton setTitleColor:cell.actionButton.tintColor forState:UIControlStateNormal];
         [cell.actionButton removeTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
@@ -320,7 +337,7 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 || indexPath.section == 3 || (indexPath.section == 4 && _status != WAITS)) {
+    if (indexPath.section == 1 || indexPath.section == 3 || (indexPath.section == 4 && _status != WAITS) || indexPath.section == 5) {
         return YES;
     }
     return NO;
@@ -344,7 +361,13 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         usersTableVC.gaScreenName = @"Invited list";
 
         [self.navigationController pushViewController:usersTableVC animated:YES];
-    } else {
+    } //else if (indexPath.section == 5) {
+//        [[[UIActionSheet alloc] initWithTitle:@"Вы уверены, что вечеринка нарушает правила сервиса? За ложную жалобу ваш аккаунт может быть заблокирован."
+//                                                  delegate:self
+//                                         cancelButtonTitle:@"Отмена"
+//                                    destructiveButtonTitle:nil
+//                                         otherButtonTitles:@"Отправить жалобу", nil] showInView:self.view];
+    else {
         PSPartyCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell.actionButton.enabled) {
             [cell.actionButton sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -439,6 +462,25 @@ enum UserStatus {GOES, WAITS, CREATOR, NEW, NONE};
         NSString *mapStr  = [NSString stringWithFormat:@"http://maps.apple.com/?q=%f,%f", self.party.geoPosition.latitude, self.party.geoPosition.longitude];
         NSURL *mapUrl = [NSURL URLWithString:mapStr];
         [[UIApplication sharedApplication] openURL:mapUrl];
+    }
+}
+
+- (IBAction)reportParty {
+    [[[UIActionSheet alloc] initWithTitle:@"Вы уверены, что данная вечеринка нарушает правила сервиса? За ложную жалобу ваш аккаунт может быть заблокирован."
+                                 delegate:self
+                        cancelButtonTitle:@"Отмена"
+                   destructiveButtonTitle:@"Отправить жалобу"
+                        otherButtonTitles:nil] showInView:self.view];
+}
+
+#pragma mark -
+#pragma mark Action Sheet
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self.party reportOffensiveContent];
+        [[[UIAlertView alloc] initWithTitle:@"Жалоба отправлена" message:@"Мы рассмотрим ее в течение 24 часов." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return;
     }
 }
 

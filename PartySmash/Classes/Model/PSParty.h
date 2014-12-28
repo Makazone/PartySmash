@@ -30,6 +30,8 @@ static NSString *IS_USER_GOING = @"is_going";
 
 @property (retain) PSUser *creator;
 
+- (void)reportOffensiveContent;
+
 @property (retain) NSString *address;
 
 @property (retain) NSString *generalDescription;

@@ -19,6 +19,8 @@
 #import "GAIDictionaryBuilder.h"
 #import "PSAuthService.h"
 #import "iRate.h"
+#import "UserVoice.h"
+#import "UVStyleSheet.h"
 
 @implementation PSAppDelegate
 
@@ -68,6 +70,18 @@
     [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
 
     [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
+
+    // Set this up once when your application launches
+    UVConfig *config = [UVConfig configWithSite:@"partysmash.uservoice.com"];
+    config.showKnowledgeBase = NO;
+    config.forumId = 275975;
+//    [config identifyUserWithEmail:@"email@example.com" name:@"User Name", guid:@"USER_ID");
+    [UserVoice initialize:config];
+//    [UVStyleSheet instance].tintColor = [UIColor redColor];
+    [UVStyleSheet instance].navigationBarBackgroundImage = [UIImage imageNamed:@"BarBG"];
+//    [UVStyleSheet instance].tintColor = [UIColor whiteColor];
+    [UVStyleSheet instance].navigationBarTextColor = [UIColor whiteColor];
+//    [UIColor colorWithRed:97 / 255.0 green:36 / 255.0 blue:99 / 255.0 alpha:1.0]];
 
     [[Crashlytics sharedInstance] setDebugMode:NO];
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];

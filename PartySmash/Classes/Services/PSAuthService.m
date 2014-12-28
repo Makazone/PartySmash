@@ -106,7 +106,7 @@ static NSString *const VK_PASS   = @"password";
 {
     [VKSdk initializeWithDelegate:delegate andAppId:PS_VK_TOKEN_KEY];
     if (![VKSdk wakeUpSession]) {
-        [VKSdk authorize:nil revokeAccess:YES];
+        [VKSdk authorize:nil revokeAccess:YES forceOAuth:NO inApp:YES];
     } else [delegate vkSdkReceivedNewToken:[VKSdk getAccessToken]];
 }
 

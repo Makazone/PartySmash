@@ -11,12 +11,14 @@ PODS:
   - ParseUI (1.0.1):
     - Parse (~> 1.5.0)
     - ParseFacebookUtils (~> 1.5.0)
+  - uservoice-iphone-sdk (3.2.1)
   - VK-ios-sdk (1.0.8.6)
 
 DEPENDENCIES:
   - Facebook-iOS-SDK
   - MBProgressHUD (~> 0.8)
   - ParseUI
+  - uservoice-iphone-sdk
   - VK-ios-sdk
 
 SPEC CHECKSUMS:
@@ -26,6 +28,7 @@ SPEC CHECKSUMS:
   Parse: 7de25b6f70f0b233e5d25835f62eabfa91e4f9d7
   ParseFacebookUtils: df2c8634a66883326629099af3690f1862fe126d
   ParseUI: 7a9d600d93fbb56b1a4019d5a3a0f43d74516a01
+  uservoice-iphone-sdk: 7cbc1e76dcbbc3d5ae3b4bf009fdcf355e1e83ec
   VK-ios-sdk: 2388a23081481384b1ad67d9e988d4dd9f8973d3
 
 COCOAPODS: 0.34.4

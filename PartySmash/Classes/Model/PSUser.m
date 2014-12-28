@@ -201,4 +201,10 @@ static NSString *WAITS_PARY_DEFAULTS_KEY = @"waitsParty";
 }
 
 
+- (void)reportOffensiveUser {
+    [PFCloud callFunctionInBackground:@"report_offensive_user"
+                       withParameters:@{ @"userId": self.objectId, }
+                                block:^(id result, NSError *error) {
+                                }];
+}
 @end

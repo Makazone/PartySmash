@@ -767,6 +767,46 @@ Parse.Cloud.define("loadPartiesForMap", function(request, response) {
     response.success("OK");
 });
 
+/** Report functions **/
+
+Parse.Cloud.define("report_offensive_user", function(request, response) {
+    var Report = Parse.Object.extend("Reports");
+    var report = new Report();
+    report.set("subject", "user");
+    report.set("reference", request.params.userId);
+    report.set("resolved", false);
+    report.save(null, {
+        success: function(event) {
+            console.warn("Report was saved");
+            response.success();
+        },
+        error: function(event, error){
+            console.warn("failed to create a report");
+        }
+    });
+});
+
+Parse.Cloud.define("report_offensive_party", function(request, response) {
+    var Report = Parse.Object.extend("Reports");
+    var report = new Report();
+    report.set("subject", "party");
+    report.set("reference", request.params.partyId);
+    report.set("resolved", false);
+    report.set("sender", request.user);
+    report.save(null, {
+        success: function(event) {
+            console.warn("Report was saved");
+            response.success();
+        },
+        error: function(event, error){
+            console.warn("failed to create a report");
+        }
+    });
+});
+
+/******************* TEST
+ *******************      FUNCTIONS *************************/
+
 Parse.Cloud.define("createTestUsers", function(request, response) {
 //    var userNics = ["Flaming Morbid Rat", "Cult Rough Rabbit", "Wombat Bare", "Sergent Wild Sparrow", "Sugar Detective", "Captain Kangaroo", "Warm Dugong", "Der Larva", "Ivory Baby", "Warm Hippopotamus", "Sad Gravy", "Camel Crunchy", "Hungry Screaming Pink", "Woodchuck Serious", "The Cat", "Massive Panther", "Rat Doctor", "Sweet Fisherman", "Slimy Fast Hook", "Sleepy Whale", "Hearty Crow", "FinchFinch", "Volunteer Princess", "Monkey Pointless", "The Seal", "Boy Brave", "SweetySweety", "Otter Orange", "Sheep Tough", "Cute Puppy", "Fast Boy", "Fisty Toddler", "Man Pet", "Chicken Pup", "Wild Elephant", "Pirate Drunken", "Foxy Beauty Titan", "El Pet", "Stud Maximum", "Major Fairy", "Needless Jockey", "Nasty Cutie Pig", "Prince Whale", "Rocky Moving Laser", "Hungry Lefty Salamander", "El Pioneer", "Goldfish Hungry"];
 
@@ -944,4 +984,44 @@ Parse.Cloud.define("createTestParty", function(request, response) {
             response.error(error);
         }
     });
+});
+
+/** CRON JOB **/
+
+Parse.Cloud.job("deleteNullData", function(request, status) {
+    // Set up to modify user data
+    Parse.Cloud.useMasterKey();
+    var counter = 0;
+
+    var query = new Parse.Query("Party");
+    query.each(function(party) {
+        console.log(party.get("creator").id);
+        status.message(party.get("name"));
+
+        var userQuery = new Parse.Query(Parse.User);
+        userQuery.equalTo("objectId", party.get("creator").id);
+
+        // Create a trivial resolved promise as a base case.
+        var promise = Parse.Promise.as();
+
+        userQuery.find({
+            success: function(results) {
+                promise = promise.then(function() {
+                    console.log("in user");
+                    if (results.length == 0) {
+                        status.message("PartyWithNoUserFound");
+                    }
+                    return;
+                    // Return a promise that will be resolved when the delete is finished.
+//                    return result.destroy();
+                });
+            },
+            error: function(error) { console.log("error"); status.message("user look up failed with error " +error); return; }
+        });
+
+        return promise;
+    }).then(function() {
+        status.success("Parties look up finished");
+    });
+
 });

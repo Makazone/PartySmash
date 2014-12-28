@@ -38,6 +38,9 @@ static NSString *const FOLLOW_RELATION_KEY = @"following";
 
 
 @property (retain) PFFile *photo100;
+
+- (void)reportOffensiveUser;
+
 @property (retain) PFFile *photo200;
 @property (retain) NSNumber *vkId;
 

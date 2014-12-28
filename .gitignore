@@ -20,7 +20,8 @@ DerivedData
 PartySmash.xcodeproj/
 .idea/
 
-PSCloudCode/
+PSCloudCode
+!PSCloudCode/cloud/main.js
 
 # CocoaPods
 #

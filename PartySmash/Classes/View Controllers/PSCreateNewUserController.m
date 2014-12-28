@@ -292,4 +292,9 @@ static NSString *const FOLLOW_FRIENDS_SEGUE = @"followFriends";
     return UIStatusBarStyleLightContent;
 }
 
+- (IBAction)goToEULA:(id)sender {
+    NSLog(@"GO TO EULA");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://partysmash.ru/EULA.html"]];
+}
+
 @end

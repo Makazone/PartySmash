@@ -222,7 +222,7 @@
     PSUser *user = [self objectAtIndexPath:cellIndex];
     PSUserCell *cell = [self.tableView cellForRowAtIndexPath:cellIndex];
 
-    [cell.userActionButton showIndicatorWithCornerRadius:5];
+    [cell.userActionButton showIndicatorWithCornerRadius:4];
     if ([[PSUser currentUser] isFollowingUser:user.objectId]) {
 //        NSLog(@"Unfollow user");
         [[PSUser currentUser] unfollowUser:user withCompletion:^(NSError *error) {

@@ -93,6 +93,9 @@
                                             multiplier:1.f constant:0.f]
         ];
 
+        [self.followButton setContentHuggingPriority:753 forAxis:UILayoutConstraintAxisHorizontal];
+        [self.body setContentCompressionResistancePriority:750 forAxis:UILayoutConstraintAxisHorizontal];
+
         _didSetupConstraints = YES;
     }
 

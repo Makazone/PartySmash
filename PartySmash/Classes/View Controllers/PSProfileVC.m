@@ -55,7 +55,9 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
         _myProfile = YES;
     } else {
         _myProfile = NO;
-        self.navigationItem.rightBarButtonItem = nil;
+
+        UIBarButtonItem *reportUserButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_report_user"] style:UIBarButtonItemStylePlain target:self action:@selector(reportUser)];
+        self.navigationItem.rightBarButtonItem = reportUserButton;
     }
 
     for (int i=0; i < 4; i++) {
@@ -203,6 +205,25 @@ static NSString *GA_SCREEN_NAME = @"User Profile";
         [[UIApplication sharedApplication] openURL:vkURL];
     } else {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://vk.com/id%@", self.user.vkId]]];
+    }
+}
+
+- (void)reportUser {
+    [[[UIActionSheet alloc] initWithTitle:@"Вы уверены, что данный пользователь нарушает правила сервиса? За ложную жалобу ваш аккаунт может быть заблокирован."
+                                 delegate:self
+                        cancelButtonTitle:@"Отмена"
+                   destructiveButtonTitle:@"Отправить жалобу"
+                        otherButtonTitles:nil] showInView:self.view];
+}
+
+#pragma mark -
+#pragma mark Action Sheet
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self.user reportOffensiveUser];
+        [[[UIAlertView alloc] initWithTitle:@"Жалоба отправлена" message:@"Мы рассмотрим ее в течение 24 часов." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return;
     }
 }
 

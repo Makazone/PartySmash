@@ -84,22 +84,22 @@ static NSDateFormatter *dateFormatter;
         return [dateFormatter stringFromDate:self.createdAt];
     } else if (timePassed > 60*60) {
         int hours = (int)timePassed / 3600;
-        int lastDigit = hours / 10;
+        int lastDigit = hours % 10;
         NSString *russianHour;
         if (lastDigit == 1) {
             russianHour = @"час";
-        } else if (lastDigit <= 4) russianHour = @"часа";
+        } else if (lastDigit <= 4 && lastDigit > 0) russianHour = @"часа";
         else {
             russianHour = @"часов";
         }
         return [NSString stringWithFormat:@"%d %@ назад", hours, russianHour];
     } else {
         int minutes = (int)timePassed/60;
-        int lastDigit = minutes / 10;
+        int lastDigit = minutes % 10;
         NSString *russianMinute;
         if (lastDigit == 1) {
             russianMinute = @"минуту";
-        } else if (lastDigit <= 4) {
+        } else if (lastDigit <= 4 && lastDigit > 0) {
             russianMinute = @"минуты";
         } else {
             russianMinute = @"минут";

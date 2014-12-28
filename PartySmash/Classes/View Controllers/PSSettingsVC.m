@@ -10,11 +10,21 @@
 #import "PSUser.h"
 #import "PSAppDelegate.h"
 #import "iRate.h"
+#import "UserVoice.h"
 
 static NSString *GA_SCREEN_NAME = @"Settings";
 
 @implementation PSSettingsVC {
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    UVConfig *config = [UVConfig configWithSite:@"partysmash.uservoice.com"];
+    [config identifyUserWithEmail:nil name:[PSUser currentUser].username guid:[PSUser currentUser].objectId];
+    [UserVoice initialize:config];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -25,6 +35,14 @@ static NSString *GA_SCREEN_NAME = @"Settings";
 
 #pragma mark -
 #pragma mark Table View
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.section == 0 && indexPath.row == 1) {
+//        return 0;
+//    }
+//    return [self tableView:tableView heightForRowAtIndexPath:indexPath];
+//}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -32,9 +50,15 @@ static NSString *GA_SCREEN_NAME = @"Settings";
     if (indexPath.section == 1) { [self logOut:self]; }
     else {
         if (indexPath.row == 0) {
+//            [UserVoice presentUserVoiceContactUsFormForParentViewController:self];
             [self sendEmail];
-        } else {
+//        } else if (indexPath.row == 1) {
+//            [UserVoice presentUserVoiceNewIdeaFormForParentViewController:self];
+//            [UserVoice presentUserVoiceForumForParentViewController:self];
+        } else if (indexPath.row == 1) {
             [[iRate sharedInstance] openRatingsPageInAppStore];
+        }  else  {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://partysmash.ru/EULA.html"]];
         }
     }
 }
