@@ -1,6 +1,6 @@
 
 /* Class = "IBUILabel"; text = "Select a nickname"; ObjectID = "01j-8Q-0IK"; */
-"01j-8Q-0IK.text" = "Придумайте ник";
+"01j-8Q-0IK.text" = "Select a nickname";
 
 /* Class = "IBUINavigationItem"; title = "Карта вечеринок"; ObjectID = "02G-Se-9x2"; */
 "02G-Se-9x2.title" = "Карта вечеринок";
@@ -9,28 +9,34 @@
 "0Oq-j2-fjS.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 
 /* Class = "IBUITextField"; placeholder = "Let's start with a name"; ObjectID = "1xf-yQ-gMD"; */
-"1xf-yQ-gMD.placeholder" = "Название вечеринки";
+"1xf-yQ-gMD.placeholder" = "Let's start with a name";
 
 /* Class = "IBUISegmentedControl"; 34C-5u-nIq.segmentTitles[0] = "Public"; ObjectID = "34C-5u-nIq"; */
-"34C-5u-nIq.segmentTitles[0]" = "Открытая";
+"34C-5u-nIq.segmentTitles[0]" = "Public";
 
 /* Class = "IBUISegmentedControl"; 34C-5u-nIq.segmentTitles[1] = "Private"; ObjectID = "34C-5u-nIq"; */
-"34C-5u-nIq.segmentTitles[1]" = "Закрытая";
+"34C-5u-nIq.segmentTitles[1]" = "Private";
 
 /* Class = "IBUILabel"; text = "Log out"; ObjectID = "5WE-iB-lj1"; */
-"5WE-iB-lj1.text" = "Выйти";
+"5WE-iB-lj1.text" = "Log out";
+
+/* Class = "IBUIBarButtonItem"; title = " "; ObjectID = "6qw-9n-Y4v"; */
+"6qw-9n-Y4v.title" = " ";
 
 /* Class = "IBUISearchBar"; placeholder = "Поиск тусовщика"; ObjectID = "79L-nx-gS6"; */
-"79L-nx-gS6.placeholder" = "Поиск пользователя";
+"79L-nx-gS6.placeholder" = "Поиск тусовщика";
 
 /* Class = "IBUITextField"; placeholder = "Город, улица"; ObjectID = "AaZ-GI-ES7"; */
 "AaZ-GI-ES7.placeholder" = "Город, улица";
 
 /* Class = "IBUITextField"; placeholder = "Enter your nickname"; ObjectID = "CFh-HI-o7H"; */
-"CFh-HI-o7H.placeholder" = "Придумайте ник";
+"CFh-HI-o7H.placeholder" = "Enter your nickname";
 
 /* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "D9U-dk-Qq1"; */
-"D9U-dk-Qq1.title" = "Настройки";
+"D9U-dk-Qq1.title" = "Settings";
+
+/* Class = "IBUIButton"; normalTitle = "Пожаловаться"; ObjectID = "DJo-qS-U4x"; */
+"DJo-qS-U4x.normalTitle" = "Пожаловаться";
 
 /* Class = "IBUISegmentedControl"; ES5-v0-l4p.segmentTitles[0] = "Новости"; ObjectID = "ES5-v0-l4p"; */
 "ES5-v0-l4p.segmentTitles[0]" = "Новости";
@@ -44,23 +50,23 @@
 /* Class = "IBUINavigationItem"; title = "Contacts"; ObjectID = "EwN-kF-cMp"; */
 "EwN-kF-cMp.title" = "Contacts";
 
-/* Class = "IBUISegmentedControl"; F3X-YB-X8m.segmentTitles[0] = "Notifications"; ObjectID = "F3X-YB-X8m"; */
+/* Class = "IBUISegmentedControl"; F3X-YB-X8m.segmentTitles[0] = "Новости"; ObjectID = "F3X-YB-X8m"; */
 "F3X-YB-X8m.segmentTitles[0]" = "Новости";
 
-/* Class = "IBUISegmentedControl"; F3X-YB-X8m.segmentTitles[1] = "Parties"; ObjectID = "F3X-YB-X8m"; */
+/* Class = "IBUISegmentedControl"; F3X-YB-X8m.segmentTitles[1] = "Вечеринки"; ObjectID = "F3X-YB-X8m"; */
 "F3X-YB-X8m.segmentTitles[1]" = "Вечеринки";
 
 /* Class = "IBUITableViewSection"; headerTitle = "Support"; ObjectID = "HML-9t-bOp"; */
-"HML-9t-bOp.headerTitle" = "Поддержка";
+"HML-9t-bOp.headerTitle" = "Support";
 
 /* Class = "IBUILabel"; text = "Когда"; ObjectID = "JaS-aM-RgG"; */
 "JaS-aM-RgG.text" = "Когда";
 
 /* Class = "IBUITextView"; text = "Loading..."; ObjectID = "JbD-Kz-uqv"; */
-"JbD-Kz-uqv.text" = "Загрузка...";
+"JbD-Kz-uqv.text" = "Loading...";
 
 /* Class = "IBUIBarButtonItem"; title = "Done"; ObjectID = "KFB-r4-O6n"; */
-"KFB-r4-O6n.title" = "Готово";
+"KFB-r4-O6n.title" = "Done";
 
 /* Class = "IBUILabel"; text = "Цена"; ObjectID = "Kan-4z-Re2"; */
 "Kan-4z-Re2.text" = "Цена";
@@ -69,22 +75,25 @@
 "M5X-jy-w5c.text" = "Где";
 
 /* Class = "IBUILabel"; text = "Select a date"; ObjectID = "MX5-Gs-UwQ"; */
-"MX5-Gs-UwQ.text" = "Выберете дату";
+"MX5-Gs-UwQ.text" = "Select a date";
 
 /* Class = "IBUIBarButtonItem"; title = "Basic info"; ObjectID = "NRb-WB-zcX"; */
-"NRb-WB-zcX.title" = "Общая информация";
+"NRb-WB-zcX.title" = "Basic info";
 
 /* Class = "IBUITextView"; text = "Дворцовый проезд, 4, Королев, Московская область, Россия, 141075"; ObjectID = "Ol0-O4-gSd"; */
 "Ol0-O4-gSd.text" = "Дворцовый проезд, 4, Королев, Московская область, Россия, 141075";
 
+/* Class = "IBUILabel"; text = "Условия предоставления услуг"; ObjectID = "Rc1-U7-P6p"; */
+"Rc1-U7-P6p.text" = "Условия предоставления услуг";
+
 /* Class = "IBUILabel"; text = "Your party is free!"; ObjectID = "Rp3-J0-L1n"; */
-"Rp3-J0-L1n.text" = "Ваша вечеринка бесплатная!";
+"Rp3-J0-L1n.text" = "Your party is free!";
 
 /* Class = "IBUITextView"; text = "Парни 2500 Девушки 200"; ObjectID = "Rqz-KE-9YI"; */
 "Rqz-KE-9YI.text" = "Парни 2500 Девушки 200";
 
 /* Class = "IBUIButton"; normalTitle = "My party is absolutly FREE!"; ObjectID = "RwA-Mp-o6v"; */
-"RwA-Mp-o6v.normalTitle" = "Вечеринка бесплатная!";
+"RwA-Mp-o6v.normalTitle" = "My party is absolutly FREE!";
 
 /* Class = "IBUILabel"; text = "Stetsenko.Makar"; ObjectID = "S6J-d4-SGp"; */
 "S6J-d4-SGp.text" = "Stetsenko.Makar";
@@ -92,68 +101,74 @@
 /* Class = "IBUITableViewSection"; footerTitle = " "; ObjectID = "SIb-uf-Obg"; */
 "SIb-uf-Obg.footerTitle" = " ";
 
+/* Class = "IBUILabel"; text = "Rate PartySmash"; ObjectID = "V9u-55-KjR"; */
+"V9u-55-KjR.text" = "Rate PartySmash";
+
+/* Class = "IBUILabel"; text = "Не беспокойтесь: мы НИКОГДА не будем публиковать записи во Вконтакте без вашего согласия или воровать ваши данные. Сами этого не любим!"; ObjectID = "Wcd-aK-aeU"; */
+"Wcd-aK-aeU.text" = "Не беспокойтесь: мы НИКОГДА не будем публиковать записи во Вконтакте без вашего согласия или воровать ваши данные. Сами этого не любим!";
+
 /* Class = "IBUILabel"; text = "Вы"; ObjectID = "XQe-Mm-Ffj"; */
 "XQe-Mm-Ffj.text" = "Вы";
 
 /* Class = "IBUIButton"; normalTitle = "Want some money."; ObjectID = "Z4D-Ec-WeF"; */
-"Z4D-Ec-WeF.normalTitle" = "Изменить на платную";
+"Z4D-Ec-WeF.normalTitle" = "Want some money.";
 
-/* Class = "IBUITabBarItem"; title = "Find party"; ObjectID = "Zn5-wj-Nnj"; */
+/* Class = "IBUITabBarItem"; title = "Поиск"; ObjectID = "Zn5-wj-Nnj"; */
 "Zn5-wj-Nnj.title" = "Поиск";
 
 /* Class = "IBUILabel"; text = "Report a problem"; ObjectID = "a7N-Mi-tP2"; */
-"a7N-Mi-tP2.text" = "Сообщить о проблеме";
+"a7N-Mi-tP2.text" = "Report a problem";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "aHq-Kg-yJc"; */
 "aHq-Kg-yJc.text" = "Label";
 
 /* Class = "IBUILabel"; text = "10 people max."; ObjectID = "bZ1-NW-tdo"; */
-"bZ1-NW-tdo.text" = "10 человек максимум";
+"bZ1-NW-tdo.text" = "10 people max.";
 
-/* Class = "IBUINavigationItem"; title = "Feed"; ObjectID = "ckf-BC-lgz"; */
+/* Class = "IBUINavigationItem"; title = "Лента"; ObjectID = "ckf-BC-lgz"; */
 "ckf-BC-lgz.title" = "Лента";
 
 /* Class = "IBUINavigationItem"; title = "Description"; ObjectID = "f1O-GA-Tmp"; */
-"f1O-GA-Tmp.title" = "Описание";
+"f1O-GA-Tmp.title" = "Description";
 
 /* Class = "IBUILabel"; text = "Or"; ObjectID = "g8P-vu-O2D"; */
-"g8P-vu-O2D.text" = "Или";
+"g8P-vu-O2D.text" = "Or";
 
-/* Class = "IBUIBarButtonItem"; title = "Next"; ObjectID = "gXl-g1-q8T"; */
+/* Class = "IBUIBarButtonItem"; title = "Цена"; ObjectID = "gXl-g1-q8T"; */
 "gXl-g1-q8T.title" = "Цена";
 
-/* Class = "IBUITabBarItem"; title = "Profile"; ObjectID = "i1k-z3-uX0"; */
+/* Class = "IBUITabBarItem"; title = "Профиль"; ObjectID = "i1k-z3-uX0"; */
 "i1k-z3-uX0.title" = "Профиль";
 
-/* Class = "IBUITabBarItem"; title = "My parties"; ObjectID = "iIH-iJ-Zmp"; */
+/* Class = "IBUITabBarItem"; title = "Вечеринки"; ObjectID = "iIH-iJ-Zmp"; */
 "iIH-iJ-Zmp.title" = "Вечеринки";
 
 /* Class = "IBUINavigationItem"; title = "Create party"; ObjectID = "ixS-2i-nEr"; */
-"ixS-2i-nEr.title" = "Создать вечеринку";
+"ixS-2i-nEr.title" = "Create party";
 
 /* Class = "IBUILabel"; text = "- YES! Anyone is welcomed!"; ObjectID = "kmT-lT-jYI"; */
-"kmT-lT-jYI.text" = "Вход свободный, прийти может любой";
+"kmT-lT-jYI.text" = "- YES! Anyone is welcomed!";
 
-/* Class = "IBUITabBarItem"; title = "Feed"; ObjectID = "m5c-iC-MDn"; */
+/* Class = "IBUITabBarItem"; title = "Лента"; ObjectID = "m5c-iC-MDn"; */
 "m5c-iC-MDn.title" = "Лента";
 
 /* Class = "IBUINavigationItem"; title = "Follow friends"; ObjectID = "mLp-Mf-b9V"; */
-"mLp-Mf-b9V.title" = "Подпишись на друзей";
+"mLp-Mf-b9V.title" = "Follow friends";
 
 /* Class = "IBUINavigationItem"; title = "Найти вечеринку"; ObjectID = "nCg-Hw-h02"; */
-"nCg-Hw-h02.title" = "Поиск";
+"nCg-Hw-h02.title" = "Найти вечеринку";
 
 /* Class = "IBUILabel"; text = "28 Февраля 23:59"; ObjectID = "pY5-up-SbG"; */
 "pY5-up-SbG.text" = "28 Февраля 23:59";
 
 /* Class = "IBUIBarButtonItem"; title = "Description"; ObjectID = "qUC-Ys-r3o"; */
-"qUC-Ys-r3o.title" = "Описание";
+"qUC-Ys-r3o.title" = "Description";
 
 /* Class = "IBUIButton"; normalTitle = "Хочу пойти!"; ObjectID = "qqN-np-F2s"; */
 "qqN-np-F2s.normalTitle" = "Хочу пойти!";
 
 /* Class = "IBUINavigationItem"; title = "Profile"; ObjectID = "sPo-hz-qgB"; */
-"sPo-hz-qgB.title" = "Профиль";
+"sPo-hz-qgB.title" = "Profile";
 
 /* Class = "IBUINavigationItem"; title = "Пригласить"; ObjectID = "ubI-FV-FR1"; */
 "ubI-FV-FR1.title" = "Пригласить";
@@ -165,19 +180,16 @@
 "vHg-Ww-xbd.title" = "Вечеринка";
 
 /* Class = "IBUILabel"; text = "Use your social account to log in"; ObjectID = "vdy-7M-yHU"; */
-"vdy-7M-yHU.text" = "Используйте свой аккаунт ВК для входа";
+"vdy-7M-yHU.text" = "Use your social account to log in";
 
 /* Class = "IBUIBarButtonItem"; title = "Next"; ObjectID = "wca-UJ-oPv"; */
-"wca-UJ-oPv.title" = "Далее";
+"wca-UJ-oPv.title" = "Next";
 
 /* Class = "IBUILabel"; text = "Some of your friends are using PartySmash!"; ObjectID = "xFZ-ok-S2q"; */
-"xFZ-ok-S2q.text" = "Твои друзья уже используют PartySmash!";
+"xFZ-ok-S2q.text" = "Some of your friends are using PartySmash!";
 
 /* Class = "IBUINavigationItem"; title = "Price"; ObjectID = "xHg-sX-aJW"; */
-"xHg-sX-aJW.title" = "Цена";
-
-/* Class = "IBUILabel"; text = "Rate PartySmash"; ObjectID = "yYD-su-RMg"; */
-"yYD-su-RMg.text" = "Оценить PartySmash";
+"xHg-sX-aJW.title" = "Price";
 
 /* Class = "IBUILabel"; text = "Осталось приглашений: 5"; ObjectID = "zGe-jp-klR"; */
 "zGe-jp-klR.text" = "Осталось приглашений: 5";

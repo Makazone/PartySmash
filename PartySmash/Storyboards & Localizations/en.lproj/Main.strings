@@ -1,0 +1,12 @@
+
+/* Class = "IBUILabel"; text = "Select a nickname"; ObjectID = "01j-8Q-0IK"; */
+"01j-8Q-0IK.text" = "Select a nickname";
+
+/* Class = "IBUITextField"; placeholder = "Enter your nickname"; ObjectID = "CFh-HI-o7H"; */
+"CFh-HI-o7H.placeholder" = "Enter your nickname";
+
+/* Class = "IBUIBarButtonItem"; title = "Готово"; ObjectID = "KFB-r4-O6n"; */
+"KFB-r4-O6n.title" = "Готово";
+
+/* Class = "IBUILabel"; text = "Используйте свой аккаунт для входа"; ObjectID = "vdy-7M-yHU"; */
+"vdy-7M-yHU.text" = "Используйте свой аккаунт для входа";
