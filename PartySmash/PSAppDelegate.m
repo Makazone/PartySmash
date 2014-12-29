@@ -22,6 +22,8 @@
 #import "UserVoice.h"
 #import "UVStyleSheet.h"
 
+#import <Instabug/Instabug.h>
+
 @implementation PSAppDelegate
 
 + (void)initialize {
@@ -85,6 +87,8 @@
 
     [[Crashlytics sharedInstance] setDebugMode:NO];
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
+
+    [Instabug startWithToken:@"126955ab42f0c95d9ae7b4a3d10c9301"captureSource:IBGCaptureSourceUIKit invocationEvent:IBGInvocationEventShake];
 
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
 
