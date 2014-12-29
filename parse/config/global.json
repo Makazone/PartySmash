@@ -1,0 +1,24 @@
+{
+    "applications": {
+        "PartySmash": {
+            "applicationId": "5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n", 
+            "masterKey": "s9OTWfLcnnXYGfxiqPRnG074fAX9wCYTOurq7uho"
+        }, 
+        "PartySmash-Dev": {
+            "applicationId": "nda02vKLjBCCPmvsYVV7SacA1yb9c61vi1oGM7xW", 
+            "masterKey": "f20nXKQrFPKhY6kJBwup0TWOsmhaMND5afFwA77V"
+        }, 
+        "_default": {
+            "link": "PartySmash"
+        }, 
+        "development": {
+            "link": "PartySmash-Dev"
+        }, 
+        "production": {
+            "link": "PartySmash"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.0"
+    }
+}

@@ -10,7 +10,6 @@
 #import "PSUser.h"
 #import "PSAppDelegate.h"
 #import "iRate.h"
-#import "UserVoice.h"
 
 static NSString *GA_SCREEN_NAME = @"Settings";
 
@@ -19,10 +18,6 @@ static NSString *GA_SCREEN_NAME = @"Settings";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    UVConfig *config = [UVConfig configWithSite:@"partysmash.uservoice.com"];
-    [config identifyUserWithEmail:nil name:[PSUser currentUser].username guid:[PSUser currentUser].objectId];
-    [UserVoice initialize:config];
 }
 
 

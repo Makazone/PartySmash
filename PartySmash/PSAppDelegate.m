@@ -19,10 +19,10 @@
 #import "GAIDictionaryBuilder.h"
 #import "PSAuthService.h"
 #import "iRate.h"
-#import "UserVoice.h"
-#import "UVStyleSheet.h"
 
 #import <Instabug/Instabug.h>
+
+#define DEVELOPMENT
 
 @implementation PSAppDelegate
 
@@ -39,15 +39,18 @@
     [PSEvent registerSubclass];
     [PSNotification registerSubclass];
 
+    #ifdef DEVELOPMENT
+    [Parse setApplicationId:@"nda02vKLjBCCPmvsYVV7SacA1yb9c61vi1oGM7xW" clientKey:@"SrN93G9JUwJdpMfcINbdJ8tJXBYlwgGpH4sqYfRW"];
+    [GAI sharedInstance].optOut = YES;
+    #else
     [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
+    #endif
+
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 
-    // Optional: automatically send uncaught exceptions to Google Analytics.
-//    [GAI sharedInstance].trackUncaughtExceptions = YES;
-    
     // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
     [GAI sharedInstance].dispatchInterval = 20;
-    
+
     // Optional: set Logger to VERBOSE for debug information.
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
     
@@ -72,18 +75,6 @@
     [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"];
 
     [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
-
-    // Set this up once when your application launches
-    UVConfig *config = [UVConfig configWithSite:@"partysmash.uservoice.com"];
-    config.showKnowledgeBase = NO;
-    config.forumId = 275975;
-//    [config identifyUserWithEmail:@"email@example.com" name:@"User Name", guid:@"USER_ID");
-    [UserVoice initialize:config];
-//    [UVStyleSheet instance].tintColor = [UIColor redColor];
-    [UVStyleSheet instance].navigationBarBackgroundImage = [UIImage imageNamed:@"BarBG"];
-//    [UVStyleSheet instance].tintColor = [UIColor whiteColor];
-    [UVStyleSheet instance].navigationBarTextColor = [UIColor whiteColor];
-//    [UIColor colorWithRed:97 / 255.0 green:36 / 255.0 blue:99 / 255.0 alpha:1.0]];
 
     [[Crashlytics sharedInstance] setDebugMode:NO];
     [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];

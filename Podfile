@@ -4,6 +4,5 @@ pod 'VK-ios-sdk'
 pod 'Facebook-iOS-SDK'
 pod 'MBProgressHUD'
 pod 'ParseUI'
-pod 'uservoice-iphone-sdk'
 
 pod 'Instabug'

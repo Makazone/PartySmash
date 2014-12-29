@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2432404586935DCCB7A616DD /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 24324A0202FC5D22663B32A3 /* index.html */; };
 		24324068E2C85278B88A1FE9 /* PSParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324FD3ECD3B245DAFA9965 /* PSParty.m */; };
 		243240BCDD91E436EB295C22 /* PSPriceDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324DD568E9AAB0D65EBCF9 /* PSPriceDescriptionVC.m */; };
 		243240C4769AED9AE57080F8 /* PSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324770EBFD91808EEAF8AD /* PSEvent.m */; };
@@ -15,13 +16,13 @@
 		2432438A7B3334D04845AC08 /* PSTableUsersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432443D1EC6B453506F9BC3 /* PSTableUsersVC.m */; };
 		243243E253DE0F1DF81C4472 /* UIView+PSViewInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */; };
 		243243F42809528F58C43CDC /* PSMapInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324C1FA4B127DE3D1F0EF0 /* PSMapInfoView.m */; };
-		243243FC1A5BEF6596CE490B /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = 24324905A3AF3221C682F021 /* global.json */; };
 		2432448C88A414016B66530F /* UIView+PSViewInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */; };
 		2432453F695C47CFA0E75921 /* PSCreatePartyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B0B6BBAB230421C1B0E /* PSCreatePartyVC.m */; };
 		2432457983878AD4C4C68BD1 /* PSFindPartyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243246897E4E8F89797ABE77 /* PSFindPartyVC.m */; };
 		243246466577E3E4CF57A6D5 /* PSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F16620A5C1DBA548274 /* PSImageView.m */; };
 		243246C765A0A6FCE5B02CDD /* PSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 243248FB4D0456F2CC508727 /* PSUser.m */; };
 		2432473B7490D26A10A5A36C /* GCGeocodingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324EA42C8C2739844438E7 /* GCGeocodingService.m */; };
+		2432473C5CD32306F3942105 /* main.js in Sources */ = {isa = PBXBuildFile; fileRef = 2432446340CD395773938EBD /* main.js */; };
 		243247931F5293B932ACBFF9 /* PSFindPartyMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324619F51F37500457B88C /* PSFindPartyMapVC.m */; };
 		243248348C3629B581C41BB9 /* PSFollowFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432415FE2180B77CF58DBA7 /* PSFollowFriendsVC.m */; };
 		2432483C63B996742EDD93A2 /* PSUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432482F6A02BE10E1E53F25 /* PSUserCell.m */; };
@@ -32,6 +33,7 @@
 		2432497307D0AA84BF0BBF4D /* PSAttributedDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B3D2B5493C6FDCF0354 /* PSAttributedDrawer.m */; };
 		2432498E623D3541ADC3517B /* PSFuturePartiesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243242C329C286D8B6967079 /* PSFuturePartiesVC.m */; };
 		243249E037152E61F446C536 /* PSSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F31BC4B135F22B7A796 /* PSSettingsVC.m */; };
+		243249F86CC8262774A3433B /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = 2432464FE91636707849B018 /* global.json */; };
 		24324A89F747D373BE532092 /* PSAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 243243E82CD054CB59E2D728 /* PSAuthService.m */; };
 		24324ABD006A86C2B4369B18 /* PSPartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324A6279B208A3493ABC0F /* PSPartyViewController.m */; };
 		24324B476B014C871FC7DA13 /* TestAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324724150DECF9F26043D0 /* TestAuthService.m */; };
@@ -44,6 +46,7 @@
 		24324E577856079326296478 /* PSCreateNewUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324189E738FF391F2809C4 /* PSCreateNewUserController.m */; };
 		24324F4804E944F02AC2400E /* PSSelectPlaceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243245B82BE321E2550F6CF1 /* PSSelectPlaceVC.m */; };
 		24324F882F31FC60398E0581 /* PSGeneralDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324AD2646099A79170583D /* PSGeneralDescriptionVC.m */; };
+		24324FE829BAEEAB3FED4FFD /* .main.js.swp in Resources */ = {isa = PBXBuildFile; fileRef = 243244C4F97DF392C5574CFD /* .main.js.swp */; };
 		CA041B511A0425EA007598FB /* PSEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B501A0425EA007598FB /* PSEventCell.m */; };
 		CA041B631A095164007598FB /* PSNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B621A095164007598FB /* PSNotificationCell.m */; };
 		CA076D871A00E70E009D7696 /* event_newparty_tablecell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA076D861A00E70E009D7696 /* event_newparty_tablecell.xib */; };
@@ -59,7 +62,8 @@
 		CA6D6C7C1A17C89E000A043C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F3192D422E006F05E6 /* UIKit.framework */; };
 		CA7996091A5088DD00B99E03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7996081A5088DD00B99E03 /* MapKit.framework */; };
 		CA79960B1A50897A00B99E03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA9886691A50827D00D95645 /* Main.storyboard */; };
-		CA9886471A507FC700D95645 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9886411A507FC700D95645 /* GoogleMaps.framework */; };
+		CA7D4EC51A51D56E00EC00A0 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA7D4EC41A51D56E00EC00A0 /* GoogleMaps.framework */; };
+		CA7D4EC71A51D5A500EC00A0 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA7D4EC61A51D5A500EC00A0 /* GoogleMaps.bundle */; };
 		CA9886481A507FC700D95645 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9886421A507FC700D95645 /* libAdIdAccess.a */; };
 		CA9886491A507FC700D95645 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9886431A507FC700D95645 /* libGoogleAnalyticsServices.a */; };
 		CA9886531A50815300D95645 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA98864D1A50815300D95645 /* iRate.bundle */; };
@@ -130,7 +134,6 @@
 		2432420914A54FD634259E21 /* PFRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFRect.h; sourceTree = "<group>"; };
 		243242356CD9E684B89C774F /* PSAuthService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSAuthService.h; sourceTree = "<group>"; };
 		2432428A26A54E683718EDE1 /* PSNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNotification.m; sourceTree = "<group>"; };
-		243242966408C77E20C4B66D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		243242B394B9498EE50794B4 /* PSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSLoginViewController.m; sourceTree = "<group>"; };
 		243242C329C286D8B6967079 /* PSFuturePartiesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFuturePartiesVC.m; sourceTree = "<group>"; };
 		243242D9B78CA8F386173775 /* PSUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSUserCell.h; sourceTree = "<group>"; };
@@ -142,9 +145,11 @@
 		243244150474196E70836B82 /* PSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSAppDelegate.h; path = ../PSAppDelegate.h; sourceTree = "<group>"; };
 		24324415BA4E4B483FEEF6D6 /* PSMapInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMapInfoView.h; sourceTree = "<group>"; };
 		2432443D1EC6B453506F9BC3 /* PSTableUsersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTableUsersVC.m; sourceTree = "<group>"; };
+		2432446340CD395773938EBD /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		2432448A5E51E470F60426FD /* PFLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFLoadingView.h; sourceTree = "<group>"; };
 		243244B10F96B9F843CB1F8F /* PSNotificationFollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNotificationFollowCell.m; sourceTree = "<group>"; };
 		243244B9F890E7ABC8F01ECD /* PSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSImageView.h; sourceTree = "<group>"; };
+		243244C4F97DF392C5574CFD /* .main.js.swp */ = {isa = PBXFileReference; lastKnownFileType = file.swp; path = .main.js.swp; sourceTree = "<group>"; };
 		24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PSViewInProgress.m"; sourceTree = "<group>"; };
 		243245B82BE321E2550F6CF1 /* PSSelectPlaceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSelectPlaceVC.m; sourceTree = "<group>"; };
 		243245C54EF57C4F1755A9DC /* PSNotificationFollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNotificationFollowCell.h; sourceTree = "<group>"; };
@@ -152,6 +157,7 @@
 		24324608E14776E0832C23C1 /* PSFollowFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSFollowFriendsVC.h; sourceTree = "<group>"; };
 		24324615CE49D341F891BF0E /* PSSettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSettingsVC.h; sourceTree = "<group>"; };
 		24324619F51F37500457B88C /* PSFindPartyMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFindPartyMapVC.m; sourceTree = "<group>"; };
+		2432464FE91636707849B018 /* global.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = global.json; sourceTree = "<group>"; };
 		243246897E4E8F89797ABE77 /* PSFindPartyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFindPartyVC.m; sourceTree = "<group>"; };
 		243246BD20A33EE6C0BDB55A /* UIView+PSViewInProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PSViewInProgress.h"; sourceTree = "<group>"; };
 		24324724150DECF9F26043D0 /* TestAuthService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthService.m; sourceTree = "<group>"; };
@@ -160,13 +166,12 @@
 		24324770EBFD91808EEAF8AD /* PSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSEvent.m; sourceTree = "<group>"; };
 		243247B4FF033C5A583CD43C /* PSPartyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPartyViewController.h; sourceTree = "<group>"; };
 		2432482F6A02BE10E1E53F25 /* PSUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUserCell.m; sourceTree = "<group>"; };
-		2432483F9D21F7E6E1915FDB /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		24324841AD383ADC95F42B23 /* PSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSAppDelegate.m; path = ../PSAppDelegate.m; sourceTree = "<group>"; };
 		243248759382705F14EDFCF0 /* PSSelectPlaceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSelectPlaceVC.h; sourceTree = "<group>"; };
 		243248B98E7F6149E54A25E9 /* PFImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFImageCache.h; sourceTree = "<group>"; };
 		243248FB4D0456F2CC508727 /* PSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUser.m; sourceTree = "<group>"; };
-		24324905A3AF3221C682F021 /* global.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = global.json; sourceTree = "<group>"; };
 		243249A3DB7868DA5389B859 /* PSGeneralDescriptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGeneralDescriptionVC.h; sourceTree = "<group>"; };
+		24324A0202FC5D22663B32A3 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		24324A2117870DE2B6EE43D7 /* PSCreatePartyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCreatePartyVC.h; sourceTree = "<group>"; };
 		24324A6279B208A3493ABC0F /* PSPartyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPartyViewController.m; sourceTree = "<group>"; };
 		24324AC615598E74FD8C7771 /* PSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSLoginViewController.h; sourceTree = "<group>"; };
@@ -217,6 +222,8 @@
 		CA6D6C731A14C6D6000A043C /* PSPartyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPartyListCell.h; sourceTree = "<group>"; };
 		CA6D6C741A14C6D6000A043C /* PSPartyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPartyListCell.m; sourceTree = "<group>"; };
 		CA7996081A5088DD00B99E03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		CA7D4EC41A51D56E00EC00A0 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = ../../GoogleMaps.framework; sourceTree = "<group>"; };
+		CA7D4EC61A51D5A500EC00A0 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ../../GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		CA82CBD2196DC5910081172A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA82CBF2196DD5670081172A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA9886351A507FC700D95645 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
@@ -229,7 +236,6 @@
 		CA98863C1A507FC700D95645 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
 		CA98863D1A507FC700D95645 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
 		CA98863E1A507FC700D95645 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
-		CA9886411A507FC700D95645 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		CA9886421A507FC700D95645 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdIdAccess.a; sourceTree = "<group>"; };
 		CA9886431A507FC700D95645 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		CA98864D1A50815300D95645 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
@@ -258,7 +264,7 @@
 		CA9886711A50827D00D95645 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA9886721A50827D00D95645 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CA9886731A50827D00D95645 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		CAACD3EC192D422E006F05E6 /* PartySmash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartySmash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAACD3EC192D422E006F05E6 /* PartySmashDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PartySmashDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAACD3EF192D422E006F05E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CAACD3F3192D422E006F05E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -311,9 +317,9 @@
 				CA7996091A5088DD00B99E03 /* MapKit.framework in Frameworks */,
 				CADB0D8F19649DA200358158 /* Social.framework in Frameworks */,
 				CADB0D8D19649D8F00358158 /* Accounts.framework in Frameworks */,
+				CA7D4EC51A51D56E00EC00A0 /* GoogleMaps.framework in Frameworks */,
 				CADB0D891964603900358158 /* StoreKit.framework in Frameworks */,
 				CADB0D871964602F00358158 /* Security.framework in Frameworks */,
-				CA9886471A507FC700D95645 /* GoogleMaps.framework in Frameworks */,
 				CADB0D831964601E00358158 /* MobileCoreServices.framework in Frameworks */,
 				CA9886481A507FC700D95645 /* libAdIdAccess.a in Frameworks */,
 				CA2143B51976A98800BC8E19 /* Crashlytics.framework in Frameworks */,
@@ -337,24 +343,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		243240EA05F3154FE4D39EED /* PSCloudCode */ = {
-			isa = PBXGroup;
-			children = (
-				243240ECB13B4C47F96F3A37 /* cloud */,
-				243243900FBB6BDEA88BA038 /* config */,
-				243242AB0323D032E3B7C106 /* public */,
-			);
-			path = PSCloudCode;
-			sourceTree = "<group>";
-		};
-		243240ECB13B4C47F96F3A37 /* cloud */ = {
-			isa = PBXGroup;
-			children = (
-				243242966408C77E20C4B66D /* main.js */,
-			);
-			path = cloud;
-			sourceTree = "<group>";
-		};
 		2432421F136C4062DEFC3D3F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,22 +370,6 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
-		243242AB0323D032E3B7C106 /* public */ = {
-			isa = PBXGroup;
-			children = (
-				2432483F9D21F7E6E1915FDB /* index.html */,
-			);
-			path = public;
-			sourceTree = "<group>";
-		};
-		243243900FBB6BDEA88BA038 /* config */ = {
-			isa = PBXGroup;
-			children = (
-				24324905A3AF3221C682F021 /* global.json */,
-			);
-			path = config;
-			sourceTree = "<group>";
-		};
 		243243D4D075A3E61BC0281A /* Find Party Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +379,31 @@
 				243246897E4E8F89797ABE77 /* PSFindPartyVC.m */,
 			);
 			path = "Find Party Controllers";
+			sourceTree = "<group>";
+		};
+		24324512B8B9403676A4A405 /* public */ = {
+			isa = PBXGroup;
+			children = (
+				24324A0202FC5D22663B32A3 /* index.html */,
+			);
+			path = public;
+			sourceTree = "<group>";
+		};
+		24324514151BAB40F7B1A603 /* cloud */ = {
+			isa = PBXGroup;
+			children = (
+				2432446340CD395773938EBD /* main.js */,
+				243244C4F97DF392C5574CFD /* .main.js.swp */,
+			);
+			path = cloud;
+			sourceTree = "<group>";
+		};
+		2432465A6A85585A58E2D811 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				2432464FE91636707849B018 /* global.json */,
+			);
+			path = config;
 			sourceTree = "<group>";
 		};
 		24324853923FF142B0D4B50C /* LogInControllers */ = {
@@ -447,6 +444,16 @@
 				24324B3098ED5BE8C15D9442 /* PSPriceDescriptionVC.h */,
 			);
 			path = "Create Party Controllers";
+			sourceTree = "<group>";
+		};
+		24324A6213B03BA342179FEA /* parse */ = {
+			isa = PBXGroup;
+			children = (
+				24324514151BAB40F7B1A603 /* cloud */,
+				2432465A6A85585A58E2D811 /* config */,
+				24324512B8B9403676A4A405 /* public */,
+			);
+			path = parse;
 			sourceTree = "<group>";
 		};
 		24324C89E222F928DABED3AF /* Services */ = {
@@ -575,7 +582,8 @@
 		CA98863F1A507FC700D95645 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CA9886411A507FC700D95645 /* GoogleMaps.framework */,
+				CA7D4EC61A51D5A500EC00A0 /* GoogleMaps.bundle */,
+				CA7D4EC41A51D56E00EC00A0 /* GoogleMaps.framework */,
 				CA9886421A507FC700D95645 /* libAdIdAccess.a */,
 				CA9886431A507FC700D95645 /* libGoogleAnalyticsServices.a */,
 			);
@@ -641,15 +649,15 @@
 				CAACD414192D422F006F05E6 /* PartySmashTests */,
 				CAACD3EE192D422E006F05E6 /* Frameworks */,
 				CAACD3ED192D422E006F05E6 /* Products */,
-				243240EA05F3154FE4D39EED /* PSCloudCode */,
 				24895D1D11F0ABA01D54024C /* Pods */,
+				24324A6213B03BA342179FEA /* parse */,
 			);
 			sourceTree = "<group>";
 		};
 		CAACD3ED192D422E006F05E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CAACD3EC192D422E006F05E6 /* PartySmash.app */,
+				CAACD3EC192D422E006F05E6 /* PartySmashDev.app */,
 				CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */,
 			);
 			name = Products;
@@ -746,7 +754,7 @@
 			);
 			name = PartySmash;
 			productName = PartySmash;
-			productReference = CAACD3EC192D422E006F05E6 /* PartySmash.app */;
+			productReference = CAACD3EC192D422E006F05E6 /* PartySmashDev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		CAACD40C192D422E006F05E6 /* PartySmashTests */ = {
@@ -830,15 +838,18 @@
 				CA9886771A50827D00D95645 /* Images.xcassets in Resources */,
 				CA9886531A50815300D95645 /* iRate.bundle in Resources */,
 				CA9886811A50827D00D95645 /* Localizable.strings in Resources */,
+				CA7D4EC71A51D5A500EC00A0 /* GoogleMaps.bundle in Resources */,
 				CA9886561A50815300D95645 /* PartySmash-Info.plist in Resources */,
 				CA98867D1A50827D00D95645 /* LaunchImage@3.jpg in Resources */,
 				CA9886801A50827D00D95645 /* InfoPlist.strings in Resources */,
 				CA98867A1A50827D00D95645 /* ic_show_partyloc.png in Resources */,
-				243243FC1A5BEF6596CE490B /* global.json in Resources */,
 				CA9886741A50827D00D95645 /* Default-567h@2x.jpg in Resources */,
 				CA9886751A50827D00D95645 /* Default-667h@2x.jpg in Resources */,
 				CA9886761A50827D00D95645 /* Default-736@2x.jpg in Resources */,
 				CA076D871A00E70E009D7696 /* event_newparty_tablecell.xib in Resources */,
+				24324FE829BAEEAB3FED4FFD /* .main.js.swp in Resources */,
+				243249F86CC8262774A3433B /* global.json in Resources */,
+				2432404586935DCCB7A616DD /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -932,6 +943,7 @@
 				243246466577E3E4CF57A6D5 /* PSImageView.m in Sources */,
 				2432497307D0AA84BF0BBF4D /* PSAttributedDrawer.m in Sources */,
 				24324C8AE2219B09F4DF8D6B /* PSNotificationFollowCell.m in Sources */,
+				2432473C5CD32306F3942105 /* main.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,7 +1135,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/PartySmash/Frameworks",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)Dev";
 				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
