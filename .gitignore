@@ -25,3 +25,6 @@ PSCloudCode
 # CocoaPods
 Pods
 *.xcworkspace
+
+# Vim
+*.swp
