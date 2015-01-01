@@ -128,8 +128,9 @@ static NSDateFormatter *_dateFormatter;
 
     NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
 
-    if (abs((int) [self.date timeIntervalSinceDate:today]) < 24 * 60 * 60) {
-        NSLog(@"[self.date timeIntervalSinceDate:today] = %f", [self.date timeIntervalSinceDate:today]);
+    NSTimeInterval timeSinceToday = abs((int) [self.date timeIntervalSinceDate:today]);
+    if (timeSinceToday < 24 * 60 * 60) {
+        NSLog(@"[self.date timeIntervalSinceDate:today] = %f", timeSinceToday);
         [_dateFormatter setDateFormat:@"HH:mm"];
 
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -143,9 +144,9 @@ static NSDateFormatter *_dateFormatter;
 
         if (todayDate == partiesDate) {
             str = [NSString stringWithFormat:@"Сегодня в %@", [_dateFormatter stringFromDate:self.date]];
-        } else if (todayDate - partiesDate == 1) {
+        } else if (todayDate - partiesDate < 0) {
             str = [NSString stringWithFormat:@"Вчера в %@", [_dateFormatter stringFromDate:self.date]];
-        } else if (partiesDate - todayDate == 1) { // TODO don't forget to delete
+        } else if (partiesDate - todayDate > 0) { // TODO don't forget to delete
             str = [NSString stringWithFormat:@"Завтра в %@", [_dateFormatter stringFromDate:self.date]];
         }
 

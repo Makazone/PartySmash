@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2432404586935DCCB7A616DD /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 24324A0202FC5D22663B32A3 /* index.html */; };
 		24324068E2C85278B88A1FE9 /* PSParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324FD3ECD3B245DAFA9965 /* PSParty.m */; };
 		243240BCDD91E436EB295C22 /* PSPriceDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324DD568E9AAB0D65EBCF9 /* PSPriceDescriptionVC.m */; };
 		243240C4769AED9AE57080F8 /* PSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324770EBFD91808EEAF8AD /* PSEvent.m */; };
@@ -33,7 +32,6 @@
 		2432497307D0AA84BF0BBF4D /* PSAttributedDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B3D2B5493C6FDCF0354 /* PSAttributedDrawer.m */; };
 		2432498E623D3541ADC3517B /* PSFuturePartiesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243242C329C286D8B6967079 /* PSFuturePartiesVC.m */; };
 		243249E037152E61F446C536 /* PSSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F31BC4B135F22B7A796 /* PSSettingsVC.m */; };
-		243249F86CC8262774A3433B /* global.json in Resources */ = {isa = PBXBuildFile; fileRef = 2432464FE91636707849B018 /* global.json */; };
 		24324A89F747D373BE532092 /* PSAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 243243E82CD054CB59E2D728 /* PSAuthService.m */; };
 		24324ABD006A86C2B4369B18 /* PSPartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324A6279B208A3493ABC0F /* PSPartyViewController.m */; };
 		24324B476B014C871FC7DA13 /* TestAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324724150DECF9F26043D0 /* TestAuthService.m */; };
@@ -46,7 +44,6 @@
 		24324E577856079326296478 /* PSCreateNewUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324189E738FF391F2809C4 /* PSCreateNewUserController.m */; };
 		24324F4804E944F02AC2400E /* PSSelectPlaceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243245B82BE321E2550F6CF1 /* PSSelectPlaceVC.m */; };
 		24324F882F31FC60398E0581 /* PSGeneralDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324AD2646099A79170583D /* PSGeneralDescriptionVC.m */; };
-		24324FE829BAEEAB3FED4FFD /* .main.js.swp in Resources */ = {isa = PBXBuildFile; fileRef = 243244C4F97DF392C5574CFD /* .main.js.swp */; };
 		CA041B511A0425EA007598FB /* PSEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B501A0425EA007598FB /* PSEventCell.m */; };
 		CA041B631A095164007598FB /* PSNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B621A095164007598FB /* PSNotificationCell.m */; };
 		CA076D871A00E70E009D7696 /* event_newparty_tablecell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA076D861A00E70E009D7696 /* event_newparty_tablecell.xib */; };
@@ -847,9 +844,6 @@
 				CA9886751A50827D00D95645 /* Default-667h@2x.jpg in Resources */,
 				CA9886761A50827D00D95645 /* Default-736@2x.jpg in Resources */,
 				CA076D871A00E70E009D7696 /* event_newparty_tablecell.xib in Resources */,
-				24324FE829BAEEAB3FED4FFD /* .main.js.swp in Resources */,
-				243249F86CC8262774A3433B /* global.json in Resources */,
-				2432404586935DCCB7A616DD /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
