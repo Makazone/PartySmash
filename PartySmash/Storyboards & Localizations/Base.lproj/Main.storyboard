@@ -536,7 +536,7 @@
                                     <action selector="showVisited:" destination="GtL-tQ-T39" eventType="touchUpInside" id="hZ0-BU-ioI"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KYr-WH-ked" customClass="PFImageView">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KYr-WH-ked" customClass="PSImageView">
                                 <rect key="frame" x="71" y="79" width="178" height="178"/>
                                 <gestureRecognizers/>
                                 <constraints>
