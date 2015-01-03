@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A5AB07E155FE58851BAD666 /* libPods-PartySmash Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFC5C3BB09FB00C22C8A4BE /* libPods-PartySmash Tests.a */; };
 		24324068E2C85278B88A1FE9 /* PSParty.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324FD3ECD3B245DAFA9965 /* PSParty.m */; };
 		243240BCDD91E436EB295C22 /* PSPriceDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324DD568E9AAB0D65EBCF9 /* PSPriceDescriptionVC.m */; };
 		243240C4769AED9AE57080F8 /* PSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324770EBFD91808EEAF8AD /* PSEvent.m */; };
 		243240E9755ED32169FA8A00 /* PSFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324163A73A35154E8E394D /* PSFriendCell.m */; };
 		24324126704DBA65FD37429C /* PSNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432428A26A54E683718EDE1 /* PSNotification.m */; };
 		2432438A7B3334D04845AC08 /* PSTableUsersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432443D1EC6B453506F9BC3 /* PSTableUsersVC.m */; };
-		243243E253DE0F1DF81C4472 /* UIView+PSViewInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */; };
 		243243F42809528F58C43CDC /* PSMapInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324C1FA4B127DE3D1F0EF0 /* PSMapInfoView.m */; };
 		2432448C88A414016B66530F /* UIView+PSViewInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */; };
 		2432453F695C47CFA0E75921 /* PSCreatePartyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B0B6BBAB230421C1B0E /* PSCreatePartyVC.m */; };
@@ -34,7 +34,6 @@
 		243249E037152E61F446C536 /* PSSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F31BC4B135F22B7A796 /* PSSettingsVC.m */; };
 		24324A89F747D373BE532092 /* PSAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 243243E82CD054CB59E2D728 /* PSAuthService.m */; };
 		24324ABD006A86C2B4369B18 /* PSPartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324A6279B208A3493ABC0F /* PSPartyViewController.m */; };
-		24324B476B014C871FC7DA13 /* TestAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324724150DECF9F26043D0 /* TestAuthService.m */; };
 		24324BABD50B1A25F1571AB0 /* PSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324841AD383ADC95F42B23 /* PSAppDelegate.m */; };
 		24324BEFD6F3B23A419657FF /* PSNotificationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B29A645A2C3EC3F1520 /* PSNotificationsVC.m */; };
 		24324C7EBC86FB2AA4B71796 /* PSMyPartiesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324FEA72F0620166D54DA6 /* PSMyPartiesVC.m */; };
@@ -44,6 +43,7 @@
 		24324E577856079326296478 /* PSCreateNewUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324189E738FF391F2809C4 /* PSCreateNewUserController.m */; };
 		24324F4804E944F02AC2400E /* PSSelectPlaceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243245B82BE321E2550F6CF1 /* PSSelectPlaceVC.m */; };
 		24324F882F31FC60398E0581 /* PSGeneralDescriptionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324AD2646099A79170583D /* PSGeneralDescriptionVC.m */; };
+		A9C3B49E2DC88510D0B0D79A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72062ED7C4B10F83A09C8A2E /* libPods.a */; };
 		CA041B511A0425EA007598FB /* PSEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B501A0425EA007598FB /* PSEventCell.m */; };
 		CA041B631A095164007598FB /* PSNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA041B621A095164007598FB /* PSNotificationCell.m */; };
 		CA076D871A00E70E009D7696 /* event_newparty_tablecell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA076D861A00E70E009D7696 /* event_newparty_tablecell.xib */; };
@@ -54,6 +54,7 @@
 		CA2143B51976A98800BC8E19 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2143B41976A98800BC8E19 /* Crashlytics.framework */; };
 		CA49568D1A0AE44A00A1774C /* PSPartyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA49568C1A0AE44A00A1774C /* PSPartyCell.m */; };
 		CA4EC1671A2753AC00FC6750 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA4EC1661A2753AC00FC6750 /* Launch Screen.xib */; };
+		CA6195601A58533D006A0E7E /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA61955F1A58533D006A0E7E /* ParseUI.framework */; };
 		CA6D6C721A14C05B000A043C /* party_cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA6D6C711A14C05B000A043C /* party_cell.xib */; };
 		CA6D6C751A14C6D6000A043C /* PSPartyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CA6D6C741A14C6D6000A043C /* PSPartyListCell.m */; };
 		CA6D6C7C1A17C89E000A043C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F3192D422E006F05E6 /* UIKit.framework */; };
@@ -66,7 +67,6 @@
 		CA9886531A50815300D95645 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CA98864D1A50815300D95645 /* iRate.bundle */; };
 		CA9886541A50815300D95645 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = CA98864F1A50815300D95645 /* iRate.m */; };
 		CA9886551A50815300D95645 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9886501A50815300D95645 /* main.m */; };
-		CA9886561A50815300D95645 /* PartySmash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CA9886511A50815300D95645 /* PartySmash-Info.plist */; };
 		CA9886741A50827D00D95645 /* Default-567h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CA9886581A50827D00D95645 /* Default-567h@2x.jpg */; };
 		CA9886751A50827D00D95645 /* Default-667h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CA9886591A50827D00D95645 /* Default-667h@2x.jpg */; };
 		CA9886761A50827D00D95645 /* Default-736@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CA98865A1A50827D00D95645 /* Default-736@2x.jpg */; };
@@ -83,9 +83,6 @@
 		CA9886821A50827D00D95645 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA98866F1A50827D00D95645 /* Main.strings */; };
 		CAACD3F0192D422E006F05E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3EF192D422E006F05E6 /* Foundation.framework */; };
 		CAACD3F2192D422E006F05E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */; };
-		CAACD410192D422E006F05E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3EF192D422E006F05E6 /* Foundation.framework */; };
-		CAACD411192D422E006F05E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F3192D422E006F05E6 /* UIKit.framework */; };
-		CAACD419192D422F006F05E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAACD417192D422F006F05E6 /* InfoPlist.strings */; };
 		CAB9DB1D1A27937B006675FA /* selectPlaceInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAB9DB1C1A27937B006675FA /* selectPlaceInfoWindow.xib */; };
 		CAC989A219D6F17F000D60C4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC989A119D6F17F000D60C4 /* AVFoundation.framework */; };
 		CAC989A419D6F18B000D60C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC989A319D6F18B000D60C4 /* CoreData.framework */; };
@@ -95,6 +92,7 @@
 		CAC989AC19D6F1BD000D60C4 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC989AB19D6F1BD000D60C4 /* libc++.dylib */; };
 		CAC989AE19D6F1CC000D60C4 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC989AD19D6F1CC000D60C4 /* libicucore.dylib */; };
 		CAC989B019D6F1DE000D60C4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC989AF19D6F1DE000D60C4 /* OpenGLES.framework */; };
+		CAD171FC1A5809A600C5AFBC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD171FB1A5809A600C5AFBC /* User.swift */; };
 		CADB0D7B19645FE400358158 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7A19645FE400358158 /* AudioToolbox.framework */; };
 		CADB0D7D19645FEE00358158 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7C19645FEE00358158 /* CFNetwork.framework */; };
 		CADB0D7F1964600100358158 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7E1964600100358158 /* CoreLocation.framework */; };
@@ -107,11 +105,25 @@
 		CADB0D8D19649D8F00358158 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8C19649D8E00358158 /* Accounts.framework */; };
 		CADB0D8F19649DA200358158 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8E19649DA200358158 /* Social.framework */; };
 		CAF225771A17F1D000A37188 /* user_cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAF225761A17F1D000A37188 /* user_cell.xib */; };
-		D0F765DA984640B6B04411A3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A90E9D894B7471BAD7692EE /* libPods.a */; };
+		CAF658C51A587D6100464556 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF658C41A587D6100464556 /* libsqlite3.0.dylib */; };
+		CAF658C71A587DA200464556 /* PSUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF658C61A587DA200464556 /* PSUserSpec.m */; };
+		CAF658C91A58840E00464556 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF658C81A58840E00464556 /* Parse.framework */; };
+		CAF658CA1A58840F00464556 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF658C81A58840E00464556 /* Parse.framework */; };
+		CAF658CB1A58846000464556 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF658C41A587D6100464556 /* libsqlite3.0.dylib */; };
+		CAF658CD1A58865700464556 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7A19645FE400358158 /* AudioToolbox.framework */; };
+		CAF658CE1A58865D00464556 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7C19645FEE00358158 /* CFNetwork.framework */; };
+		CAF658CF1A58866300464556 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */; };
+		CAF658D01A58866900464556 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D7E1964600100358158 /* CoreLocation.framework */; };
+		CAF658D11A58866F00464556 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D821964601E00358158 /* MobileCoreServices.framework */; };
+		CAF658D21A58867500464556 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D841964602600358158 /* QuartzCore.framework */; };
+		CAF658D31A58867C00464556 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D861964602F00358158 /* Security.framework */; };
+		CAF658D41A58868400464556 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D881964603900358158 /* StoreKit.framework */; };
+		CAF658D51A58868B00464556 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8A1964604300358158 /* SystemConfiguration.framework */; };
+		CAF658D61A58869000464556 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D801964601100358158 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CAACD412192D422F006F05E6 /* PBXContainerItemProxy */ = {
+		CAF68B8D1A581424001AA554 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CAACD3E4192D422E006F05E6 /* Project object */;
 			proxyType = 1;
@@ -121,6 +133,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C9CA22B211CD0449E26D903 /* Pods-PartySmash Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartySmash Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PartySmash Tests/Pods-PartySmash Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2432410C74F36EBB08153E2B /* PSFindPartyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSFindPartyVC.h; sourceTree = "<group>"; };
 		243241253DE105A7C7B669B9 /* PSCreateNewUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCreateNewUserController.h; sourceTree = "<group>"; };
 		2432415FE2180B77CF58DBA7 /* PSFollowFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFollowFriendsVC.m; sourceTree = "<group>"; };
@@ -157,7 +170,6 @@
 		2432464FE91636707849B018 /* global.json */ = {isa = PBXFileReference; lastKnownFileType = file.json; path = global.json; sourceTree = "<group>"; };
 		243246897E4E8F89797ABE77 /* PSFindPartyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSFindPartyVC.m; sourceTree = "<group>"; };
 		243246BD20A33EE6C0BDB55A /* UIView+PSViewInProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PSViewInProgress.h"; sourceTree = "<group>"; };
-		24324724150DECF9F26043D0 /* TestAuthService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAuthService.m; sourceTree = "<group>"; };
 		24324735D2B017ECBC8DC458 /* PSCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCellDelegate.h; sourceTree = "<group>"; };
 		2432475B07DD39D05F85C02E /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		24324770EBFD91808EEAF8AD /* PSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSEvent.m; sourceTree = "<group>"; };
@@ -199,7 +211,9 @@
 		24324FD3ECD3B245DAFA9965 /* PSParty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSParty.m; sourceTree = "<group>"; };
 		24324FEA72F0620166D54DA6 /* PSMyPartiesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSMyPartiesVC.m; sourceTree = "<group>"; };
 		5014C848B2D547E5F1021B5A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7A90E9D894B7471BAD7692EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AFC5C3BB09FB00C22C8A4BE /* libPods-PartySmash Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PartySmash Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B1EB20DD569A4AF54B4C82 /* Pods-PartySmash Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PartySmash Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PartySmash Tests/Pods-PartySmash Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		72062ED7C4B10F83A09C8A2E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA041B4F1A0425EA007598FB /* PSEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSEventCell.h; sourceTree = "<group>"; };
 		CA041B501A0425EA007598FB /* PSEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSEventCell.m; sourceTree = "<group>"; };
 		CA041B611A095163007598FB /* PSNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNotificationCell.h; sourceTree = "<group>"; };
@@ -215,14 +229,13 @@
 		CA49568B1A0AE44A00A1774C /* PSPartyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPartyCell.h; sourceTree = "<group>"; };
 		CA49568C1A0AE44A00A1774C /* PSPartyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPartyCell.m; sourceTree = "<group>"; };
 		CA4EC1661A2753AC00FC6750 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		CA61955F1A58533D006A0E7E /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		CA6D6C711A14C05B000A043C /* party_cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = party_cell.xib; sourceTree = "<group>"; };
 		CA6D6C731A14C6D6000A043C /* PSPartyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPartyListCell.h; sourceTree = "<group>"; };
 		CA6D6C741A14C6D6000A043C /* PSPartyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPartyListCell.m; sourceTree = "<group>"; };
 		CA7996081A5088DD00B99E03 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CA7D4EC41A51D56E00EC00A0 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = ../../GoogleMaps.framework; sourceTree = "<group>"; };
 		CA7D4EC61A51D5A500EC00A0 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = ../../GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		CA82CBD2196DC5910081172A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CA82CBF2196DD5670081172A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CA9886351A507FC700D95645 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		CA9886361A507FC700D95645 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		CA9886371A507FC700D95645 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIEcommerceFields.h; sourceTree = "<group>"; };
@@ -265,8 +278,6 @@
 		CAACD3EF192D422E006F05E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CAACD3F3192D422E006F05E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PartySmashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAACD416192D422F006F05E6 /* PartySmashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PartySmashTests-Info.plist"; sourceTree = "<group>"; };
 		CAB9DB1C1A27937B006675FA /* selectPlaceInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = selectPlaceInfoWindow.xib; sourceTree = "<group>"; };
 		CAC989A119D6F17F000D60C4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CAC989A319D6F18B000D60C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -276,6 +287,8 @@
 		CAC989AB19D6F1BD000D60C4 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		CAC989AD19D6F1CC000D60C4 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		CAC989AF19D6F1DE000D60C4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		CAD171FB1A5809A600C5AFBC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CAD171FD1A580BC800C5AFBC /* PartySmash-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PartySmash-Bridging-Header.h"; sourceTree = "<group>"; };
 		CADB0D7A19645FE400358158 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CADB0D7C19645FEE00358158 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CADB0D7E1964600100358158 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -288,6 +301,11 @@
 		CADB0D8C19649D8E00358158 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CADB0D8E19649DA200358158 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CAF225761A17F1D000A37188 /* user_cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = user_cell.xib; sourceTree = "<group>"; };
+		CAF658C41A587D6100464556 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		CAF658C61A587DA200464556 /* PSUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUserSpec.m; sourceTree = "<group>"; };
+		CAF658C81A58840E00464556 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		CAF68B871A581424001AA554 /* PartySmash Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PartySmash Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF68B8A1A581424001AA554 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE1D6CFF8C0E93B59A2909DD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -296,11 +314,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAF658C51A587D6100464556 /* libsqlite3.0.dylib in Frameworks */,
 				CADB0D811964601100358158 /* libz.dylib in Frameworks */,
 				CADB0D8B1964604300358158 /* SystemConfiguration.framework in Frameworks */,
 				CA1DC8161A21ECFF00ABB129 /* AdSupport.framework in Frameworks */,
 				CA6D6C7C1A17C89E000A043C /* UIKit.framework in Frameworks */,
 				CADB0D851964602600358158 /* QuartzCore.framework in Frameworks */,
+				CAF658C91A58840E00464556 /* Parse.framework in Frameworks */,
 				CAC989B019D6F1DE000D60C4 /* OpenGLES.framework in Frameworks */,
 				CAC989AE19D6F1CC000D60C4 /* libicucore.dylib in Frameworks */,
 				CA9886491A507FC700D95645 /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -312,6 +332,7 @@
 				CAC989A419D6F18B000D60C4 /* CoreData.framework in Frameworks */,
 				CAC989A219D6F17F000D60C4 /* AVFoundation.framework in Frameworks */,
 				CA7996091A5088DD00B99E03 /* MapKit.framework in Frameworks */,
+				CA6195601A58533D006A0E7E /* ParseUI.framework in Frameworks */,
 				CADB0D8F19649DA200358158 /* Social.framework in Frameworks */,
 				CADB0D8D19649D8F00358158 /* Accounts.framework in Frameworks */,
 				CA7D4EC51A51D56E00EC00A0 /* GoogleMaps.framework in Frameworks */,
@@ -324,16 +345,27 @@
 				CADB0D7D19645FEE00358158 /* CFNetwork.framework in Frameworks */,
 				CADB0D7B19645FE400358158 /* AudioToolbox.framework in Frameworks */,
 				CAACD3F0192D422E006F05E6 /* Foundation.framework in Frameworks */,
-				D0F765DA984640B6B04411A3 /* libPods.a in Frameworks */,
+				A9C3B49E2DC88510D0B0D79A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAACD40A192D422E006F05E6 /* Frameworks */ = {
+		CAF68B841A581424001AA554 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAACD411192D422E006F05E6 /* UIKit.framework in Frameworks */,
-				CAACD410192D422E006F05E6 /* Foundation.framework in Frameworks */,
+				CAF658D61A58869000464556 /* libz.dylib in Frameworks */,
+				CAF658D51A58868B00464556 /* SystemConfiguration.framework in Frameworks */,
+				CAF658D41A58868400464556 /* StoreKit.framework in Frameworks */,
+				CAF658D31A58867C00464556 /* Security.framework in Frameworks */,
+				CAF658D21A58867500464556 /* QuartzCore.framework in Frameworks */,
+				CAF658D11A58866F00464556 /* MobileCoreServices.framework in Frameworks */,
+				CAF658D01A58866900464556 /* CoreLocation.framework in Frameworks */,
+				CAF658CF1A58866300464556 /* CoreGraphics.framework in Frameworks */,
+				CAF658CE1A58865D00464556 /* CFNetwork.framework in Frameworks */,
+				CAF658CD1A58865700464556 /* AudioToolbox.framework in Frameworks */,
+				CAF658CB1A58846000464556 /* libsqlite3.0.dylib in Frameworks */,
+				CAF658CA1A58840F00464556 /* Parse.framework in Frameworks */,
+				0A5AB07E155FE58851BAD666 /* libPods-PartySmash Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +507,7 @@
 				24324364A7498C77984129AB /* PSEvent.h */,
 				2432428A26A54E683718EDE1 /* PSNotification.m */,
 				24324DFA322A7E6F8E229E3E /* PSNotification.h */,
+				CAD171FB1A5809A600C5AFBC /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -542,6 +575,8 @@
 			children = (
 				5014C848B2D547E5F1021B5A /* Pods.debug.xcconfig */,
 				FE1D6CFF8C0E93B59A2909DD /* Pods.release.xcconfig */,
+				63B1EB20DD569A4AF54B4C82 /* Pods-PartySmash Tests.debug.xcconfig */,
+				0C9CA22B211CD0449E26D903 /* Pods-PartySmash Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -590,6 +625,7 @@
 		CA98864C1A50815300D95645 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CAD171FD1A580BC800C5AFBC /* PartySmash-Bridging-Header.h */,
 				243244150474196E70836B82 /* PSAppDelegate.h */,
 				24324841AD383ADC95F42B23 /* PSAppDelegate.m */,
 				CA98864D1A50815300D95645 /* iRate.bundle */,
@@ -643,7 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				CAACD3F5192D422E006F05E6 /* PartySmash */,
-				CAACD414192D422F006F05E6 /* PartySmashTests */,
+				CAF68B881A581424001AA554 /* PartySmash Tests */,
 				CAACD3EE192D422E006F05E6 /* Frameworks */,
 				CAACD3ED192D422E006F05E6 /* Products */,
 				24895D1D11F0ABA01D54024C /* Pods */,
@@ -655,7 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				CAACD3EC192D422E006F05E6 /* PartySmashDev.app */,
-				CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */,
+				CAF68B871A581424001AA554 /* PartySmash Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -663,6 +699,9 @@
 		CAACD3EE192D422E006F05E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CAF658C81A58840E00464556 /* Parse.framework */,
+				CAF658C41A587D6100464556 /* libsqlite3.0.dylib */,
+				CA61955F1A58533D006A0E7E /* ParseUI.framework */,
 				CA7996081A5088DD00B99E03 /* MapKit.framework */,
 				CA1DC8151A21ECFF00ABB129 /* AdSupport.framework */,
 				CAC989AF19D6F1DE000D60C4 /* OpenGLES.framework */,
@@ -688,7 +727,8 @@
 				CAACD3EF192D422E006F05E6 /* Foundation.framework */,
 				CAACD3F1192D422E006F05E6 /* CoreGraphics.framework */,
 				CAACD3F3192D422E006F05E6 /* UIKit.framework */,
-				7A90E9D894B7471BAD7692EE /* libPods.a */,
+				72062ED7C4B10F83A09C8A2E /* libPods.a */,
+				5AFC5C3BB09FB00C22C8A4BE /* libPods-PartySmash Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -701,33 +741,24 @@
 				CA98864C1A50815300D95645 /* Supporting Files */,
 				CA9886341A507FC700D95645 /* Analytics */,
 				CA98863F1A507FC700D95645 /* Frameworks */,
-				CAACD3F6192D422E006F05E6 /* Supporting Files */,
 				243248CB4F0E7342D22BB2D0 /* Classes */,
 			);
 			path = PartySmash;
 			sourceTree = "<group>";
 		};
-		CAACD3F6192D422E006F05E6 /* Supporting Files */ = {
+		CAF68B881A581424001AA554 /* PartySmash Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CAF68B891A581424001AA554 /* Supporting Files */,
+				CAF658C61A587DA200464556 /* PSUserSpec.m */,
 			);
-			name = "Supporting Files";
+			path = "PartySmash Tests";
 			sourceTree = "<group>";
 		};
-		CAACD414192D422F006F05E6 /* PartySmashTests */ = {
+		CAF68B891A581424001AA554 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CAACD415192D422F006F05E6 /* Supporting Files */,
-				24324724150DECF9F26043D0 /* TestAuthService.m */,
-			);
-			path = PartySmashTests;
-			sourceTree = "<group>";
-		};
-		CAACD415192D422F006F05E6 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CAACD416192D422F006F05E6 /* PartySmashTests-Info.plist */,
-				CAACD417192D422F006F05E6 /* InfoPlist.strings */,
+				CAF68B8A1A581424001AA554 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -754,22 +785,24 @@
 			productReference = CAACD3EC192D422E006F05E6 /* PartySmashDev.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CAACD40C192D422E006F05E6 /* PartySmashTests */ = {
+		CAF68B861A581424001AA554 /* PartySmash Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CAACD421192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmashTests" */;
+			buildConfigurationList = CAF68B8F1A581424001AA554 /* Build configuration list for PBXNativeTarget "PartySmash Tests" */;
 			buildPhases = (
-				CAACD409192D422E006F05E6 /* Sources */,
-				CAACD40A192D422E006F05E6 /* Frameworks */,
-				CAACD40B192D422E006F05E6 /* Resources */,
+				F03868E6F9CB79E29EF3A53E /* Check Pods Manifest.lock */,
+				CAF68B831A581424001AA554 /* Sources */,
+				CAF68B841A581424001AA554 /* Frameworks */,
+				CAF68B851A581424001AA554 /* Resources */,
+				6C0B33F03CFF2665EFEB4250 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CAACD413192D422F006F05E6 /* PBXTargetDependency */,
+				CAF68B8E1A581424001AA554 /* PBXTargetDependency */,
 			);
-			name = PartySmashTests;
-			productName = PartySmashTests;
-			productReference = CAACD40D192D422E006F05E6 /* PartySmashTests.xctest */;
+			name = "PartySmash Tests";
+			productName = "PartySmash Tests";
+			productReference = CAF68B871A581424001AA554 /* PartySmash Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -779,7 +812,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = PS;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = PartySmash;
 				TargetAttributes = {
 					CAACD3EB192D422E006F05E6 = {
@@ -790,7 +823,8 @@
 							};
 						};
 					};
-					CAACD40C192D422E006F05E6 = {
+					CAF68B861A581424001AA554 = {
+						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = CAACD3EB192D422E006F05E6;
 					};
 				};
@@ -810,7 +844,7 @@
 			projectRoot = "";
 			targets = (
 				CAACD3EB192D422E006F05E6 /* PartySmash */,
-				CAACD40C192D422E006F05E6 /* PartySmashTests */,
+				CAF68B861A581424001AA554 /* PartySmash Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -836,7 +870,6 @@
 				CA9886531A50815300D95645 /* iRate.bundle in Resources */,
 				CA9886811A50827D00D95645 /* Localizable.strings in Resources */,
 				CA7D4EC71A51D5A500EC00A0 /* GoogleMaps.bundle in Resources */,
-				CA9886561A50815300D95645 /* PartySmash-Info.plist in Resources */,
 				CA98867D1A50827D00D95645 /* LaunchImage@3.jpg in Resources */,
 				CA9886801A50827D00D95645 /* InfoPlist.strings in Resources */,
 				CA98867A1A50827D00D95645 /* ic_show_partyloc.png in Resources */,
@@ -847,17 +880,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAACD40B192D422E006F05E6 /* Resources */ = {
+		CAF68B851A581424001AA554 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CAACD419192D422F006F05E6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6C0B33F03CFF2665EFEB4250 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PartySmash Tests/Pods-PartySmash Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8CD21F22A0144A6EB4EE7193 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -874,6 +921,21 @@
 			showEnvVarsInLog = 0;
 		};
 		AB9ED0EF08004A0DB851563F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F03868E6F9CB79E29EF3A53E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -927,6 +989,7 @@
 				2432438A7B3334D04845AC08 /* PSTableUsersVC.m in Sources */,
 				2432483C63B996742EDD93A2 /* PSUserCell.m in Sources */,
 				243249E037152E61F446C536 /* PSSettingsVC.m in Sources */,
+				CAD171FC1A5809A600C5AFBC /* User.swift in Sources */,
 				24324D7D2B390EB4C96769AA /* PSSearchUserVC.m in Sources */,
 				24324E432967D1586D58CB4C /* PSQueryTableViewController.m in Sources */,
 				243247931F5293B932ACBFF9 /* PSFindPartyMapVC.m in Sources */,
@@ -941,22 +1004,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CAACD409192D422E006F05E6 /* Sources */ = {
+		CAF68B831A581424001AA554 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24324B476B014C871FC7DA13 /* TestAuthService.m in Sources */,
-				243243E253DE0F1DF81C4472 /* UIView+PSViewInProgress.m in Sources */,
+				CAF658C71A587DA200464556 /* PSUserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CAACD413192D422F006F05E6 /* PBXTargetDependency */ = {
+		CAF68B8E1A581424001AA554 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CAACD3EB192D422E006F05E6 /* PartySmash */;
-			targetProxy = CAACD412192D422F006F05E6 /* PBXContainerItemProxy */;
+			targetProxy = CAF68B8D1A581424001AA554 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1014,15 +1076,6 @@
 			name = Main.strings;
 			sourceTree = "<group>";
 		};
-		CAACD417192D422F006F05E6 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CA82CBD2196DC5910081172A /* ru */,
-				CA82CBF2196DD5670081172A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1060,7 +1113,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -1095,7 +1148,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-ObjC",
 					"-force_load",
@@ -1113,6 +1166,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1124,6 +1178,7 @@
 				GCC_PREFIX_HEADER = "PartySmash/Supporting Files/PartySmash-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/PartySmash/Supporting Files/PartySmash-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1131,6 +1186,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Dev";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PartySmash/Supporting Files/PartySmash-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1143,6 +1200,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1154,6 +1212,7 @@
 				GCC_PREFIX_HEADER = "PartySmash/Supporting Files/PartySmash-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/PartySmash/Supporting Files/PartySmash-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1161,52 +1220,113 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/PartySmash/Supporting Files/PartySmash-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/** \"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		CAACD422192D422F006F05E6 /* Debug */ = {
+		CAF68B901A581424001AA554 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63B1EB20DD569A4AF54B4C82 /* Pods-PartySmash Tests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PartySmash.app/PartySmash";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "PartySmashTests/PartySmashTests-Info.plist";
+				INFOPLIST_FILE = "PartySmash Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-l\"Pods-PartySmash Tests-Bolts\"",
+					"-l\"Pods-PartySmash Tests-Expecta\"",
+					"-l\"Pods-PartySmash Tests-Facebook-iOS-SDK\"",
+					"-l\"Pods-PartySmash Tests-Instabug\"",
+					"-l\"Pods-PartySmash Tests-MBProgressHUD\"",
+					"-l\"Pods-PartySmash Tests-OCHamcrest\"",
+					"-l\"Pods-PartySmash Tests-OCMockito\"",
+					"-l\"Pods-PartySmash Tests-Specta\"",
+					"-l\"Pods-PartySmash Tests-VK-ios-sdk\"",
+					"-l\"c++\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"Instabug\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"XCTest\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
-				WRAPPER_EXTENSION = xctest;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartySmashDev.app/PartySmashDev";
 			};
 			name = Debug;
 		};
-		CAACD423192D422F006F05E6 /* Release */ = {
+		CAF68B911A581424001AA554 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C9CA22B211CD0449E26D903 /* Pods-PartySmash Tests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PartySmash.app/PartySmash";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PartySmash/PartySmash-Prefix.pch";
-				INFOPLIST_FILE = "PartySmashTests/PartySmashTests-Info.plist";
+				INFOPLIST_FILE = "PartySmash Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
-				WRAPPER_EXTENSION = xctest;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PartySmashDev.app/PartySmashDev";
 			};
 			name = Release;
 		};
@@ -1231,11 +1351,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CAACD421192D422F006F05E6 /* Build configuration list for PBXNativeTarget "PartySmashTests" */ = {
+		CAF68B8F1A581424001AA554 /* Build configuration list for PBXNativeTarget "PartySmash Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CAACD422192D422F006F05E6 /* Debug */,
-				CAACD423192D422F006F05E6 /* Release */,
+				CAF68B901A581424001AA554 /* Debug */,
+				CAF68B911A581424001AA554 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

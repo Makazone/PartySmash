@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <VK-ios-sdk/VKSdk.h>
-#import "Parse/Parse.h"
+#import <Parse/Parse.h>
 
 @interface PSLoginViewController : UIViewController <VKSdkDelegate>
 
