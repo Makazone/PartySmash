@@ -13,6 +13,7 @@
 		243240C4769AED9AE57080F8 /* PSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324770EBFD91808EEAF8AD /* PSEvent.m */; };
 		243240E9755ED32169FA8A00 /* PSFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324163A73A35154E8E394D /* PSFriendCell.m */; };
 		24324126704DBA65FD37429C /* PSNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432428A26A54E683718EDE1 /* PSNotification.m */; };
+		243242DFC45A25B350DCB172 /* PSObjectLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324988FF0382B3C87AC1B4 /* PSObjectLoader.m */; };
 		2432438A7B3334D04845AC08 /* PSTableUsersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432443D1EC6B453506F9BC3 /* PSTableUsersVC.m */; };
 		243243F42809528F58C43CDC /* PSMapInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324C1FA4B127DE3D1F0EF0 /* PSMapInfoView.m */; };
 		2432448C88A414016B66530F /* UIView+PSViewInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */; };
@@ -20,6 +21,7 @@
 		2432457983878AD4C4C68BD1 /* PSFindPartyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243246897E4E8F89797ABE77 /* PSFindPartyVC.m */; };
 		243246466577E3E4CF57A6D5 /* PSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F16620A5C1DBA548274 /* PSImageView.m */; };
 		243246C765A0A6FCE5B02CDD /* PSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 243248FB4D0456F2CC508727 /* PSUser.m */; };
+		243246E21080822F062C014E /* ObjectLoaderSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 243243F016E136AF0532DF05 /* ObjectLoaderSpec.m */; };
 		2432473B7490D26A10A5A36C /* GCGeocodingService.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324EA42C8C2739844438E7 /* GCGeocodingService.m */; };
 		2432473C5CD32306F3942105 /* main.js in Sources */ = {isa = PBXBuildFile; fileRef = 2432446340CD395773938EBD /* main.js */; };
 		243247931F5293B932ACBFF9 /* PSFindPartyMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324619F51F37500457B88C /* PSFindPartyMapVC.m */; };
@@ -32,6 +34,7 @@
 		2432497307D0AA84BF0BBF4D /* PSAttributedDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324B3D2B5493C6FDCF0354 /* PSAttributedDrawer.m */; };
 		2432498E623D3541ADC3517B /* PSFuturePartiesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 243242C329C286D8B6967079 /* PSFuturePartiesVC.m */; };
 		243249E037152E61F446C536 /* PSSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324F31BC4B135F22B7A796 /* PSSettingsVC.m */; };
+		24324A6054F288A04A914DC8 /* UserFeedControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 2432499932BF2321A0B9E2D4 /* UserFeedControllerSpec.m */; };
 		24324A89F747D373BE532092 /* PSAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 243243E82CD054CB59E2D728 /* PSAuthService.m */; };
 		24324ABD006A86C2B4369B18 /* PSPartyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324A6279B208A3493ABC0F /* PSPartyViewController.m */; };
 		24324BABD50B1A25F1571AB0 /* PSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24324841AD383ADC95F42B23 /* PSAppDelegate.m */; };
@@ -152,6 +155,7 @@
 		24324364A7498C77984129AB /* PSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSEvent.h; sourceTree = "<group>"; };
 		243243C26439C939F160C7BD /* PSNotificationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNotificationsVC.h; sourceTree = "<group>"; };
 		243243E82CD054CB59E2D728 /* PSAuthService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSAuthService.m; sourceTree = "<group>"; };
+		243243F016E136AF0532DF05 /* ObjectLoaderSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectLoaderSpec.m; sourceTree = "<group>"; };
 		243244150474196E70836B82 /* PSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSAppDelegate.h; path = ../PSAppDelegate.h; sourceTree = "<group>"; };
 		24324415BA4E4B483FEEF6D6 /* PSMapInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMapInfoView.h; sourceTree = "<group>"; };
 		2432443D1EC6B453506F9BC3 /* PSTableUsersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTableUsersVC.m; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 		243244B10F96B9F843CB1F8F /* PSNotificationFollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSNotificationFollowCell.m; sourceTree = "<group>"; };
 		243244B9F890E7ABC8F01ECD /* PSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSImageView.h; sourceTree = "<group>"; };
 		243244C4F97DF392C5574CFD /* .main.js.swp */ = {isa = PBXFileReference; lastKnownFileType = file.swp; path = .main.js.swp; sourceTree = "<group>"; };
+		2432451CA5FE06A0A18196F1 /* PSObjectLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSObjectLoader.h; sourceTree = "<group>"; };
 		24324568DE92771B93C3837E /* UIView+PSViewInProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PSViewInProgress.m"; sourceTree = "<group>"; };
 		243245B82BE321E2550F6CF1 /* PSSelectPlaceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSelectPlaceVC.m; sourceTree = "<group>"; };
 		243245C54EF57C4F1755A9DC /* PSNotificationFollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSNotificationFollowCell.h; sourceTree = "<group>"; };
@@ -179,6 +184,8 @@
 		243248759382705F14EDFCF0 /* PSSelectPlaceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSelectPlaceVC.h; sourceTree = "<group>"; };
 		243248B98E7F6149E54A25E9 /* PFImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFImageCache.h; sourceTree = "<group>"; };
 		243248FB4D0456F2CC508727 /* PSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUser.m; sourceTree = "<group>"; };
+		24324988FF0382B3C87AC1B4 /* PSObjectLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSObjectLoader.m; sourceTree = "<group>"; };
+		2432499932BF2321A0B9E2D4 /* UserFeedControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFeedControllerSpec.m; sourceTree = "<group>"; };
 		243249A3DB7868DA5389B859 /* PSGeneralDescriptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSGeneralDescriptionVC.h; sourceTree = "<group>"; };
 		24324A0202FC5D22663B32A3 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		24324A2117870DE2B6EE43D7 /* PSCreatePartyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCreatePartyVC.h; sourceTree = "<group>"; };
@@ -492,6 +499,8 @@
 				243242356CD9E684B89C774F /* PSAuthService.h */,
 				24324E206CD34ACD2DF9AB01 /* GCGeocodingService.h */,
 				24324EA42C8C2739844438E7 /* GCGeocodingService.m */,
+				2432451CA5FE06A0A18196F1 /* PSObjectLoader.h */,
+				24324988FF0382B3C87AC1B4 /* PSObjectLoader.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -751,6 +760,8 @@
 			children = (
 				CAF68B891A581424001AA554 /* Supporting Files */,
 				CAF658C61A587DA200464556 /* PSUserSpec.m */,
+				2432499932BF2321A0B9E2D4 /* UserFeedControllerSpec.m */,
+				243243F016E136AF0532DF05 /* ObjectLoaderSpec.m */,
 			);
 			path = "PartySmash Tests";
 			sourceTree = "<group>";
@@ -1001,6 +1012,7 @@
 				2432497307D0AA84BF0BBF4D /* PSAttributedDrawer.m in Sources */,
 				24324C8AE2219B09F4DF8D6B /* PSNotificationFollowCell.m in Sources */,
 				2432473C5CD32306F3942105 /* main.js in Sources */,
+				243242DFC45A25B350DCB172 /* PSObjectLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1009,6 +1021,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAF658C71A587DA200464556 /* PSUserSpec.m in Sources */,
+				24324A6054F288A04A914DC8 /* UserFeedControllerSpec.m in Sources */,
+				243246E21080822F062C014E /* ObjectLoaderSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

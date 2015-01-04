@@ -22,7 +22,7 @@
 
 #import <Instabug/Instabug.h>
 
-#define DEVELOPMENT
+//#define DEVELOPMENT
 
 @implementation PSAppDelegate
 

@@ -28,3 +28,5 @@ Pods
 
 # Vim
 *.swp
+
+python/
