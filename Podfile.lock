@@ -1,7 +1,7 @@
 PODS:
   - Bolts (1.1.3)
   - Expecta (0.3.1)
-  - Facebook-iOS-SDK (3.20.0):
+  - Facebook-iOS-SDK (3.21.1):
     - Bolts (~> 1.0)
   - Instabug (3.21)
   - MBProgressHUD (0.9)
@@ -33,7 +33,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  Facebook-iOS-SDK: 5854404b4b651f612a8ef79ca06d766858f4cb8e
+  Facebook-iOS-SDK: 18c26e86ab25c17854a2ee2a8f60562099c6600f
   Instabug: b6212f318458f753525654353ca6fa16fb0a1494
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   OCHamcrest: 207233b7d7a44dadd66aca398947cc7e029c9be5

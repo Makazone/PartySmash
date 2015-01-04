@@ -1316,6 +1316,7 @@
 					"\"Social\"",
 					"-weak_framework",
 					"\"UIKit\"",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
