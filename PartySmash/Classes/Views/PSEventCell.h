@@ -9,12 +9,13 @@
 #import <Parse/Parse.h>
 #import <ParseUI/PFTableViewCell.h>
 
-@class PSAttributedLabel;
 @class PSAttributedDrawer;
+@class PSImageView;
 
 //@interface PSEventCell : UITableViewCell
 @interface PSEventCell : PFTableViewCell
 
-@property (nonatomic) PSAttributedDrawer *body;
+@property (nonatomic) UILabel *body;
+@property (nonatomic) PSImageView *userPic;
 
 @end

@@ -23,6 +23,7 @@
 #import "PSNotificationFollowCell.h"
 #import "PSAppDelegate.h"
 #import "PSCreatePartyVC.h"
+#import "PSImageView.h"
 
 static NSString *GA_SCREEN_NAME = @"User Feed";
 
@@ -40,6 +41,7 @@ static NSString *event_cell_id = @"event_cell_id";
 @implementation PSUserFeedVC {
     int _selectedRow;
     BOOL _redirected;
+    BOOL _selfSizingCellEnabled;
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -92,7 +94,12 @@ static NSString *event_cell_id = @"event_cell_id";
 
     [self.tableView registerClass:[PSEventCell class] forCellReuseIdentifier:event_cell_id];
 
-//    self.tableView.estimatedRowHeight = 87.2;
+    // Use brand new self-sizing cells
+    if ([(PSAppDelegate *)[[UIApplication sharedApplication] delegate] isUserRunningIOS8]) {
+        _selfSizingCellEnabled = YES;
+        self.tableView.estimatedRowHeight = 87;
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -179,18 +186,23 @@ static NSString *event_cell_id = @"event_cell_id";
     PSEventCell *cell = [tableView dequeueReusableCellWithIdentifier:event_cell_id forIndexPath:indexPath];
 
     // Configure the cell for this indexPath
-    cell.body.attributedString = [event getEventTextBody];
+//    cell.body.attributedString = [event getEventTextBody];
+    cell.body.attributedText = [event getEventTextBody];
 
     PFFile *userImg = event.owner.photo100;
 //    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
 //    cell.imageView.file = userImg;
-    cell.imageView.file = event.owner.photo100;
+//    cell.imageView.file = event.owner.photo100;
+    cell.userPic.file = event.owner.photo100;
+    [cell.userPic loadInBackground];
 
     // [cell updateFonts];
 
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
+//    if (!_selfSizingCellEnabled) {
+        [cell setNeedsUpdateConstraints];
+        [cell updateConstraintsIfNeeded];
+//    }
 
 //    [cell setNeedsLayout];
 //    [cell layoutIfNeeded];
@@ -199,6 +211,11 @@ static NSString *event_cell_id = @"event_cell_id";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (_selfSizingCellEnabled) {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+
+    NSLog(@"%s", sel_getName(_cmd));
     // This project has only one cell identifier, but if you are have more than one, this is the time
     // to figure out which reuse identifier should be used for the cell at this index path.
     NSString *reuseIdentifier = event_cell_id;
@@ -218,7 +235,8 @@ static NSString *event_cell_id = @"event_cell_id";
     // Configure the cell for this indexPath
     // [cell updateFonts];
     PSEvent *event = [self objectAtIndexPath:indexPath];
-    cell.body.attributedString = [event getEventTextBody];
+//    cell.body.attributedString = [event getEventTextBody];
+    cell.body.attributedText = [event getEventTextBody];
 
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];
@@ -249,7 +267,7 @@ static NSString *event_cell_id = @"event_cell_id";
 
 //    (self.cellHeights)[indexPath.row] = @(height);
 //    self.numberOfComputedHeights += 1;
-//    NSLog(@"height = %f", height);
+    NSLog(@"height = %f", height);
 
     return height;
 }

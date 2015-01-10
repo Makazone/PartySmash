@@ -40,10 +40,10 @@
     [PSNotification registerSubclass];
 
     #ifdef DEVELOPMENT
-    [Parse setApplicationId:@"" clientKey:@""];
+    [Parse setApplicationId:@"nda02vKLjBCCPmvsYVV7SacA1yb9c61vi1oGM7xW" clientKey:@"SrN93G9JUwJdpMfcINbdJ8tJXBYlwgGpH4sqYfRW"];
     [GAI sharedInstance].optOut = YES;
     #else
-    [Parse setApplicationId:@"" clientKey:@""];
+    [Parse setApplicationId:@"5jOeErzAv4j5BCWsLxNrjicpDvnhnH5cyyds6X4n" clientKey:@"gKJOrNRPpxW9i4lyWwaVog3apmaNsI3HR02sft4k"];
     #endif
 
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -55,7 +55,7 @@
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelNone];
     
     // Initialize tracker. Replace with your tracking ID.
-    [[GAI sharedInstance] trackerWithTrackingId:@""];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-52406320-3"];
     
     // Enable IDFA collection.
     [[GAI sharedInstance] defaultTracker].allowIDFACollection = YES;
@@ -72,14 +72,14 @@
     }
     
 
-    [GMSServices provideAPIKey:@""]; // GoogleMapAPI
+    [GMSServices provideAPIKey:@"AIzaSyD9JW-4PuB06bNVSPQUGfu4wZP7-ErXUT8"]; // GoogleMapAPI
 
-    [VKSdk initializeWithDelegate:nil andAppId:@""];
+    [VKSdk initializeWithDelegate:nil andAppId:@"4444128"];
 
     [[Crashlytics sharedInstance] setDebugMode:NO];
-    [Crashlytics startWithAPIKey:@""];
+    [Crashlytics startWithAPIKey:@"55c38003fe168a16c9624d18feed343b7867318d"];
 
-    [Instabug startWithToken:@""captureSource:IBGCaptureSourceUIKit invocationEvent:IBGInvocationEventShake];
+    [Instabug startWithToken:@"126955ab42f0c95d9ae7b4a3d10c9301"captureSource:IBGCaptureSourceUIKit invocationEvent:IBGInvocationEventShake];
 
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"BarBG"] forBarMetrics:UIBarMetricsDefault];
 
@@ -176,6 +176,12 @@
                                                           action:action  // Event action (required)
                                                            label:label          // Event label
                                                            value:value] build]];    // Event value
+}
+
+- (BOOL)isUserRunningIOS8 {
+    if ([[[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."][0] intValue] >= 8) {
+        return YES;
+    } else return NO;
 }
 
 

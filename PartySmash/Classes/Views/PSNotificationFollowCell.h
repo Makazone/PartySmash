@@ -4,10 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "ParseUI/PFTableViewCell.h"
 
 @class PSAttributedDrawer;
 @class PFTableViewCell;
+
 @protocol PSCellDelegate;
 
 static int tapForFollow = 0;
@@ -15,7 +15,8 @@ static int tapForUser = 1;
 
 @interface PSNotificationFollowCell : PFTableViewCell
 
-@property (nonatomic) PSAttributedDrawer *body;
+@property (nonatomic) UILabel *body;
+@property (nonatomic) PSImageView *userPic;
 @property (nonatomic) UIButton *followButton;
 
 @property (weak, nonatomic) id<PSCellDelegate> delegate;

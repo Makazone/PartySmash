@@ -110,7 +110,7 @@ static NSString *GA_SCREEN_NAME = @"Find party list";
 
     PSPartyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"party_list_cell" forIndexPath:indexPath];
 
-    cell.body.attributedString = [party getBodyWithKilo:-3.0];
+    cell.body.attributedText = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
 //    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
@@ -134,7 +134,7 @@ static NSString *GA_SCREEN_NAME = @"Find party list";
 
     PSParty *party = [self objectAtIndexPath:indexPath];
 
-    cell.body.attributedString = [party getBodyWithKilo:[party.geoPosition distanceInKilometersTo:_userPosition]];
+    cell.body.attributedText = [party getBodyWithKilo:[party.geoPosition distanceInKilometersTo:_userPosition]];
 
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];

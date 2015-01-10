@@ -35,7 +35,8 @@ Parse.Cloud.define("helper_SendPush", function(request, response) {
     Parse.Push.send({
         where: pushQuery,
         data: {
-            alert: pushString
+            alert: pushString,
+            sound: "default"
         }
     }, {
         success: function() {

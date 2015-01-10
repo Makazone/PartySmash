@@ -11,9 +11,11 @@
 #import <ParseUI/ParseUI.h>
 
 @class PSAttributedDrawer;
+@class PSImageView;
 
 @interface PSPartyListCell : PFTableViewCell
 
-@property (nonatomic) PSAttributedDrawer *body;
+@property (nonatomic) UILabel *body;
+@property (nonatomic) PSImageView *userPic;
 
 @end

@@ -107,6 +107,7 @@
 		CADB0D8B1964604300358158 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8A1964604300358158 /* SystemConfiguration.framework */; };
 		CADB0D8D19649D8F00358158 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8C19649D8E00358158 /* Accounts.framework */; };
 		CADB0D8F19649DA200358158 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CADB0D8E19649DA200358158 /* Social.framework */; };
+		CAE4CC241A5AAF5B00A2F97E /* notification_follow_cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAE4CC231A5AAF5B00A2F97E /* notification_follow_cell.xib */; };
 		CAF225771A17F1D000A37188 /* user_cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAF225761A17F1D000A37188 /* user_cell.xib */; };
 		CAF658C51A587D6100464556 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF658C41A587D6100464556 /* libsqlite3.0.dylib */; };
 		CAF658C71A587DA200464556 /* PSUserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF658C61A587DA200464556 /* PSUserSpec.m */; };
@@ -307,6 +308,7 @@
 		CADB0D8A1964604300358158 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CADB0D8C19649D8E00358158 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CADB0D8E19649DA200358158 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		CAE4CC231A5AAF5B00A2F97E /* notification_follow_cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = notification_follow_cell.xib; sourceTree = "<group>"; };
 		CAF225761A17F1D000A37188 /* user_cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = user_cell.xib; sourceTree = "<group>"; };
 		CAF658C41A587D6100464556 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		CAF658C61A587DA200464556 /* PSUserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSUserSpec.m; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				CA076D8E1A02050C009D7696 /* event_friendgoes_tablecell.xib */,
 				CA6D6C711A14C05B000A043C /* party_cell.xib */,
 				CAF225761A17F1D000A37188 /* user_cell.xib */,
+				CAE4CC231A5AAF5B00A2F97E /* notification_follow_cell.xib */,
 			);
 			name = xib;
 			sourceTree = "<group>";
@@ -878,6 +881,7 @@
 				CA98867C1A50827D00D95645 /* LaunchImage@2.jpg in Resources */,
 				CAF225771A17F1D000A37188 /* user_cell.xib in Resources */,
 				CA9886771A50827D00D95645 /* Images.xcassets in Resources */,
+				CAE4CC241A5AAF5B00A2F97E /* notification_follow_cell.xib in Resources */,
 				CA9886531A50815300D95645 /* iRate.bundle in Resources */,
 				CA9886811A50827D00D95645 /* Localizable.strings in Resources */,
 				CA7D4EC71A51D5A500EC00A0 /* GoogleMaps.bundle in Resources */,

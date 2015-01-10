@@ -11,6 +11,7 @@
 #import "PSPartyViewController.h"
 #import "PSAttributedDrawer.h"
 #import "PSAppDelegate.h"
+#import "PSImageView.h"
 
 static NSString *GA_SCREEN_NAME = @"Future parties";
 
@@ -36,6 +37,11 @@ static NSString *GA_SCREEN_NAME = @"Future parties";
     _offscreenCells = [NSMutableDictionary new];
 
     [self.tableView registerClass:[PSPartyListCell class] forCellReuseIdentifier:@"party_list_cell"];
+    // Use brand new self-sizing cells
+    if ([(PSAppDelegate *)[[UIApplication sharedApplication] delegate] isUserRunningIOS8]) {
+        self.tableView.estimatedRowHeight = 50;
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+    }
 
     // Initialize the refresh control.
 //    self.refreshControl = [UIRefreshControl new];
@@ -147,13 +153,12 @@ static NSString *GA_SCREEN_NAME = @"Future parties";
 
     PSPartyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"party_list_cell" forIndexPath:indexPath];
 
-    cell.body.attributedString = [party getBodyWithKilo:-3.0];
+    cell.body.attributedText = [party getBodyWithKilo:-3.0];
 
     PFFile *userImg = party.creator.photo100;
 //    cell.imageView.image = [UIImage imageNamed:@"feed_S"];
-    cell.imageView.file = userImg;
-
-    [cell.imageView loadInBackground];
+    cell.userPic.file = userImg;
+    [cell.userPic loadInBackground];
 
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
@@ -162,6 +167,10 @@ static NSString *GA_SCREEN_NAME = @"Future parties";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([(PSAppDelegate *)[[UIApplication sharedApplication] delegate] isUserRunningIOS8]) {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+
     NSString *cellId = @"party_list_cell";
 
     PSPartyListCell *cell = _offscreenCells[cellId];
@@ -173,7 +182,7 @@ static NSString *GA_SCREEN_NAME = @"Future parties";
 
     PSParty *party = [self objectAtIndexPath:indexPath];
 
-    cell.body.attributedString = [party getBodyWithKilo:-3.0];
+    cell.body.attributedText = [party getBodyWithKilo:-3.0];
 
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];

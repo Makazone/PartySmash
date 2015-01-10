@@ -107,6 +107,7 @@
         // We dispatch to a background queue to offload the work to decode data into image
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             UIImage *image = [self getImageWithRoundCorners:[UIImage imageWithData:data] withRect:self.bounds.size];
+//            UIImage *image = [UIImage imageWithData:data];
             if (!image) {
                 if (completion) {
                     NSError *invalidDataError = [NSError errorWithDomain:PFParseErrorDomain

@@ -22,4 +22,6 @@
 - (void)trackScreen:(NSString *)name;
 - (void)trackEventWithCategory:(NSString *)category action:(NSString*)action label:(NSString *)label value:(NSNumber *)value;
 
+- (BOOL)isUserRunningIOS8;
+
 @end

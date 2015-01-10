@@ -10,10 +10,12 @@
 
 @protocol PSCellDelegate;
 @class PSAttributedDrawer;
+@class PSImageView;
 
 @interface PSNotificationCell : PFTableViewCell
 
-@property (nonatomic) PSAttributedDrawer *body;
+@property (nonatomic) UILabel *body;
+@property (nonatomic) PSImageView *userPic;
 
 @property (weak, nonatomic) id<PSCellDelegate> delegate;
 @property (nonatomic) NSIndexPath *cellIndexPath;

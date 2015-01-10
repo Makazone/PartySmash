@@ -13,10 +13,14 @@
     CGRect boundingRect = [self.attributedString boundingRectWithSize:CGSizeMake(_preferredMaxLayoutWidth, CGFLOAT_MAX)
                                  options:(NSStringDrawingUsesLineFragmentOrigin)
                                  context:nil];
+//    CGRect boundingRect =
+//            [self.attributedString boundingRectWithSize:CGSizeMake(_preferredMaxLayoutWidth, CGFLOAT_MAX)
+//                                                options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+//                                                context:nil];
     CGSize ceiledSize = CGSizeMake(ceil(boundingRect.size.width), ceil(boundingRect.size.height));
+    NSLog(@"%f", ceiledSize);
     return ceiledSize;
 }
-
 
 - (void)drawRect:(CGRect)rect {
     [self.attributedString drawWithRect:rect options:NSStringDrawingUsesLineFragmentOrigin context:nil];

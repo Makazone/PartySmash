@@ -20,10 +20,12 @@
 #import "UIView+PSViewInProgress.h"
 #import "PSAppDelegate.h"
 #import "PSProfileVC.h"
+#import "PSImageView.h"
 
 static NSString *notification_cell = @"notification_cell";
 static NSString *notification_following_cell = @"notification_started_following";
 static NSString *GA_SCREEN_NAME = @"Notifications";
+static NSString *longText = @"Настя Полякова подписан(-а) на вас. 24 December";
 
 @implementation PSNotificationsVC {
     BOOL _firstLoad;
@@ -56,13 +58,19 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
 
     [self.tableView registerClass:[PSNotificationCell class] forCellReuseIdentifier:notification_cell];
     [self.tableView registerClass:[PSNotificationFollowCell class] forCellReuseIdentifier:notification_following_cell];
+
+    // Use brand new self-sizing cells
+    if ([(PSAppDelegate *)[[UIApplication sharedApplication] delegate] isUserRunningIOS8]) {
+        self.tableView.estimatedRowHeight = 44;
+        self.tableView.rowHeight = UITableViewAutomaticDimension;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    NSLog(@"self.tableView.contentOffset (%f, %f)", self.tableView.contentOffset.x, self.tableView.contentOffset.y);
-    NSLog(@"self.tableView.contentInset.top = (%f, %f, %f, %f)", self.tableView.contentInset.top, self.tableView.contentInset.right, self.tableView.contentInset.bottom, self.tableView.contentInset.left);
+//    NSLog(@"self.tableView.contentOffset (%f, %f)", self.tableView.contentOffset.x, self.tableView.contentOffset.y);
+//    NSLog(@"self.tableView.contentInset.top = (%f, %f, %f, %f)", self.tableView.contentInset.top, self.tableView.contentInset.right, self.tableView.contentInset.bottom, self.tableView.contentInset.left);
 //    if (![PSAuthService isUserLoggedIn]) {
 //        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 //        UINavigationController *loginViewController = [sb instantiateViewControllerWithIdentifier:@"logInNavController"];
@@ -112,9 +120,12 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
 
     if (notification.type == STARTED_FOLLOWING) {
         PSNotificationFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:notification_following_cell forIndexPath:indexPath];
-        cell.body.attributedString = [notification getBody];
-        cell.imageView.image = [UIImage imageNamed:@"feed_S"];
-        cell.imageView.file = notification.sender.photo100;
+
+        cell.body.attributedText = [notification getBody];
+//        cell.body.text = longText;
+//        cell.userPic.image = [UIImage imageNamed:@"feed_S"];
+        cell.userPic.file = notification.sender.photo100;
+        [cell.userPic loadInBackground];
 
         [self setUpFollowButton:cell.followButton forUser:notification.sender];
 
@@ -124,13 +135,17 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
         [cell setNeedsUpdateConstraints];
         [cell updateConstraintsIfNeeded];
 
+        NSLog(@"cell.contentview.frame.size.height = %f", cell.contentView.frame.size.height);
+        NSLog(@"cell.frame.size.height = %f", cell.frame.size.height);
+
         return cell;
     } else {
         PSNotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:notification_cell forIndexPath:indexPath];
-        cell.body.attributedString = [notification getBody];
+        cell.body.attributedText = [notification getBody];
 
 //        cell.imageView.image = [UIImage imageNamed:@"feed_S"];
-        cell.imageView.file = notification.sender.photo100;
+        cell.userPic.file = notification.sender.photo100;
+        [cell.userPic loadInBackground];
 
         cell.delegate = self;
         cell.cellIndexPath = indexPath;
@@ -144,6 +159,10 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([(PSAppDelegate *)[[UIApplication sharedApplication] delegate] isUserRunningIOS8]) {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+
     PSNotification *notification = [self objectAtIndexPath:indexPath];
 
     NSString *reuseIdentifier;
@@ -164,8 +183,8 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
     // Configure the cell for this indexPath
     // [cell updateFonts];
     if (notification.type == STARTED_FOLLOWING) {
-        ((PSNotificationFollowCell *)cell).body.attributedString = [notification getBody];
-    } else ((PSNotificationCell *)cell).body.attributedString = [notification getBody];
+        ((PSNotificationFollowCell *)cell).body.attributedText = [notification getBody];
+    } else ((PSNotificationCell *)cell).body.attributedText = [notification getBody];
 
     // Make sure the constraints have been added to this cell, since it may have just been created from scratch
     [cell setNeedsUpdateConstraints];
@@ -192,11 +211,13 @@ static NSString *GA_SCREEN_NAME = @"Notifications";
 
     // Add an extra point to the height to account for the cell separator, which is added between the bottom
     // of the cell's contentView and the bottom of the table view cell.
-    height += 1;
+    height += 1.5;
 
 //    (self.cellHeights)[indexPath.row] = @(height);
 //    self.numberOfComputedHeights += 1;
-//    NSLog(@"height = %f", height);
+//    if (notification.type == STARTED_FOLLOWING) {
+//        NSLog(@"height = %f", height);
+//    }
 
     return height;
 }

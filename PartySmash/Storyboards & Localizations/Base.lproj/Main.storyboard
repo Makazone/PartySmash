@@ -1559,10 +1559,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="VWQ-X3-ccl" secondAttribute="trailing" id="4ZZ-XI-DvE"/>
                             <constraint firstItem="VWQ-X3-ccl" firstAttribute="top" secondItem="Q7c-c2-jlZ" secondAttribute="bottom" id="Hsd-DG-veK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VWQ-X3-ccl" secondAttribute="trailing" constant="-16" id="YCf-za-uio"/>
+                            <constraint firstItem="VWQ-X3-ccl" firstAttribute="leading" secondItem="QIs-kM-Lax" secondAttribute="leading" id="fjX-9Z-BfA"/>
                             <constraint firstItem="Nhl-5b-WJm" firstAttribute="top" secondItem="VWQ-X3-ccl" secondAttribute="bottom" id="h9l-oj-Um8"/>
-                            <constraint firstItem="VWQ-X3-ccl" firstAttribute="leading" secondItem="QIs-kM-Lax" secondAttribute="leadingMargin" constant="-16" id="x7t-Ej-2zQ"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Diu-OE-L9a" appends="YES" id="dDr-tP-ZYt"/>
@@ -1597,7 +1597,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1804" y="454.5"/>
+            <point key="canvasLocation" x="1804" y="454"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uV3-GJ-drv">
